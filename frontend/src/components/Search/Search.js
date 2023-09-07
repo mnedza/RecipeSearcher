@@ -4,8 +4,9 @@ import styles from "./Search.module.css";
 function Search() {
   return (
     <section className={styles.search}>
-      <div className="wrapper">
-        <h1>Search for a recipe</h1>
+      <div className={`${styles['search-content']} wrapper`}>
+        <h1 className={styles.title}>Search for a recipe</h1>
+        <input className={styles.input} placeholder="Search"/>
       </div>
     </section>
   );

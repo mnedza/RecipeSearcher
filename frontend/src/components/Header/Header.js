@@ -5,7 +5,7 @@ import OptionsWhenLoggedOf from "./OptionsWhenLoggedOf";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div className={styles["header-content"]}>
+      <div className={`${styles["header-content"]} wrapper`}>
         <div className={styles.logo}>
           <p>Recipe Search App</p>
         </div>

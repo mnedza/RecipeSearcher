@@ -1,0 +1,9 @@
+:root {
+    --dark-blue: #1B2B39;
+    --gray: #3B4048;
+}
+
+.search {
+    height: 12rem;
+    background-color: var(--dark-blue);
+}

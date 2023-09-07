@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Search.module.css";
 
-function Search() {
+const Search = () => {
   return (
     <section className={styles.search}>
       <div className={`${styles['search-content']} wrapper`}>

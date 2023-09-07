@@ -37,6 +37,11 @@
     background: none;
     color: var(--darker-white);
     cursor: pointer;
+    transition: color 0.3s;
+}
+
+.option:hover {
+    color: var(--pure-white);
 }
 
 .sign-up {

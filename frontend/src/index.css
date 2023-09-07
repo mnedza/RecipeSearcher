@@ -1,3 +1,10 @@
+:root {
+    --dark-gray: #1d1d20;
+    --darker-white: #A4AAB0;
+    /* --dark-blue: #1B2B39; */
+    /* --gray: #3B4048; */
+}
+
 *,
 *::before,
 *::after {
@@ -8,10 +15,11 @@
 
 html {
     font-size: 62.5%;
-    scroll-behavior: smooth;
 }
 
 body {
+    background-color: var(--dark-gray);
+    color: var(--darker-white);
     font-family: "", sans-serif;
     font-size: 1.6rem;
 }

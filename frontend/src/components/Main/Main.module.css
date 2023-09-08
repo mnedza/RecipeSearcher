@@ -1,4 +1,9 @@
 .main {
     margin-top: 2rem;
-    color: red;
+
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
 }

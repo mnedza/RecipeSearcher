@@ -3,7 +3,7 @@ import styles from "./Filters.module.css";
 
 const Filters = () => {
   return (
-    <div className={styles.filters}>
+    <section className={styles.filters}>
       <h2 className={styles.title}>Filters:</h2>
       <ul className={`${styles.list} wrapper`}>
         <li>Eggs</li>
@@ -25,7 +25,7 @@ const Filters = () => {
         <li>Salmon</li>
         <li>Beef</li>
       </ul>
-    </div>
+    </section>
   );
 };
 

@@ -27,6 +27,8 @@
     width: 50%;
     height: 4rem;
     padding: 1rem;
+    border: none;
+    border-radius: 1.5rem;
 }
 
 @media (max-width: 450px) {

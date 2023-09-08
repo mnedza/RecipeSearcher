@@ -1,0 +1,42 @@
+.title,
+.recipes-list-container {
+    margin: 1rem 0;
+    margin-bottom: 2;
+}
+
+.title {
+    margin-left: 1.5rem;
+}
+
+.recipes-list-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1250px) {
+
+    .title,
+    .recipes-list-container {
+        padding: 0.2rem 5rem;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .title,
+    .recipes-list-container {
+        padding: 0.2rem 2rem;
+    }
+
+    .title {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .recipes-list-container {
+        justify-content: center;
+    }
+}

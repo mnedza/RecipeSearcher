@@ -1,17 +1,18 @@
 :root {
     --darker-white: #A4AAB0;
+    --item-hover-color: #1851ea;
 }
 
-.filters {}
+.filters {
+    margin: 1rem 0;
+}
 
 .title {
     color: var(--darker-white);
-    /* padding: 0.5rem 1.5rem; */
 }
 
 .list {
     padding: 1rem 0;
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
     color: yellow;
@@ -28,7 +29,7 @@
 
 .list li:hover {
     background-color: rgb(179, 179, 179);
-    color: rgb(24, 81, 234);
+    color: var(--item-hover-color);
     cursor: pointer
 }
 

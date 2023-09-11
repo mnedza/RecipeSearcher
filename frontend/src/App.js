@@ -62,7 +62,7 @@ const INITIAL_RECIPES = [
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  let isLoggedIn = useState(false);
+  let isLoggedIn = false;
 
   const [recipes, setRecipes] = useState(INITIAL_RECIPES);
 

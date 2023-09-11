@@ -4,18 +4,25 @@
     --white: #ffffff;
 }
 
+.recipe-name,
+.description {
+    padding: 0.8rem 1.6rem;
+}
+
+.button {
+    margin: 0.8rem 1.6rem;
+}
+
 .recipe {
     max-width: 20rem;
-    height: 32rem;
+    max-height: 34rem;
     margin: 1.5rem 3rem 1.5rem 0;
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid var(--transparent-white);
+    border: 0.1rem solid var(--transparent-white);
     border-radius: 1.2rem;
     background-color: #f0f0f000;
-    text-align: center;
 }
 
 .recipe-name {
@@ -24,13 +31,11 @@
 }
 
 .img {
-    width: 100%;
-    min-width: 15rem;
-    max-height: 50%;
+    width: 20rem;
+    height: 15rem;
     margin-bottom: 1rem;
     border: 0.1rem solid rgba(255, 255, 255, 0.315);
-    border-radius: 1.2rem;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .description {
@@ -39,6 +44,7 @@
 }
 
 .button {
+    margin-top: auto;
     padding: 0.5rem 1rem;
     background-color: var(--blue);
     border: none;

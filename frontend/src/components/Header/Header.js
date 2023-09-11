@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./Header.module.css";
 import OptionsWhenLoggedOf from "./OptionsWhenLoggedOf";
+import OptionsWhenLoggedIn from "./OptionsWhenLoggedIn";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <header className={styles.header}>
       <div className={`${styles["header-content"]} wrapper`}>
@@ -11,7 +12,8 @@ const Header = () => {
         </div>
 
         <div className={styles.options}>
-          <OptionsWhenLoggedOf />
+          {props.isLoggedIn && <OptionsWhenLoggedIn />}
+          {!props.isLoggedIn && <OptionsWhenLoggedOf />}
         </div>
       </div>
     </header>

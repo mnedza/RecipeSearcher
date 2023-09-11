@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./RecipeItem.module.css";
 
-function RecipeItem() {
+const RecipeItem = (props) => {
+  const { name, instructions, url } = props;
+
+  const updateDescription = (text, maxLength) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    const shortenedText = text.substring(0, maxLength - 5) + "...";
+    return shortenedText;
+  };
+
+  const maxLength = 70;
+  const instruction = updateDescription(instructions, maxLength);
+
   return (
     <div className={styles.recipe}>
-      <h3 className={styles.recipeName}>Recipe Name</h3>
-      <img className={styles.img} src="img-url" alt="recipe name" />
-      <p>Ingredients:</p>
-      <ul>
-        <li>ingredient 1</li>
-        <li>ingredient 2</li>
-        <li>ingredient 3</li>
-      </ul>
+      <h3 className={styles["recipe-name"]}>{name}</h3>
+      <img className={styles.img} src={url} alt={name} />
+      <p className={styles.description}>{instruction}</p>
+      <button className={styles.button}>See more</button>
     </div>
   );
-}
+};
 
 export default RecipeItem;

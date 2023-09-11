@@ -1,21 +1,7 @@
-:root {
-    --darker-white: #A4AAB0;
-    --item-hover-color: #1851ea;
-}
-
-.filters {
-    margin: 1rem 0;
-}
-
-.title {
-    color: var(--darker-white);
-}
-
 .list {
     padding: 1rem 0;
     display: flex;
     flex-wrap: wrap;
-    color: yellow;
 }
 
 .list li {
@@ -33,11 +19,7 @@
     cursor: pointer
 }
 
-@media (max-width: 1200px) {
-
-    .title {
-        padding: 0.2rem 6rem;
-    }
+@media (max-width: 1250px) {
 
     .list {
         padding: 0.2rem 5rem;
@@ -45,11 +27,6 @@
 }
 
 @media (max-width: 450px) {
-
-    .title {
-        padding: 0.2rem 2rem;
-    }
-
     .list {
         padding: 0.2rem 2rem;
     }

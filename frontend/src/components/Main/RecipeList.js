@@ -2,16 +2,20 @@ import React from "react";
 import RecipeItem from "./RecipeItem";
 import styles from "./RecipeList.module.css";
 
-function RecipeList() {
+function RecipeList(props) {
   return (
     <section>
-      <h2 className={styles['title']}>Recipes:</h2>
+      <h2 className={styles["title"]}>Recipes: (0)</h2>
       <div className={styles["recipes-list-container"]}>
-        <RecipeItem />
-        <RecipeItem />
-        <RecipeItem />
-        <RecipeItem />
-        <RecipeItem />
+
+        {props.recipes.map((recipe) => (
+          <RecipeItem 
+            key={recipe.id}
+            name={recipe.name}
+            instructions={recipe.instructions}
+            url={recipe.url}
+          />
+        ))}
       </div>
     </section>
   );

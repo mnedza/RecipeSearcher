@@ -1,0 +1,29 @@
+:root {
+    --darker-white: #A4AAB0;
+    --item-hover-color: #1851ea;
+}
+
+.filters {
+    margin: 1rem 0;
+}
+
+.title {
+    color: var(--darker-white);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 1250px) {
+
+    .title {
+        padding: 0.2rem 6rem;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .title {
+        padding: 0.2rem 2rem;
+    }
+
+}

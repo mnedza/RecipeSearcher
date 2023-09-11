@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./Main.module.css";
-import Filters from "./Filters";
 import RecipeList from "./RecipeList";
+import Filters from "../Filters/Filters";
 
-function Main() {
+function Main(props) {
   return (
     <section className={styles.main}>
-      <div className={`${styles['main-content']} wrapper`}>
+      <div className={`${styles["main-content"]} wrapper`}>
         <Filters />
-        <RecipeList />
+        <RecipeList recipes={props.recipes}/>
       </div>
     </section>
   );

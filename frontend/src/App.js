@@ -60,17 +60,58 @@ const INITIAL_RECIPES = [
   },
 ];
 
+const INITIAL_FILTERS = [
+  "Eggs",
+  "Vege",
+  "Apples",
+  "Bananas",
+  "Cheese",
+  "Carrots",
+  "Tomatoes",
+  "Potatoes",
+  "Onions",
+  "Broccoli",
+  "Spinach",
+  "Milk",
+  "Oranges",
+  "Grapes",
+  "Strawberries",
+  "Chicken",
+  "Salmon",
+];
+
+// const [initialFilters, setInitialFilters] = useState([
+//   "Eggs",
+//   "Vege",
+//   "Apples",
+//   "Bananas",
+//   "Cheese",
+//   "Carrots",
+//   "Tomatoes",
+//   "Potatoes",
+//   "Onions",
+//   "Broccoli",
+//   "Spinach",
+//   "Milk",
+//   "Oranges",
+//   "Grapes",
+//   "Strawberries",
+//   "Chicken",
+//   "Salmon",
+// ]);
+
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   let isLoggedIn = false;
 
   const [recipes, setRecipes] = useState(INITIAL_RECIPES);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
 
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <Search />
-      <Main recipes={recipes} />
+      <Main recipes={recipes} filters={filters} />
       <Footer />
     </>
   );

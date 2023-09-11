@@ -7,8 +7,8 @@ function Main(props) {
   return (
     <section className={styles.main}>
       <div className={`${styles["main-content"]} wrapper`}>
-        <Filters />
-        <RecipeList recipes={props.recipes}/>
+        <Filters filters={props.filters} />
+        <RecipeList recipes={props.recipes} />
       </div>
     </section>
   );

@@ -1,52 +1,12 @@
-// import React, { useState } from "react";
+import React from "react";
 import styles from "./Filters.module.css";
 import FiltersList from "./FiltersList";
 
-const Filters = () => {
-  // const [initialFilters, setInitialFilters] = useState([
-  //   "Eggs",
-  //   "Vege",
-  //   "Apples",
-  //   "Bananas",
-  //   "Cheese",
-  //   "Carrots",
-  //   "Tomatoes",
-  //   "Potatoes",
-  //   "Onions",
-  //   "Broccoli",
-  //   "Spinach",
-  //   "Milk",
-  //   "Oranges",
-  //   "Grapes",
-  //   "Strawberries",
-  //   "Chicken",
-  //   "Salmon",
-  // ]);
-
-  const initialFilters = [
-    "Eggs",
-    "Vege",
-    // "Apples",
-    // "Bananas",
-    // "Cheese",
-    // "Carrots",
-    // "Tomatoes",
-    // "Potatoes",
-    // "Onions",
-    // "Broccoli",
-    // "Spinach",
-    // "Milk",
-    // "Oranges",
-    // "Grapes",
-    // "Strawberries",
-    // "Chicken",
-    // "Salmon",
-  ];
-
+const Filters = (props) => {
   return (
     <section className={styles.filters}>
       <h2 className={styles.title}>Filters:</h2>
-      <FiltersList filtersArray={initialFilters} />
+      <FiltersList filtersArray={props.filters} />
     </section>
   );
 };

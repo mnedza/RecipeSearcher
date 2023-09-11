@@ -5,6 +5,7 @@ function OptionsWhenLoggedIn() {
   return (
     <>
       <button className={styles.option}>Favorites</button>
+      <button className={styles.option}>Log Out</button>
     </>
   );
 }

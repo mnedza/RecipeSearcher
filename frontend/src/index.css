@@ -16,6 +16,7 @@ html {
 }
 
 body {
+    min-height: 100vh;
     background-color: var(--dark-gray);
     color: var(--darker-white);
     font-family: "", sans-serif;

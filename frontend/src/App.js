@@ -1,7 +1,9 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
+import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
 
 const INITIAL_RECIPES = [
   {
@@ -101,15 +103,20 @@ const INITIAL_FILTERS = [
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [recipes, setRecipes] = useState(INITIAL_RECIPES);
+  // const [filters, setFilters] = useState(INITIAL_FILTERS);
+  
   let isLoggedIn = false;
-
-  const [recipes, setRecipes] = useState(INITIAL_RECIPES);
-  const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const recipes = INITIAL_RECIPES;
+  const filters = INITIAL_FILTERS;
 
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
-      <Main recipes={recipes} filters={filters} />
+      {/* <Registration /> */}
+    <Login />
+
+      {/* <Main recipes={recipes} filters={filters} /> */}
       <Footer />
     </>
   );

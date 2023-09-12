@@ -2,14 +2,16 @@ import React from "react";
 import styles from "./Main.module.css";
 import RecipeList from "./RecipeList";
 import Filters from "../Filters/Filters";
+import Search from "../Search/Search";
 
 function Main(props) {
   return (
     <section className={styles.main}>
-      <div className={`${styles["main-content"]} wrapper`}>
+      <Search />
+      <main className={`${styles["main-content"]} wrapper`}>
         <Filters filters={props.filters} />
         <RecipeList recipes={props.recipes} />
-      </div>
+      </main>
     </section>
   );
 }

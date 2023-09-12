@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
-import Search from "./components/Search/Search";
 import Footer from "./components/Footer/Footer";
 
 const INITIAL_RECIPES = [
@@ -110,7 +109,6 @@ function App() {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
-      <Search />
       <Main recipes={recipes} filters={filters} />
       <Footer />
     </>

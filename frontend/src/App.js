@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
@@ -105,18 +105,35 @@ function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [recipes, setRecipes] = useState(INITIAL_RECIPES);
   // const [filters, setFilters] = useState(INITIAL_FILTERS);
-  
+
   let isLoggedIn = false;
   const recipes = INITIAL_RECIPES;
   const filters = INITIAL_FILTERS;
 
+  const [currentView, setCurrentView] = useState("Main");
+
+  const showRegistration = () => {
+    setCurrentView("Registration");
+  };
+
+  const showLogin = () => {
+    setCurrentView("Login");
+  };
+
+  const showMain = () => {
+    setCurrentView("Main");
+  };
+
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
-      {/* <Registration /> */}
-    <Login />
-
-      {/* <Main recipes={recipes} filters={filters} /> */}
+      <Header
+        isLoggedIn={isLoggedIn}
+        showRegistration={showRegistration}
+        showLogin={showLogin}
+      />
+      {currentView === "Registration" && <Registration />}
+      {currentView === "Login" && <Login />}
+      {currentView === "Main" && <Main recipes={recipes} filters={filters} />}
       <Footer />
     </>
   );

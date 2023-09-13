@@ -13,9 +13,14 @@ const Header = (props) => {
 
         <div className={styles.options}>
           {props.isLoggedIn && <OptionsWhenLoggedIn />}
-          {!props.isLoggedIn && <OptionsWhenLoggedOf />}
+          {!props.isLoggedIn && (
+            <OptionsWhenLoggedOf
+              showRegistration={props.showRegistration}
+              showLogin={props.showLogin}
+            />
+          )}
         </div>
-      </div>
+      </div>  
     </header>
   );
 };

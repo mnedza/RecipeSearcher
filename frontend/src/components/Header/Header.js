@@ -4,12 +4,21 @@ import OptionsWhenLoggedOf from "./OptionsWhenLoggedOf";
 import OptionsWhenLoggedIn from "./OptionsWhenLoggedIn";
 
 const Header = (props) => {
+  const handleLogoClick = () => {
+    if (props.showMain) {
+      props.showMain();
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={`${styles["header-content"]} wrapper`}>
-        <div className={styles.logo}>
-          <p>Recipe Search App</p>
-        </div>
+        <button
+          className={`${styles.logo} ${styles.option}`}
+          onClick={handleLogoClick}
+        >
+          Recipe Search App
+        </button>
 
         <div className={styles.options}>
           {props.isLoggedIn && <OptionsWhenLoggedIn />}
@@ -20,7 +29,7 @@ const Header = (props) => {
             />
           )}
         </div>
-      </div>  
+      </div>
     </header>
   );
 };

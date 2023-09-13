@@ -130,6 +130,7 @@ function App() {
         isLoggedIn={isLoggedIn}
         showRegistration={showRegistration}
         showLogin={showLogin}
+        showMain={showMain}
       />
       {currentView === "Registration" && <Registration />}
       {currentView === "Login" && <Login />}

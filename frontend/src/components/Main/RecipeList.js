@@ -12,6 +12,7 @@ function RecipeList(props) {
           <RecipeItem 
             key={recipe.id}
             name={recipe.name}
+            ingredients={recipe.ingredients}
             instructions={recipe.instructions}
             url={recipe.url}
           />

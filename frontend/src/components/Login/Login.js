@@ -3,7 +3,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
   return (
-    <div className={`${styles.registration} wrapper`}>
+    <div className={`${styles.login} wrapper`}>
       <div className={styles.container}>
         <h2 className={styles.h2}>Login</h2>
         <form>

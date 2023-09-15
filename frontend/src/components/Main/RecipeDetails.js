@@ -12,16 +12,20 @@ const RecipeDetails = (props) => {
           <h2 className={styles.header}>{props.name}</h2>
 
           <div className={styles["ingredients-and-time"]}>
-            <div className={styles.ingredients}>
-              <h3 className={styles.h3}>Ingredients</h3>
-              <p className={styles["ingredients-content"]}>
-                {props.ingredients}
-              </p>
-            </div>
-
             <div className={styles.time}>
               <h3 className={styles.h3}>Time</h3>
               <p className={styles["time-content"]}>15 minutes</p>
+            </div>
+            <div className={styles.ingredients}>
+              <h3 className={styles.h3}>Ingredients</h3>
+
+              <ul className={styles["ingredients-content"]}>
+                {props.ingredients.map((ingredient, index) => (
+                  <li className={styles.li} key={ingredient}>
+                    {index + 1}. {ingredient}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 

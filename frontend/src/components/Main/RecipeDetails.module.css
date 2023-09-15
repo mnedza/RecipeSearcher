@@ -12,9 +12,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    min-width: 50rem;
     width: 120rem;
-    /* padding: 2rem; */
     display: flex;
     justify-content: space-between;
     background-color: white;
@@ -28,7 +26,6 @@
     max-width: 50rem;
     max-height: 50rem;
     width: auto;
-    /* border-radius: 50%; */
     object-fit: cover;
     border-radius: 1rem 0 0 1rem;
 }
@@ -53,26 +50,10 @@
     margin: 2rem 0;
 }
 
-.ingredients-content {
-    /* margin: 2rem 0; */
-}
-
 .li {
     margin-top: 0.4rem;
     margin-left: 1rem;
 }
-
-.time {}
-
-.time-content {}
-
-.instructions-content {}
-
-.instructions {}
-
-
-
-
 
 .close-button {
     width: 5rem;
@@ -86,7 +67,6 @@
     margin: 1rem;
 }
 
-
 .backdrop {
     position: fixed;
     top: 0;
@@ -95,4 +75,55 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 100;
+}
+
+@media(max-width: 1250px) {
+    .modal {
+        width: 80rem;
+    }
+}
+
+@media(max-width: 900px) {
+
+    .img {
+        width: 30rem;
+
+    }
+
+    .modal {
+        width: 90%;
+    }
+}
+
+@media(max-width: 768px) {
+    .img {
+        width: 20rem;
+    }
+
+    .modal {
+        width: 90%;
+    }
+}
+
+@media(max-width: 576px) {
+    .modal {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .img {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 5%);
+        z-index: 1000;
+        border-radius: 50%;
+        width: 20rem;
+        height: 20rem;
+    }
+
+    .close-button {
+        position: absolute;
+        right: -5%;
+    }
 }

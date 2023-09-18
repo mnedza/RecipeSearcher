@@ -84,10 +84,8 @@
 }
 
 @media(max-width: 900px) {
-
     .img {
         width: 30rem;
-
     }
 
     .modal {
@@ -98,10 +96,6 @@
 @media(max-width: 768px) {
     .img {
         width: 20rem;
-    }
-
-    .modal {
-        width: 90%;
     }
 }
 

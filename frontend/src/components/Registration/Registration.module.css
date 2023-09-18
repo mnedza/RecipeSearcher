@@ -39,6 +39,15 @@
     border-radius: 0.4rem;
 }
 
+.error {
+    color: rgba(255, 0, 0, 0.651);
+    visibility: hidden;
+}
+
+.show-error {
+    visibility: inherit;
+}
+
 .button {
     background-color: #007bff;
     color: #fff;

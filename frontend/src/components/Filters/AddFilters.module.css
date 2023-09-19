@@ -13,7 +13,7 @@
 }
 
 .show-filters {
-    transform: translateX(0rem);
+    transform: translateX(0);
 }
 
 .header {

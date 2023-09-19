@@ -125,6 +125,12 @@ function App() {
     setCurrentView("Main");
   };
 
+  const [isAddFiltersVisible, setIsAddFiltersVisible] = useState(false);
+
+  const toggleAddFiltersVisibility = () => {
+    setIsAddFiltersVisible(!isAddFiltersVisible);
+  };
+
   return (
     <>
       <Header
@@ -133,10 +139,20 @@ function App() {
         showLogin={showLogin}
         showMain={showMain}
       />
-      <AddFilters />
+      <AddFilters
+        isAddFiltersVisible={isAddFiltersVisible}
+        toggleAddFiltersVisibility={toggleAddFiltersVisibility}
+      />
       {currentView === "Registration" && <Registration />}
       {currentView === "Login" && <Login />}
-      {currentView === "Main" && <Main recipes={recipes} filters={filters} />}
+      {currentView === "Main" && (
+        <Main
+          recipes={recipes}
+          filters={filters}
+          isAddFiltersVisible={isAddFiltersVisible}
+          toggleAddFiltersVisibility={toggleAddFiltersVisibility}
+        />
+      )}
       <Footer />
     </>
   );

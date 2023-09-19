@@ -1,30 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./AddFilters.module.css";
 
-const AddFilters = () => {
-  const [visible, setVisible] = useState(false);
-
-  const toggleFiltersVisibility = (e) => {
-    e.preventDefault();
-
-    console.log(visible);
-
-    setVisible(!visible);
+const AddFilters = (props) => {
+  const handleSomething = (params) => {
+    console.log(props.isAddFiltersVisible);
+    props.toggleAddFiltersVisibility();
   };
 
   return (
     <div
       className={`${classes["add-filters"]} ${
-        visible && classes["show-filters"]
+        props.isAddFiltersVisible && classes["show-filters"]
       }`}
     >
       <div className={classes["add-filters-content"]}>
         <header className={classes.header}>
           <h2 className={classes.title}>Filters</h2>
-          <button
-            className={classes["close-button"]}
-            onClick={toggleFiltersVisibility}
-          >
+          <button className={classes["close-button"]} onClick={handleSomething}>
             &times;
           </button>
         </header>

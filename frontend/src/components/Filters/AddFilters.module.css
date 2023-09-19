@@ -7,18 +7,30 @@
     height: 100%;
     border: 1px solid white;
     border-radius: 0.7rem;
+    transition: transform 0.5s;
+    transform: translateX(-50rem);
     overflow-y: auto;
 }
 
+.show-filters {
+    transform: translateX(0rem);
+}
+
 .header {
-    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+    background-color: rgb(236, 233, 227);
+}
+
+.title {
+    padding-left: 2rem;
 }
 
 .close-button {
-    width: 5rem;
-    height: 5rem;
-    margin: 1rem;
-    display: flex;
+    width: 6rem;
+    height: 6rem;
     border: none;
     background: none;
     color: var(--gray-button);

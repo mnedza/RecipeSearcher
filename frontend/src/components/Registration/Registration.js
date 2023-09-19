@@ -36,8 +36,7 @@ const Registration = () => {
         ...errors,
         email: isValidEmail ? "" : "Invalid email format",
       });
-    }
-    if (name === "password") {
+    } else if (name === "password") {
       const isValidPassword = validatePassword(value);
       setErrors({
         ...errors,
@@ -45,8 +44,7 @@ const Registration = () => {
           ? ""
           : "Password must be at least 6 characters long",
       });
-    }
-    if (name === "confirmPassword") {
+    } else if (name === "confirmPassword") {
       const isValidConfirmPassword = value === formData.password;
       setErrors({
         ...errors,
@@ -61,17 +59,13 @@ const Registration = () => {
     if (!validateEmail(formData.email)) {
       setErrors({ ...errors, email: "Invalid email format" });
       return;
-    }
-
-    if (!validatePassword(formData.password)) {
+    } else if (!validatePassword(formData.password)) {
       setErrors({
         ...errors,
         password: "Password must be at least 6 characters long",
       });
       return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
+    } else if (formData.password !== formData.confirmPassword) {
       setErrors({ ...errors, confirmPassword: "Passwords do not match" });
       return;
     }

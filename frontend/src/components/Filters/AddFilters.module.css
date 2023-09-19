@@ -1,0 +1,33 @@
+.add-filters {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 50rem;
+    height: 100%;
+    border: 1px solid white;
+    border-radius: 0.7rem;
+    overflow-y: auto;
+}
+
+.header {
+    background-color: orange;
+}
+
+.close-button {
+    width: 5rem;
+    height: 5rem;
+    margin: 1rem;
+    display: flex;
+    border: none;
+    background: none;
+    color: var(--gray-button);
+    font-size: 4.4rem;
+    cursor: pointer;
+}
+
+@media (max-width: 576px) {
+    .add-filters {
+        width: 100%;
+    }
+}

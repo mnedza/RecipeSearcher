@@ -4,6 +4,7 @@ import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
+import AddFilters from "./components/Filters/AddFilters";
 
 const INITIAL_RECIPES = [
   {
@@ -132,6 +133,7 @@ function App() {
         showLogin={showLogin}
         showMain={showMain}
       />
+      <AddFilters />
       {currentView === "Registration" && <Registration />}
       {currentView === "Login" && <Login />}
       {currentView === "Main" && <Main recipes={recipes} filters={filters} />}

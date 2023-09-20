@@ -4,7 +4,7 @@ import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
-import AddFilters from "./components/Filters/AddFilters";
+import AddFilters from "./components/Filters/AddFilters/AddFilters";
 
 const INITIAL_RECIPES = [
   {

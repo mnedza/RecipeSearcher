@@ -4,6 +4,7 @@
     --white: rgb(255, 255, 255);
     --gray: #ccc;
     --gray-button: #888;
+    --black: #000000b7;
 }
 
 .modal {
@@ -58,14 +59,20 @@
 .close-button {
     width: 5rem;
     height: 5rem;
+    margin: 1rem;
     display: flex;
-    background: none;
     border: none;
+    background: none;
     color: var(--gray-button);
     font-size: 4.4rem;
+    transition: color 0.3s;
     cursor: pointer;
-    margin: 1rem;
 }
+
+.close-button:hover {
+    color: var(--black);
+}
+
 
 .backdrop {
     position: fixed;

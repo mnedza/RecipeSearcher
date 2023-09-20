@@ -139,19 +139,21 @@ function App() {
         showLogin={showLogin}
         showMain={showMain}
       />
-      <AddFilters
-        isAddFiltersVisible={isAddFiltersVisible}
-        toggleAddFiltersVisibility={toggleAddFiltersVisibility}
-      />
       {currentView === "Registration" && <Registration />}
       {currentView === "Login" && <Login />}
       {currentView === "Main" && (
-        <Main
-          recipes={recipes}
-          filters={filters}
-          isAddFiltersVisible={isAddFiltersVisible}
-          toggleAddFiltersVisibility={toggleAddFiltersVisibility}
-        />
+        <>
+          <AddFilters
+            isAddFiltersVisible={isAddFiltersVisible}
+            toggleAddFiltersVisibility={toggleAddFiltersVisibility}
+          />
+          <Main
+            recipes={recipes}
+            filters={filters}
+            isAddFiltersVisible={isAddFiltersVisible}
+            toggleAddFiltersVisibility={toggleAddFiltersVisibility}
+          />
+        </>
       )}
       <Footer />
     </>

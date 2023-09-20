@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import classes from "./AddFilters.module.css";
 
 const AddFilters = (props) => {
-  const handleSomething = (params) => {
-    console.log(props.isAddFiltersVisible);
+  const handleSomething = () => {
     props.toggleAddFiltersVisibility();
   };
 
@@ -20,6 +19,52 @@ const AddFilters = (props) => {
             &times;
           </button>
         </header>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Search Filters:</h3>
+
+          <div className={classes.options}>
+
+            <div className={classes.select}>
+              <label htmlFor="filter-select">Dietary</label>
+              <input type="text"></input>
+            </div>
+
+            <button className={classes["reset-button"]}>Reset</button>
+          </div>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Difficulty</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Time</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Dietary</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Cuisine</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Difficulty</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Difficulty</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Difficulty</h3>
+        </section>
+
+        <section className={classes.section}>
+          <h3 className={classes["section-title"]}>Difficulty</h3>
+        </section>
       </div>
     </div>
   );

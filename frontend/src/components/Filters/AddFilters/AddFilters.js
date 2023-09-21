@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./AddFilters.module.css";
 import FilterSection from "./FilterSection";
 
@@ -109,8 +109,14 @@ const filterData = [
 ];
 
 const AddFilters = (props) => {
-  const handleSomething = () => {
+  const handleClose = () => {
     props.toggleAddFiltersVisibility();
+  };
+
+  const [isReseted, setIsReseted] = useState(false);
+
+  const resetFilteredData = () => {
+    setIsReseted(!isReseted);
   };
 
   return (
@@ -122,7 +128,7 @@ const AddFilters = (props) => {
       <div className={classes["add-filters-content"]}>
         <header className={classes.header}>
           <h2 className={classes.title}>Search</h2>
-          <button className={classes["close-button"]} onClick={handleSomething}>
+          <button className={classes["close-button"]} onClick={handleClose}>
             &times;
           </button>
         </header>
@@ -138,7 +144,12 @@ const AddFilters = (props) => {
                 placeholder="search"
               ></input>
             </div>
-            <button className={classes["reset-button"]}>Reset</button>
+            <button
+              className={classes["reset-button"]}
+              onClick={resetFilteredData}
+            >
+              Reset
+            </button>
           </div>
         </section>
 
@@ -147,6 +158,7 @@ const AddFilters = (props) => {
             key={filterSection.title}
             title={filterSection.title}
             items={filterSection.items}
+            isReseted={isReseted}
           />
         ))}
       </div>

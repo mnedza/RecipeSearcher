@@ -129,8 +129,8 @@ const AddFilters = (props) => {
     });
 
     props.setFilters(updatedFilters);
-    console.log(updatedFilters);
-    console.log(props.filters);
+    // console.log(updatedFilters);
+    // console.log(props.filters);
   };
 
   return (

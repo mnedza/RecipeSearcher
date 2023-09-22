@@ -6,7 +6,7 @@ const Filters = (props) => {
   return (
     <section className={styles.filters}>
       <h2 className={styles.title}>Filters:</h2>
-      <FiltersList filtersArray={props.filters} />
+      <FiltersList filters={props.filters} setFilters={props.setFilters} />
     </section>
   );
 };

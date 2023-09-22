@@ -11,9 +11,17 @@ const FilterSection = (props) => {
     const updatedChoosenElements = [...choosenElements];
     updatedChoosenElements[index] = !choosenElements[index];
     setChoosenElements(updatedChoosenElements);
+
+    const updatedFiltersSection = props.items
+      .filter((item, idx) => updatedChoosenElements[idx])
+      .map((item) => item);
+
+    props.onFiltersChange(updatedFiltersSection);
+    // console.log(updatedFiltersSection);
   };
 
-  // Cleaning all elements by clicking Reset button in AddFilters
+  
+
   useEffect(() => {
     setChoosenElements(new Array(props.items.length).fill(false));
   }, [props.isReseted, props.items.length]);

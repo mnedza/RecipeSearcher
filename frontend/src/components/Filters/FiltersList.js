@@ -3,25 +3,26 @@ import styles from "./FiltersList.module.css";
 
 const FiltersList = (props) => {
   const maxItemsToShow = 6;
-  const [items, setItems] = useState(props.filtersArray);
+
   const [showAllItems, setShowAllItems] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
 
-  useEffect(() => {
-    setIsEmpty(items.length === 0);
-  }, [items]);
 
-  const itemsToShow = showAllItems ? items : items.slice(0, maxItemsToShow);
-  const remainingItemsCount = items.length - maxItemsToShow;
+  useEffect(() => {
+    setIsEmpty(props.filters.length === 0);
+  }, [props.filters]);
+
+  const itemsToShow = showAllItems ? props.filters : props.filters.slice(0, maxItemsToShow);
+  const remainingItemsCount = props.filters.length - maxItemsToShow;
 
   const handleMoreClick = () => {
     setShowAllItems(true);
   };
 
   const handleItemClick = (index) => {
-    const updatedItems = [...items];
+    const updatedItems = [...props.filters];
     updatedItems.splice(index, 1);
-    setItems(updatedItems);
+    props.setFilters(updatedItems);
   };
 
   return (

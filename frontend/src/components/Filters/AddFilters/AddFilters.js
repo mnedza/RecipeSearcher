@@ -108,6 +108,7 @@ const filterData = [
   },
 ];
 
+
 const AddFilters = (props) => {
   const handleClose = () => {
     props.toggleAddFiltersVisibility();
@@ -117,6 +118,19 @@ const AddFilters = (props) => {
 
   const resetFilteredData = () => {
     setIsReseted(!isReseted);
+  };
+
+  const handleFiltersChange = (filtersFromSingleSection) => {
+    const updatedFilters = [...props.filters];
+    filtersFromSingleSection.forEach((filter) => {
+      if (!updatedFilters.includes(filter)) {
+        updatedFilters.push(filter);
+      }
+    });
+
+    props.setFilters(updatedFilters);
+    console.log(updatedFilters);
+    console.log(props.filters);
   };
 
   return (
@@ -159,6 +173,10 @@ const AddFilters = (props) => {
             title={filterSection.title}
             items={filterSection.items}
             isReseted={isReseted}
+            // filters={props.filters}
+            // setFilters={props.setFilters}
+            // onFiltersChange={handleFilters}
+            onFiltersChange={handleFiltersChange}
           />
         ))}
       </div>

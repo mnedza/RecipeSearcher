@@ -62,26 +62,6 @@ const INITIAL_RECIPES = [
   },
 ];
 
-const INITIAL_FILTERS = [
-  "Eggs",
-  "Vege",
-  "Apples",
-  "Bananas",
-  "Cheese",
-  "Carrots",
-  "Tomatoes",
-  "Potatoes",
-  "Onions",
-  "Broccoli",
-  "Spinach",
-  "Milk",
-  "Oranges",
-  "Grapes",
-  "Strawberries",
-  "Chicken",
-  "Salmon",
-];
-
 // const [initialFilters, setInitialFilters] = useState([
 //   "Eggs",
 //   "Vege",
@@ -105,11 +85,10 @@ const INITIAL_FILTERS = [
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [recipes, setRecipes] = useState(INITIAL_RECIPES);
-  // const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const [filters, setFilters] = useState([]);
 
   let isLoggedIn = false;
   const recipes = INITIAL_RECIPES;
-  const filters = INITIAL_FILTERS;
 
   const [currentView, setCurrentView] = useState("Main");
 
@@ -144,12 +123,15 @@ function App() {
       {currentView === "Main" && (
         <>
           <AddFilters
+            filters={filters}
+            setFilters={setFilters}
             isAddFiltersVisible={isAddFiltersVisible}
             toggleAddFiltersVisibility={toggleAddFiltersVisibility}
           />
           <Main
             recipes={recipes}
             filters={filters}
+            // setFilters={setFilters}
             isAddFiltersVisible={isAddFiltersVisible}
             toggleAddFiltersVisibility={toggleAddFiltersVisibility}
           />

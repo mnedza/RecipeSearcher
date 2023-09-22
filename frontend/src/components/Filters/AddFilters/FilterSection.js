@@ -20,7 +20,7 @@ const FilterSection = (props) => {
 
   useEffect(() => {
     setChoosenElements(new Array(props.itemsOfSection.length).fill(false));
-  }, [props.isReseted, props.itemsOfSection.length]);
+  }, [props.isReseted, props.itemsOfSection.length, props.filters]);
 
   return (
     <section className={classes.section}>
@@ -30,7 +30,9 @@ const FilterSection = (props) => {
           <li
             key={index}
             className={`${styles.li} ${
-              choosenElements[index] && styles.choosen
+              (choosenElements[index] ||
+                props.filters.includes(item)) &&
+              styles.choosen
             }`}
             onClick={() => handleElement(index)}
           >

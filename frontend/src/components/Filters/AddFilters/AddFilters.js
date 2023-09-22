@@ -127,9 +127,7 @@ const AddFilters = (props) => {
         updatedFilters.push(filter);
       }
     });
-
     props.setFilters(updatedFilters);
-    console.log(updatedFilters);
   };
 
   return (

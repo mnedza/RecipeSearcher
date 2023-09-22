@@ -4,7 +4,7 @@ import styles from "./Elements.module.css";
 
 const FilterSection = (props) => {
   const [choosenElements, setChoosenElements] = useState(
-    new Array(props.items.length).fill(false)
+    new Array(props.itemsOfSection.length).fill(false)
   );
 
   const handleElement = (index) => {
@@ -12,25 +12,21 @@ const FilterSection = (props) => {
     updatedChoosenElements[index] = !choosenElements[index];
     setChoosenElements(updatedChoosenElements);
 
-    const updatedFiltersSection = props.items
+    const updatedFiltersSection = props.itemsOfSection
       .filter((item, idx) => updatedChoosenElements[idx])
       .map((item) => item);
-
     props.onFiltersChange(updatedFiltersSection);
-    // console.log(updatedFiltersSection);
   };
 
-  
-
   useEffect(() => {
-    setChoosenElements(new Array(props.items.length).fill(false));
-  }, [props.isReseted, props.items.length]);
+    setChoosenElements(new Array(props.itemsOfSection.length).fill(false));
+  }, [props.isReseted, props.itemsOfSection.length]);
 
   return (
     <section className={classes.section}>
       <h3 className={classes["section-title"]}>{props.title}</h3>
       <ul className={styles.ul}>
-        {props.items.map((item, index) => (
+        {props.itemsOfSection.map((item, index) => (
           <li
             key={index}
             className={`${styles.li} ${

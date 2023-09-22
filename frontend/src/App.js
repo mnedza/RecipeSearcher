@@ -87,10 +87,6 @@ function App() {
   // const [recipes, setRecipes] = useState(INITIAL_RECIPES);
   const [filters, setFilters] = useState([]);
 
-  // const handleFilterChange = (newFilters) => {
-  //   setFilters(newFilters);
-  // };
-
   let isLoggedIn = false;
   const recipes = INITIAL_RECIPES;
 

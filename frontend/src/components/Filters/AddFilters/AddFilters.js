@@ -108,7 +108,6 @@ const filterData = [
   },
 ];
 
-
 const AddFilters = (props) => {
   const handleClose = () => {
     props.toggleAddFiltersVisibility();
@@ -116,8 +115,9 @@ const AddFilters = (props) => {
 
   const [isReseted, setIsReseted] = useState(false);
 
-  const resetFilteredData = () => {
+  const removeAllElements = () => {
     setIsReseted(!isReseted);
+    props.setFilters([]);
   };
 
   const handleFiltersChange = (filtersFromSingleSection) => {
@@ -129,8 +129,7 @@ const AddFilters = (props) => {
     });
 
     props.setFilters(updatedFilters);
-    // console.log(updatedFilters);
-    // console.log(props.filters);
+    console.log(updatedFilters);
   };
 
   return (
@@ -160,7 +159,7 @@ const AddFilters = (props) => {
             </div>
             <button
               className={classes["reset-button"]}
-              onClick={resetFilteredData}
+              onClick={removeAllElements}
             >
               Reset
             </button>
@@ -171,11 +170,10 @@ const AddFilters = (props) => {
           <FilterSection
             key={filterSection.title}
             title={filterSection.title}
-            items={filterSection.items}
+            itemsOfSection={filterSection.items}
             isReseted={isReseted}
-            // filters={props.filters}
-            // setFilters={props.setFilters}
-            // onFiltersChange={handleFilters}
+            filters={props.filters}
+            setFilters={props.setFilters}
             onFiltersChange={handleFiltersChange}
           />
         ))}

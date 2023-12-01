@@ -1,25 +1,6 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
-
-// shared
-import Home from "./shared/components/Home/Home";
-import Navigation from "./shared/components/Navigation/Navigation";
-import Footer from "./shared/components/Footer/Footer";
-
-// recipes
-import Search from "./recipes/pages/Search";
-import RecipesList from "./recipes/pages/RecipesList";
-
-// user
-import SignIn from "./user/pages/SignIn";
-import SignUp from "./user/pages/SignUp";
-import SignOut from "./user/pages/SignOut";
-// import UsersList from "./user/pages/UsersList";
+import RecipeItem from "./RecipeItem";
+import styles from "./RecipesList.module.css";
 
 const INITIAL_RECIPES = [
   {
@@ -77,41 +58,26 @@ const INITIAL_RECIPES = [
   },
 ];
 
-const App = () => {
+const RecipesList = () => {
   const recipes = INITIAL_RECIPES;
   return (
-    <Router>
-      <Navigation />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-
-        <Route path="/recipes">
-          <RecipesList recipes={recipes} />
-        </Route>
-
-        <Route path="/search">
-          <Search />
-        </Route>
-
-        <Route path="/sign-in">
-          <SignIn />
-        </Route>
-
-        <Route path="/sign-up">
-          <SignUp />
-        </Route>
-
-        <Route path="/sign-out">
-          <SignOut />
-        </Route>
-
-        <Redirect to="/" />
-      </Switch>
-      <Footer />
-    </Router>
+    <section className={"section"}>
+      <main className={`${styles["main-content"]} wrapper`}>
+        <h2 className={styles["title"]}>Recipes:({recipes.length})</h2>
+        <div className={styles["recipes-list-container"]}>
+          {recipes.map((recipe) => (
+            <RecipeItem
+              key={recipe.id}
+              name={recipe.name}
+              ingredients={recipe.ingredients}
+              instructions={recipe.instructions}
+              url={recipe.url}
+            />
+          ))}
+        </div>
+      </main>
+    </section>
   );
 };
 
-export default App;
+export default RecipesList;

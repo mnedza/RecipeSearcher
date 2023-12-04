@@ -23,11 +23,13 @@
 }
 
 .sign-up {
+    margin: 1rem;
+    padding: 1rem;
     background-color: var(--darker-blue);
     color: var(--pure-white);
     font-size: 1.4rem;
     font-weight: bold;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     transition: background-color 0.3s, color 0.3s;
 }
 

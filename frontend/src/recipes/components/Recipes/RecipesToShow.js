@@ -9,7 +9,7 @@ const RecipesToShow = (props) => {
     <>
       <section className={"section"}>
         <main className={`${styles["main-content"]} wrapper`}>
-          <h2 className={styles["title"]}>Recipes:({props.recipes.length})</h2>
+          <h2 className={styles["title"]}>Recipes({props.recipes.length})</h2>
           <div className={styles["recipes-list-container"]}>
             {props.recipes.map((recipe) => (
               <Recipe

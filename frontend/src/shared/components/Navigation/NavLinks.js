@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
 
 import styles from "./NavLinks.module.css";
 
 const NavLinks = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const isLoggedIn = true;
+  const auth = useContext(AuthContext);
+  const history = useHistory();
+
+  const signOutHandler = () => {
+    auth.signOut();
+    history.push("/");
+  };
+
   const linksToShowEverytime = (
     <>
       <NavLink to="/" exact className={styles["nav-link"]}>
@@ -24,16 +32,21 @@ const NavLinks = () => {
 
   const linksToShowWhenLoggedIn = (
     <>
-      <NavLink to="/favorites/u1" className={styles["nav-link"]}>
+      <NavLink to="/u1/favorites" className={styles["nav-link"]}>
         Favorites
       </NavLink>
 
-      <NavLink to="/profile/u1" className={styles["nav-link"]}>
+      <NavLink to="/u1/profile" className={styles["nav-link"]}>
         Profile
       </NavLink>
-      <NavLink to="/sign-out" className={styles["nav-link"]}>
+
+      <li
+        to="/sign-out"
+        className={styles["nav-link"]}
+        onClick={signOutHandler}
+      >
         Sign Out
-      </NavLink>
+      </li>
     </>
   );
 
@@ -55,8 +68,8 @@ const NavLinks = () => {
   return (
     <>
       {linksToShowEverytime}
-      {isLoggedIn && linksToShowWhenLoggedIn}
-      {!isLoggedIn && linksToShowWhenNotLoggedIn}
+      {auth.isSignedIn && linksToShowWhenLoggedIn}
+      {!auth.isSignedIn && linksToShowWhenNotLoggedIn}
     </>
   );
 };

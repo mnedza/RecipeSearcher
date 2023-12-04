@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../shared/context/auth-context";
+
 import styles from "./SignInComponent.module.css";
 
-const SignIn = () => {
+const SignInComponent = () => {
+  const auth = useContext(AuthContext);
+  const history = useHistory();
+
+  const signInHandler = (event) => {
+    event.preventDefault();
+
+    const loginData = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+
+    auth.signIn();
+    history.push("/");
+    console.log(loginData);
+  };
+
   return (
     <div className={`${styles["sign-in"]} wrapper section`}>
       <div className={styles.container}>
         <h2 className={styles.h2}>Sign In</h2>
-        <form>
+        <form onSubmit={signInHandler}>
           <div className={styles["form-group"]}>
             <label className={styles.label} htmlFor="email">
               Email:
@@ -16,6 +35,7 @@ const SignIn = () => {
               type="email"
               id="email"
               name="email"
+              placeholder="enter email"
               required
             />
           </div>
@@ -28,6 +48,7 @@ const SignIn = () => {
               type="password"
               id="password"
               name="password"
+              placeholder="enter password"
               required
             />
           </div>
@@ -40,4 +61,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInComponent;

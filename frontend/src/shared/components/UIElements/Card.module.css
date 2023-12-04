@@ -1,0 +1,21 @@
+.section {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    margin: 5rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-blue);
+    border-radius: 1.5rem;
+}
+
+h2 {
+    text-align: center;
+}

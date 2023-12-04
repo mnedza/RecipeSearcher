@@ -6,7 +6,7 @@ import FiltersPanel from "./FiltersPanel";
 import styles from "./RecipesSearch.module.css";
 
 const INITIAL_FILTERS = [
-  { filterId: "id1", value: "Chess" },
+  { filterId: "id1", value: "Cheese" },
   { filterId: "id2", value: "Ham" },
   { filterId: "id3", value: "Fish" },
   { filterId: "id4", value: "Chicken" },

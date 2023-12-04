@@ -18,8 +18,8 @@ const RecipeItem = (props) => {
 
   const [showDetails, setShowDetails] = useState(false);
 
-  const detailsInfoHandler = () => {
-    setShowDetails(!showDetails);
+  const showDetailsHandler = () => {
+    setShowDetails(prevState => !prevState);
   };
 
   return (
@@ -28,7 +28,7 @@ const RecipeItem = (props) => {
         <h3 className={styles["recipe-name"]}>{name}</h3>
         <img className={styles.img} src={url} alt={name} />
         <p className={styles.description}>{instruction}</p>
-        <button className={styles.button} onClick={detailsInfoHandler}>
+        <button className={styles.button} onClick={showDetailsHandler}>
           See more details
         </button>
       </div>
@@ -39,7 +39,7 @@ const RecipeItem = (props) => {
           imageUrl={url}
           ingredients={ingredients}
           instructions={instructions}
-          closeDetailsInfo={detailsInfoHandler}
+          closeDetailsInfo={showDetailsHandler}
         />
       )}
     </>

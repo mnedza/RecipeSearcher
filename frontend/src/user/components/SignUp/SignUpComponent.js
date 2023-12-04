@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../shared/context/auth-context";
 import classes from "./SignUpComponent.module.css";
 
-const SignUp = () => {
+const SignUpComponent = () => {
+  const auth = useContext(AuthContext);
+  const history = useHistory();
+
   const minPassLength = 6;
   const [formData, setFormData] = useState({
     email: "",
@@ -69,6 +74,10 @@ const SignUp = () => {
       setErrors({ ...errors, confirmPassword: "Passwords do not match" });
       return;
     }
+
+    console.log(formData);
+    auth.signIn();
+    history.push("/");
   };
 
   return (
@@ -151,4 +160,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpComponent;

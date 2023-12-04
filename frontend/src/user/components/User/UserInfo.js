@@ -15,7 +15,7 @@ const UserInfo = (props) => {
           />
           <div className={styles["user-data"]}>
             <p className={styles["user-detail"]}>
-              User id: {props.userData.userId}
+              User id: {props.userData.uId}
             </p>
             <p className={styles["user-detail"]}>Name: {props.userData.name}</p>
             <p className={styles["user-detail"]}>

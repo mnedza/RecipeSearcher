@@ -1,7 +1,8 @@
 import React from "react";
 import RecipesToShow from "./RecipesToShow";
+import Card from "../../../shared/components/UIElements/Card";
 
-const ALL_RECIPES = [
+const recipes = [
   {
     id: 1,
     name: "Scrambled Eggs",
@@ -58,7 +59,15 @@ const ALL_RECIPES = [
 ];
 
 const AllRecipes = () => {
-  return <RecipesToShow recipes={ALL_RECIPES} />;
+  if (recipes.length === 0) {
+    return (
+      <Card>
+        <h2>No recipes found.</h2>
+      </Card>
+    );
+  }
+
+  return <RecipesToShow recipes={recipes} />;
 };
 
 export default AllRecipes;

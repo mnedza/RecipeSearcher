@@ -1,9 +1,13 @@
 import React from "react";
 
-import styles from "./SignOut.module.css";
+import SignOutComponent from "../components/SignOut/SignOutComponent";
 
-const SignOut = () => {
-  return <h1 className={styles.title}>Sign Out done!</h1>;
+const SignOut = (props) => {
+  return (
+    <>
+      <SignOutComponent>{props.children}</SignOutComponent>
+    </>
+  );
 };
 
 export default SignOut;

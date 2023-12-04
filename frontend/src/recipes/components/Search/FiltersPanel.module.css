@@ -1,0 +1,54 @@
+:root {
+    --dark-blue: #1B2B39;
+    --dark-blue: #ffffff10;
+    --gray: #3B4048;
+    --pure-white: #ffffff;
+    --light-blue: #266FE0;
+    --darker-blue: #1c57b4;
+    --yellow: #f0b64a;
+}
+
+.content {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--dark-blue);
+    border-radius: 1.5rem;
+}
+
+.header-title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filters {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 1.5rem;
+}
+
+@media (max-width: 1250px) {
+
+    .content {
+        margin: 3rem;
+    }
+}

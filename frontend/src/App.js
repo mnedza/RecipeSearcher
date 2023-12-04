@@ -13,12 +13,14 @@ import Footer from "./shared/components/Footer/Footer";
 
 // recipes
 import Search from "./recipes/pages/Search";
-import RecipesList from "./recipes/pages/RecipesList";
+import Recipes from "./recipes/pages/Recipes";
 
 // user
 import SignIn from "./user/pages/SignIn";
 import SignUp from "./user/pages/SignUp";
 import SignOut from "./user/pages/SignOut";
+import Favorites from "./recipes/pages/Favorites";
+import Profile from "./user/pages/Profile";
 // import UsersList from "./user/pages/UsersList";
 
 const INITIAL_RECIPES = [
@@ -88,7 +90,7 @@ const App = () => {
         </Route>
 
         <Route path="/recipes">
-          <RecipesList recipes={recipes} />
+          <Recipes recipes={recipes} />
         </Route>
 
         <Route path="/search">
@@ -105,6 +107,14 @@ const App = () => {
 
         <Route path="/sign-out">
           <SignOut />
+        </Route>
+
+        <Route path="/favorites">
+          <Favorites />
+        </Route>
+
+        <Route path="/profile/u1">
+          <Profile />
         </Route>
 
         <Redirect to="/" />

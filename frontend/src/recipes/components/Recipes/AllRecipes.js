@@ -1,8 +1,7 @@
 import React from "react";
-import RecipeItem from "./RecipeItem";
-import styles from "./RecipesList.module.css";
+import RecipesToShow from "./RecipesToShow";
 
-const INITIAL_RECIPES = [
+const ALL_RECIPES = [
   {
     id: 1,
     name: "Scrambled Eggs",
@@ -58,26 +57,8 @@ const INITIAL_RECIPES = [
   },
 ];
 
-const RecipesList = () => {
-  const recipes = INITIAL_RECIPES;
-  return (
-    <section className={"section"}>
-      <main className={`${styles["main-content"]} wrapper`}>
-        <h2 className={styles["title"]}>Recipes:({recipes.length})</h2>
-        <div className={styles["recipes-list-container"]}>
-          {recipes.map((recipe) => (
-            <RecipeItem
-              key={recipe.id}
-              name={recipe.name}
-              ingredients={recipe.ingredients}
-              instructions={recipe.instructions}
-              url={recipe.url}
-            />
-          ))}
-        </div>
-      </main>
-    </section>
-  );
+const AllRecipes = () => {
+  return <RecipesToShow recipes={ALL_RECIPES} />;
 };
 
-export default RecipesList;
+export default AllRecipes;

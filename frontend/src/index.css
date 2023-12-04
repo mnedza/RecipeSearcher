@@ -16,7 +16,6 @@ html {
 }
 
 body {
-    min-height: 100vh;
     background-color: var(--dark-gray);
     color: var(--darker-white);
     font-family: "", sans-serif;
@@ -35,4 +34,27 @@ ul {
 
 .section {
     min-height: 85vh;
+}
+
+/* animations */
+
+.animation-right-enter {
+    transform: translateX(100%);
+}
+
+.animation-right-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.animation-right-exit {
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+.animation-right-exit-active {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s, opacity 0.4s;
 }

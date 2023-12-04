@@ -1,0 +1,49 @@
+.section {
+    min-height: 85vh;
+}
+
+.user-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-title {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.user-profile {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 10rem;
+}
+
+.user-avatar {
+    padding: 2rem;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-data {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-detail {
+    padding: 0.8rem;
+}
+
+@media(max-width: 550px) {
+    .user-profile {
+        display: block;
+    }
+}

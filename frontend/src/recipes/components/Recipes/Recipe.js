@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "./RecipeItem.module.css";
-import RecipeDetails from "../components/RecipeDetails";
+import styles from "./Recipe.module.css";
+import RecipeDetails from "./RecipeDetails";
 
 const RecipeItem = (props) => {
   const { name, instructions, ingredients, url } = props;

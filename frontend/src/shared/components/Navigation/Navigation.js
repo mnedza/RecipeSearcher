@@ -1,24 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import NavLinks from "./NavLinks";
 import Header from "./Header";
+import SideDrawer from "./SideDrawer";
+import Backdrop from "../UIElements/Backdrop";
 
 import styles from "./Navigation.module.css";
 
 const Navigation = () => {
-  return (
-    <Header>
-      <nav className={`${styles["nav-content"]} wrapper`}>
-        <Link to="/" className={`${styles.logo} ${styles.option}`}>
-          Recipe Search App
-        </Link>
+  const [showDrawer, setShowDrawer] = useState(false);
 
-        <nav className={styles["nav-links"]}>
+  const showSideDrawerHandler = () => {
+    setShowDrawer(true);
+  };
+
+  const hideSideDrawerHandler = () => {
+    setShowDrawer(false);
+  };
+
+  return (
+    <>
+      {showDrawer && <Backdrop onClick={hideSideDrawerHandler} />}
+      <SideDrawer show={showDrawer} onClick={hideSideDrawerHandler}>
+        <nav className={styles["side-drawer-nav"]}>
           <NavLinks />
         </nav>
-      </nav>
-    </Header>
+      </SideDrawer>
+      <Header>
+        <nav className={`${styles["nav-content"]} wrapper`}>
+          <Link to="/">Recipe Search App</Link>
+
+          <nav className={styles["nav-links"]}>
+            <NavLinks />
+          </nav>
+
+          <button className={styles.hamburger} onClick={showSideDrawerHandler}>
+            Toggle SideBar
+          </button>
+        </nav>
+      </Header>
+    </>
   );
 };
 

@@ -1,9 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // shared
 import Home from "./shared/components/Home/Home";
@@ -15,13 +11,13 @@ import { AuthContext } from "./shared/context/auth-context";
 // recipes
 import Search from "./recipes/pages/Search";
 import Recipes from "./recipes/pages/Recipes";
+import Recipe from "./recipes/pages/Recipe";
 
 // user
 import SignIn from "./user/pages/SignIn";
 import SignUp from "./user/pages/SignUp";
 import Favorites from "./recipes/pages/Favorites";
 import Profile from "./user/pages/Profile";
-// import UsersList from "./user/pages/UsersList";
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -40,6 +36,10 @@ const App = () => {
         <Home />
       </Route>
 
+      <Route path="/recipes/:recipeId">
+        <Recipe />
+      </Route>
+
       <Route path="/recipes">
         <Recipes />
       </Route>
@@ -48,15 +48,17 @@ const App = () => {
         <Search />
       </Route>
 
-      <Route path="/:userId/favorites">
+      <Route path="/favorites/:userId/:recipeId">
+        <Recipe />
+      </Route>
+
+      <Route path="/favorites/:userId">
         <Favorites />
       </Route>
 
-      <Route path="/:userId/profile">
+      <Route path="/profile/:userId">
         <Profile />
       </Route>
-
-      {/* <Redirect to="/" /> */}
 
       <Route path="*">
         <PageNotFound />
@@ -68,6 +70,10 @@ const App = () => {
     <Switch>
       <Route path="/" exact>
         <Home />
+      </Route>
+
+      <Route path="/recipes/:recipeId">
+        <Recipe />
       </Route>
 
       <Route path="/recipes">
@@ -85,8 +91,6 @@ const App = () => {
       <Route path="/sign-up">
         <SignUp />
       </Route>
-
-      {/* <Redirect to="/" /> */}
 
       <Route path="*">
         <PageNotFound />

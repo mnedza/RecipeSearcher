@@ -32,11 +32,11 @@ const NavLinks = () => {
 
   const linksToShowWhenLoggedIn = (
     <>
-      <NavLink to="/u1/favorites" className={styles["nav-link"]}>
+      <NavLink to="/favorites/u1" className={styles["nav-link"]}>
         Favorites
       </NavLink>
 
-      <NavLink to="/u1/profile" className={styles["nav-link"]}>
+      <NavLink to="/profile/u1" className={styles["nav-link"]}>
         Profile
       </NavLink>
 

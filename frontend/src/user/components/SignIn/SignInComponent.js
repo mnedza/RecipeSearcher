@@ -16,8 +16,8 @@ const SignInComponent = () => {
       password: event.target.password.value,
     };
 
-    auth.signIn();
     history.push("/");
+    auth.signIn();
     console.log(loginData);
   };
 

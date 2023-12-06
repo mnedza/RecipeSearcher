@@ -1,6 +1,6 @@
 import React from "react";
 
-import Recipe from "./Recipe";
+import RecipeItem from "./RecipeItem";
 
 import styles from "./RecipesToShow.module.css";
 
@@ -12,8 +12,10 @@ const RecipesToShow = (props) => {
           <h2 className={styles["title"]}>Recipes({props.recipes.length})</h2>
           <div className={styles["recipes-list-container"]}>
             {props.recipes.map((recipe) => (
-              <Recipe
+              <RecipeItem
                 key={recipe.id}
+                id={recipe.id}
+                path={props.path}
                 name={recipe.name}
                 ingredients={recipe.ingredients}
                 instructions={recipe.instructions}

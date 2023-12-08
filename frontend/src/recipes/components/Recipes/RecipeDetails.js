@@ -10,7 +10,7 @@ const RecipeDetails = (props) => {
   const recipes = props.recipes;
   
   const recipeId = useParams().recipeId;
-  const loadedRecipe = recipes.find((recipe) => recipe.id === recipeId);
+  const loadedRecipe = recipes.find((recipe) => recipe.rId === recipeId);
 
   return (
     <>

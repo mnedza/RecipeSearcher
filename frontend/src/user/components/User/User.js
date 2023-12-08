@@ -7,24 +7,25 @@ import Card from "../../../shared/components/UIElements/Card";
 const INITIAL_USERS = [
   {
     uId: "u1",
-    name: "Marcel Nędza",
+    name: "Jan Kowalski",
     avatar:
       "https://cdn.pixabay.com/photo/2019/12/12/16/27/dog-4691167_960_720.jpg",
-    email: "test@test.com",
-    recipes: 3,
+    email: "jan@example.com",
+    password: "test",
+    favorites: ["r1", "r2", "r3"],
   },
   {
     uId: "u2",
-    name: "Jan Kowalski",
+    name: "Anna Nowak",
     avatar:
       "https://cdn.pixabay.com/photo/2014/08/23/11/33/cow-425164_960_720.jpg",
-    email: "test2@test.com",
-    recipes: 82,
+    email: "anna@example.com",
+    password: "test",
+    favorites: ["r4", "r5"],
   },
 ];
 
 const User = () => {
-
   const userData = INITIAL_USERS;
 
   const usersId = useParams().userId;

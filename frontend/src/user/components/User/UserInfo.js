@@ -22,7 +22,7 @@ const UserInfo = (props) => {
               Email: {props.userData.email}
             </p>
             <p className={styles["user-detail"]}>
-              Favorites: {props.userData.recipes}
+              Favorites: {props.userData.favorites.length}
             </p>
           </div>
         </div>

@@ -13,8 +13,8 @@ const RecipesToShow = (props) => {
           <div className={styles["recipes-list-container"]}>
             {props.recipes.map((recipe) => (
               <RecipeItem
-                key={recipe.id}
-                id={recipe.id}
+                key={recipe.rId}
+                rId={recipe.rId}
                 path={props.path}
                 name={recipe.name}
                 ingredients={recipe.ingredients}

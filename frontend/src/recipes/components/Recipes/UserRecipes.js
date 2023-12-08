@@ -7,7 +7,10 @@ import Card from "../../../shared/components/UIElements/Card";
 const UserRecipes = (props) => {
   const recipes = props.recipes;
   const userId = useParams().userId;
-  const loadedRecipes = recipes.filter((recipe) => recipe.uId === userId);
+  
+  // Zmieniamy warunek na sprawdzenie, czy przepis znajduje się w ulubionych użytkownika (czy userId jest w tablicy users)
+  const loadedRecipes = recipes.filter((recipe) => recipe.users.includes(userId));
+  
   const path = `favorites/${userId}`;
 
   if (loadedRecipes.length === 0) {

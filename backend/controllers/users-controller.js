@@ -126,22 +126,26 @@ exports.editUserById = async (req, res, next) => {
 };
 
 // delete user
-// exports.deleteUser = (req, res, next) => {
-//   const { uId } = req.body;
+exports.deleteUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  let user;
+  try {
+    user = await User.findByIdAndDelete(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, Could not delete a user.",
+      500
+    );
+    return next(error);
+  }
 
-//   if (!uId) {
-//     return res.status(400).json({ message: "Missing uId in the request body" });
-//   }
+  if (!user) {
+    const error = new HttpError("User not found.", 404);
+    return next(error);
+  }
 
-//   const userIndex = DUMMY_USERS.findIndex((user) => user.uId === uId);
-//   if (userIndex === -1) {
-//     return res.status(404).json({ message: "User not found" });
-//   }
-
-//   DUMMY_USERS.splice(userIndex, 1);
-
-//   res.status(200).json({ message: "User deleted successfully" });
-// };
+  res.status(200).json({ message: "User deleted successfully" });
+};
 
 // add recipe to favorite
 exports.addRecipeToFavorites = async (req, res, next) => {
@@ -254,33 +258,40 @@ exports.getFavoriteRecipe = async (req, res, next) => {
 };
 
 // remove recipe from favorites
-// exports.removeRecipeFromFavorites = (req, res, next) => {
-//   const { userId } = req.body;
-//   const { recipeId } = req.params;
+exports.removeRecipeFromFavorites = async (req, res, next) => {
+  let userId = req.params.userId;
+  if (!userId) {
+    userId = req.body.userId;
+  }
+  const { recipeId } = req.params;
 
-//   const recipeIndex = DUMMY_RECIPES.findIndex((r) => r.rId === recipeId);
-//   // -1 oznacza to że dane o tym id nie zostały znalezione w tablicy.
-//   if (recipeIndex === -1) {
-//     return next(new HttpError("Recipe not found.", 404));
-//   }
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError("Something went wrong, could not find user.", 500);
+    return next(error);
+  }
 
-//   const userIndex = DUMMY_USERS.findIndex((u) => u.uId === userId);
-//   if (userIndex === -1) {
-//     return next(new HttpError("User not found.", 404));
-//   }
+  if (!user) {
+    const error = new HttpError("User not found.", 404);
+    return next(error);
+  }
 
-//   const user = DUMMY_USERS[userIndex];
+  // Remove recipeId from user's favorites
+  user.favorites.pull(recipeId);
 
-//   if (!user.favorites.includes(recipeId)) {
-//     return next(new HttpError("Recipe not found in favorites.", 422));
-//   }
+  try {
+    await user.save();
+  } catch (err) {
+    const error = new HttpError("Could not remove recipe from favorites.", 500);
+    return next(error);
+  }
 
-//   user.favorites = user.favorites.filter((fav) => fav !== recipeId);
-
-//   res.status(200).json({
-//     message: `Recipe ${recipeId} removed from favorites for user ${userId}`,
-//   });
-// };
+  res.status(200).json({
+    message: `Recipe ${recipeId} removed from favorites for user ${userId}`,
+  });
+};
 
 // admin functions
 // get all users

@@ -16,13 +16,16 @@ router.post(
   ],
   usersController.createUser
 );
-// router.post("/sign-in", usersController.signIn);
+router.post("/sign-in", usersController.signIn);
 router.get("/profile/:userId", usersController.getUserById);
 router.patch("/profile/:userId", usersController.editUserById);
 router.delete("/profile/:userId", usersController.deleteUser);
 
 router.post("/recipes/:recipeId", usersController.addRecipeToFavorites);
-router.post("/favorites/:userId/:recipeId", usersController.addRecipeToFavorites);
+router.post(
+  "/favorites/:userId/:recipeId",
+  usersController.addRecipeToFavorites
+);
 router.get("/favorites/:userId", usersController.getFavoritesRecipes);
 router.get("/favorites/:userId/:recipeId", usersController.getFavoriteRecipe);
 router.delete("/recipes/:recipeId", usersController.removeRecipeFromFavorites);

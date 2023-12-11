@@ -52,16 +52,27 @@ exports.createUser = async (req, res, next) => {
 };
 
 // sign in
-// exports.signIn = (req, res, next) => {
-//   const { email, password } = req.body;
+exports.signIn = async (req, res, next) => {
+  const { email, password } = req.body;
 
-//   const identifiedUser = DUMMY_USERS.find((u) => u.email === email);
-//   if (!identifiedUser || identifiedUser.password !== password) {
-//     next(new HttpError("Could not identify user, bad credentials."));
-//   }
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError(
+      "Signing in failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
 
-//   res.json({ message: "Logged in!" });
-// };
+  if (!existingUser || existingUser.password !== password) {
+    const error = new HttpError("Invalid credentials, could not sign in.", 401);
+    return next(error);
+  }
+
+  res.json({ message: "Logged in!" });
+};
 
 // get user
 exports.getUserById = async (req, res, next) => {
@@ -269,7 +280,10 @@ exports.removeRecipeFromFavorites = async (req, res, next) => {
   try {
     user = await User.findById(userId);
   } catch (err) {
-    const error = new HttpError("Something went wrong, could not find user.", 500);
+    const error = new HttpError(
+      "Something went wrong, could not find user.",
+      500
+    );
     return next(error);
   }
 
@@ -309,5 +323,3 @@ exports.getAllUsers = async (req, res, next) => {
 
   res.json({ users });
 };
-
-// exports.removeUser = (req, res, next) => {};

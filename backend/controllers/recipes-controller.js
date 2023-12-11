@@ -71,25 +71,16 @@ exports.getRecipeById = async (req, res, next) => {
 exports.removeRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
 
-  let recipe;
   try {
-    recipe = await Recipe.findById(recipeId);
+    const result = await Recipe.findByIdAndDelete(recipeId);
+
+    if (!result) {
+      return next(new HttpError("Could not find recipe for provided id.", 404));
+    }
+
+    res.status(200).json({ message: "Deleted recipe." });
   } catch (err) {
-    const error = new HttpError("Could not find a recipe.", 500);
-    return next(error);
+    return next(new HttpError("Could not delete recipe.", 500));
   }
-
-  if (!recipe) {
-    const error = new HttpError("Could not find recipe for provided id.", 404);
-    return next(error);
-  }
-
-  try {
-    await recipe.remove();
-  } catch (err) {
-    const error = new HttpError("Could not delete recipe.", 500);
-    return next(error);
-  }
-
-  res.status(200).json({ message: "Deleted recipe." });
 };
+

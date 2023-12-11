@@ -9,7 +9,7 @@ router.get("/recipes/:recipeId", recipesController.getRecipeById);
 // admin functions
 
 router.post("/admin/recipes/add-recipe", recipesController.addRecipe);
-router.delete("/recipes/:recipeId", recipesController.removeRecipeById);
+router.delete("/admin/recipes/:recipeId", recipesController.removeRecipeById);
 
 
 module.exports = router;

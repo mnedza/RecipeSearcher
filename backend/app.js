@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const  mongoDbCredentials = require("./mongodbCredentials");
 
 const usersRoutes = require("./routes/users-routes");
 const recipesRoutes = require("./routes/recipes-routes");
@@ -27,12 +28,11 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://marcel:marcel123@cluster0.mrobyik.mongodb.net/recipe-search?retryWrites=true&w=majority"
-  )
+  .connect(mongoDbCredentials)
   .then(() => {
+    console.log("Connected to MongoDB");
     app.listen(5000);
   })
   .catch((err) => {
-    console.log(err);
+    console.error('Error connecting to MongoDB:', err);
   });

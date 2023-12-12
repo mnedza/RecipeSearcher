@@ -1,0 +1,37 @@
+
+.loading-text {
+    text-align: center;
+    font-size: 3.5rem;
+}
+
+.loading-text::after {
+    content: "";
+    animation: dotAnimation 2s infinite;
+}
+
+
+@keyframes dotAnimation {
+    0% {
+        content: "";
+    }
+
+    20% {
+        content: ".";
+    }
+
+    40% {
+        content: "..";
+    }
+
+    60% {
+        content: "...";
+    }
+
+    80% {
+        content: "....";
+    }
+
+    100% {
+        content: "";
+    }
+}

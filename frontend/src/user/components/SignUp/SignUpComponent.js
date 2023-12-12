@@ -1,6 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../../shared/context/auth-context";
+
+import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
+import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
+
 import classes from "./SignUpComponent.module.css";
 
 const SignUpComponent = () => {
@@ -8,6 +12,8 @@ const SignUpComponent = () => {
   const history = useHistory();
 
   const minPassLength = 6;
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -58,7 +64,7 @@ const SignUpComponent = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateEmail(formData.email)) {
@@ -75,88 +81,120 @@ const SignUpComponent = () => {
       return;
     }
 
-    console.log(formData);
-    auth.signIn();
-    history.push("/");
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:5000/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "imie testowe",
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+      setIsLoading(false);
+      auth.signIn();
+      history.push("/");
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message || "Something went wrong, please try again.");
+    }
+  };
+
+  const errorHandler = (params) => {
+    setError(null);
   };
 
   return (
-    <div className={`${classes["sign-up"]} wrapper section`}>
-      <div className={classes.container}>
-        <h2 className={classes.h2}>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={classes["form-group"]}>
-            <label className={classes.label} htmlFor="email">
-              Email:
-            </label>
-            <input
-              className={classes.input}
-              type="email"
-              id="email"
-              name="email"
-              placeholder="enter email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-            <p
-              className={`${classes.error} ${
-                errors.email && classes["show-error"]
-              }`}
-            >
-              {errors.email}
-            </p>
+    <>
+      <ErrorModal error={error} onClear={errorHandler} />
+      <div className={`${classes["sign-up"]} wrapper section`}>
+        {isLoading ? (
+          <LoadingAnimation />
+        ) : (
+          <div className={classes.container}>
+            <h2 className={classes.h2}>Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+              <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="email">
+                  Email:
+                </label>
+                <input
+                  className={classes.input}
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="enter email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <p
+                  className={`${classes.error} ${
+                    errors.email && classes["show-error"]
+                  }`}
+                >
+                  {errors.email}
+                </p>
+              </div>
+              <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="password">
+                  Password:
+                </label>
+                <input
+                  className={classes.input}
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="enter password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                />
+                <p
+                  className={`${classes.error} ${
+                    errors.password && classes["show-error"]
+                  }`}
+                >
+                  {errors.password}
+                </p>
+              </div>
+              <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="confirm-password">
+                  Confirm Password:
+                </label>
+                <input
+                  className={classes.input}
+                  type="password"
+                  id="confirm-password"
+                  name="confirmPassword"
+                  placeholder="confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                  required
+                />
+                <p
+                  className={`${classes.error} ${
+                    errors.confirmPassword && classes["show-error"]
+                  }`}
+                >
+                  {errors.confirmPassword}
+                </p>
+              </div>
+              <button className={classes.button} type="submit">
+                Sign Up
+              </button>
+            </form>
           </div>
-          <div className={classes["form-group"]}>
-            <label className={classes.label} htmlFor="password">
-              Password:
-            </label>
-            <input
-              className={classes.input}
-              type="password"
-              id="password"
-              name="password"
-              placeholder="enter password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-            <p
-              className={`${classes.error} ${
-                errors.password && classes["show-error"]
-              }`}
-            >
-              {errors.password}
-            </p>
-          </div>
-          <div className={classes["form-group"]}>
-            <label className={classes.label} htmlFor="confirm-password">
-              Confirm Password:
-            </label>
-            <input
-              className={classes.input}
-              type="password"
-              id="confirm-password"
-              name="confirmPassword"
-              placeholder="confirm password"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              required
-            />
-            <p
-              className={`${classes.error} ${
-                errors.confirmPassword && classes["show-error"]
-              }`}
-            >
-              {errors.confirmPassword}
-            </p>
-          </div>
-          <button className={classes.button} type="submit">
-            Sign Up
-          </button>
-        </form>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

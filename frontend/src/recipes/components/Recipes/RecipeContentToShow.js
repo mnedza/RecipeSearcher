@@ -4,7 +4,7 @@ import { AuthContext } from "../../../shared/context/auth-context";
 import styles from "./RecipeContentToShow.module.css";
 
 const RecipeContentToShow = ({ loadedRecipe }) => {
-  const { rId, name, instructions, ingredients } = loadedRecipe;
+  const { _id, name, instructions, ingredients } = loadedRecipe;
   const auth = useContext(AuthContext);
   const [isAdded, setIsAdded] = useState(false);
 
@@ -33,7 +33,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
           </form>
         )}
 
-        <p>Recipe Id --- {rId}</p>
+        <p>Recipe Id --- {_id}</p>
         <p>Name --- {name}</p>
         <p>ingredients --- {ingredients}</p>
         <p>Instructions --- {instructions}</p>

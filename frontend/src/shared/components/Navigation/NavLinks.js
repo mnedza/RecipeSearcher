@@ -7,6 +7,7 @@ import styles from "./NavLinks.module.css";
 
 const NavLinks = () => {
   const auth = useContext(AuthContext);
+  const userId = auth.userId;
   const history = useHistory();
 
   const signOutHandler = () => {
@@ -32,11 +33,11 @@ const NavLinks = () => {
 
   const linksToShowWhenLoggedIn = (
     <>
-      <NavLink to="/favorites/u1" className={styles["nav-link"]}>
+      <NavLink to={`/favorites/${userId}`} className={styles["nav-link"]}>
         Favorites
       </NavLink>
 
-      <NavLink to="/profile/u1" className={styles["nav-link"]}>
+      <NavLink to={`/profile/${userId}`} className={styles["nav-link"]}>
         Profile
       </NavLink>
 

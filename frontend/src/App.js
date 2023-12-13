@@ -21,13 +21,16 @@ import Profile from "./user/pages/Profile";
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  const signIn = useCallback(() => {
+  const signIn = useCallback((uid) => {
     setIsSignedIn(true);
+    setUserId(uid);
   }, []);
 
   const signOut = useCallback(() => {
     setIsSignedIn(false);
+    setUserId(null);
   }, []);
 
   const routesWhenSignedIn = (
@@ -100,7 +103,12 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      value={{ isSignedIn: isSignedIn, signIn: signIn, signOut: signOut }}
+      value={{
+        isSignedIn: isSignedIn,
+        userId: userId,
+        signIn: signIn,
+        signOut: signOut,
+      }}
     >
       <Router>
         <Navigation />

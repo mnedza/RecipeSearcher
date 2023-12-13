@@ -99,7 +99,7 @@ const SignUpComponent = () => {
         throw new Error(responseData.message);
       }
       setIsLoading(false);
-      auth.signIn();
+      auth.signIn(responseData.user.id);
       history.push("/");
     } catch (err) {
       setIsLoading(false);

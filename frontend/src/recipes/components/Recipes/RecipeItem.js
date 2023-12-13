@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./RecipeItem.module.css";
 
 const RecipeItem = (props) => {
-  const { name, instructions, url, rId, path } = props;
+  const { name, instructions, image, _id, path } = props;
 
   const updateDescription = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -20,9 +20,9 @@ const RecipeItem = (props) => {
     <>
       <div className={styles.recipe}>
         <h3 className={styles["recipe-name"]}>{name}</h3>
-        <img className={styles.img} src={url} alt={name} />
+        <img className={styles.img} src={image} alt={name} />
         <p className={styles.description}>{instruction}</p>
-        <Link className={styles.button} to={`/${path}/${rId}`}>
+        <Link className={styles.button} to={`/${path}/${_id}`}>
           See more details
         </Link>
       </div>

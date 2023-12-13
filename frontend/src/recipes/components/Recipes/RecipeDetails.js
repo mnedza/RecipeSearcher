@@ -2,19 +2,15 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import RecipeNotFound from "./RecipeNotFound";
 import RecipeContentToShow from "./RecipeContentToShow";
-
-// Należy pobierać przepisy w taki sam sposób jak w AllRecipes albo i nawet z tamtego komponentu
-
+import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
 
 const RecipeDetails = (props) => {
   const recipes = props.recipes;
-  
   const recipeId = useParams().recipeId;
-  const loadedRecipe = recipes.find((recipe) => recipe.rId === recipeId);
-
+  const loadedRecipe = recipes.find((recipe) => recipe._id === recipeId);
   return (
     <>
-      {loadedRecipe && <RecipeContentToShow loadedRecipe={loadedRecipe} />}
+      {loadedRecipe ? <RecipeContentToShow loadedRecipe={loadedRecipe} /> : <LoadingAnimation />}
       {!loadedRecipe && <RecipeNotFound />}
     </>
   );

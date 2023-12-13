@@ -1,45 +1,51 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 
 import UserInfo from "./UserInfo";
-import Card from "../../../shared/components/UIElements/Card";
-
-const INITIAL_USERS = [
-  {
-    uId: "u1",
-    name: "Jan Kowalski",
-    avatar:
-      "https://cdn.pixabay.com/photo/2019/12/12/16/27/dog-4691167_960_720.jpg",
-    email: "jan@example.com",
-    password: "test",
-    favorites: ["r1", "r2", "r3"],
-  },
-  {
-    uId: "u2",
-    name: "Anna Nowak",
-    avatar:
-      "https://cdn.pixabay.com/photo/2014/08/23/11/33/cow-425164_960_720.jpg",
-    email: "anna@example.com",
-    password: "test",
-    favorites: ["r4", "r5"],
-  },
-];
+import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
+import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
+import { AuthContext } from "../../../shared/context/auth-context";
 
 const User = () => {
-  const userData = INITIAL_USERS;
+  const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [loadedUser, setLoadedUser] = useState();
 
-  const usersId = useParams().userId;
-  const correctProfile = userData.find((user) => user.uId === usersId);
+  const usersId = auth.userId;
 
-  if (!correctProfile) {
-    return (
-      <Card>
-        <h2>Could not find a user.</h2>
-      </Card>
-    );
-  }
+  useEffect(() => {
+    const fetchUser = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `http://localhost:5000/profile/${usersId}`
+        );
+        const responseData = await response.json();
 
-  return <UserInfo userData={correctProfile} />;
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        setLoadedUser(responseData.user);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoading(false);
+    };
+
+    fetchUser();
+  }, [usersId]);
+
+  const errorHandler = () => {
+    setError(null);
+  };
+
+  return (
+    <>
+      <ErrorModal error={error} onClear={errorHandler} />
+      {isLoading ? <LoadingAnimation /> : <UserInfo userData={loadedUser} />}
+    </>
+  );
 };
 
 export default User;

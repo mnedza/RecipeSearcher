@@ -1,7 +1,5 @@
 import React from "react";
-
 import RecipeItem from "./RecipeItem";
-
 import styles from "./RecipesToShow.module.css";
 
 const RecipesToShow = (props) => {
@@ -13,13 +11,13 @@ const RecipesToShow = (props) => {
           <div className={styles["recipes-list-container"]}>
             {props.recipes.map((recipe) => (
               <RecipeItem
-                key={recipe.rId}
-                rId={recipe.rId}
+                key={recipe._id}
+                _id={recipe._id}
                 path={props.path}
                 name={recipe.name}
                 ingredients={recipe.ingredients}
                 instructions={recipe.instructions}
-                url={recipe.url}
+                image={recipe.image}
               />
             ))}
           </div>

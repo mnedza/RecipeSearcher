@@ -12,7 +12,12 @@ const Favorites = (props) => {
     const fetchRecipes = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/favorites/${userId}`
+          `http://localhost:5000/favorites/${userId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
@@ -25,7 +30,7 @@ const Favorites = (props) => {
     };
 
     fetchRecipes();
-  }, [userId]);
+  }, [userId, auth.token]);
 
   return (
     <>

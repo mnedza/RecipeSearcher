@@ -23,30 +23,6 @@ const SignInComponent = () => {
       password: event.target.password.value,
     };
 
-    // try {
-    //   setIsLoading(true);
-    //   const response = await fetch("http://localhost:5000/sign-in", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email: loginData.email,
-    //       password: loginData.password,
-    //     }),
-    //   });
-    //   const responseData = await response.json();
-    //   if (!response.ok) {
-    //     throw new Error(responseData.message);
-    //   }
-    //   setIsLoading(false);
-    //   auth.signIn();
-    //   history.push("/");
-    // } catch (err) {
-    //   setIsLoading(false);
-    //   setError(err.message || "Something went wrong, please try again.");
-    // }
-
     try {
       setIsLoading(true);
       setTimeout(async () => {
@@ -67,7 +43,7 @@ const SignInComponent = () => {
             throw new Error(responseData.message);
           }
           setIsLoading(false);
-          auth.signIn(responseData.user.id);
+          auth.signIn(responseData.userId, responseData.token);
           history.push("/");
         } catch (err) {
           setIsLoading(false);

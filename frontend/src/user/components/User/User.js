@@ -18,7 +18,12 @@ const User = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/profile/${usersId}`
+          `http://localhost:5000/profile/${usersId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token,
+            },
+          }
         );
         const responseData = await response.json();
 
@@ -34,7 +39,7 @@ const User = () => {
     };
 
     fetchUser();
-  }, [usersId]);
+  }, [usersId, auth.token]);
 
   const errorHandler = () => {
     setError(null);

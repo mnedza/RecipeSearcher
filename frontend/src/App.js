@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // shared
@@ -19,19 +19,62 @@ import SignUp from "./user/pages/SignUp";
 import Favorites from "./recipes/pages/Favorites";
 import Profile from "./user/pages/Profile";
 
+let logoutTimer;
+
 const App = () => {
+  const [token, setToken] = useState(null);
+  const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
-  const signIn = useCallback((uid) => {
-    setIsSignedIn(true);
+  const signIn = useCallback((uid, token, expirationDate) => {
+    setToken(token);
     setUserId(uid);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpirationDate(tokenExpirationDate);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        userId: uid,
+        token: token,
+        expiration: tokenExpirationDate.toISOString(),
+      })
+    );
+    setIsSignedIn(true);
   }, []);
 
   const signOut = useCallback(() => {
+    setToken(null);
+    setTokenExpirationDate(null);
     setIsSignedIn(false);
     setUserId(null);
+    localStorage.removeItem("userData");
   }, []);
+
+  useEffect(() => {
+    if (token && tokenExpirationDate) {
+      const remainingTime =
+        tokenExpirationDate.getTime() - new Date().getTime();
+      logoutTimer = setTimeout(signOut, remainingTime);
+    } else {
+      clearTimeout(logoutTimer);
+    }
+  }, [token, signOut, tokenExpirationDate]);
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      storedData &&
+      storedData.token && (new Date(storedData.expiration) > new Date())
+    ) {
+      signIn(
+        storedData.userId,
+        storedData.token,
+        new Date(storedData.expiration)
+      );
+    }
+  }, [signIn]);
 
   const routesWhenSignedIn = (
     <Switch>
@@ -105,6 +148,7 @@ const App = () => {
     <AuthContext.Provider
       value={{
         isSignedIn: isSignedIn,
+        token: token,
         userId: userId,
         signIn: signIn,
         signOut: signOut,

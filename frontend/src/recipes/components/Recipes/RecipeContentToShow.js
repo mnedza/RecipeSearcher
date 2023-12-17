@@ -8,6 +8,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
   const auth = useContext(AuthContext);
   const userId = auth.userId;
 
+  // eslint-disable-next-line
   const [favRecipes, setFavRecipes] = useState([]);
   const [isInFavorites, setIsInFavorites] = useState(false);
 
@@ -15,7 +16,12 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     const fetchFavoriteRecipes = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/favorites/${userId}`
+          `http://localhost:5000/favorites/${userId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
@@ -32,7 +38,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     };
 
     fetchFavoriteRecipes();
-  }, [userId, _id]);
+  }, [userId, _id, auth.token]);
 
   const changeStatusHandler = async (event) => {
     event.preventDefault();
@@ -46,6 +52,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
+              Authorization: "Bearer " + auth.token,
             },
           }
         );
@@ -56,6 +63,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: "Bearer " + auth.token,
             },
             body: JSON.stringify({ recipeId: _id }),
           }

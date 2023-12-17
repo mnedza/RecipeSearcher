@@ -4,8 +4,8 @@ const router = express.Router();
 const { check } = require("express-validator");
 
 const usersController = require("../controllers/users-controller");
-
-// common user functions
+const recipesController = require("../controllers/recipes-controller");
+const checkAuth = require("../middleware/check-auth");
 
 router.post(
   "/sign-up",
@@ -17,6 +17,10 @@ router.post(
   usersController.createUser
 );
 router.post("/sign-in", usersController.signIn);
+
+// Authentication needed
+router.use(checkAuth);
+
 router.get("/profile/:userId", usersController.getUserById);
 router.patch("/profile/:userId", usersController.editUserById);
 router.delete("/profile/:userId", usersController.deleteUser);
@@ -35,6 +39,9 @@ router.delete(
 );
 
 // admin functions only
+
+router.post("/admin/recipes/add-recipe", recipesController.addRecipe);
+router.delete("/admin/recipes/:recipeId", recipesController.removeRecipeById);
 
 router.get("/admin/users", usersController.getAllUsers);
 router.get("/admin/users/:userId", usersController.getUserById);

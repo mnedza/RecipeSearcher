@@ -1,6 +1,7 @@
 .side-drawer-nav {
     display: none;
     height: 100%;
+    margin-left: 5rem;
 }
 
 .nav-content {
@@ -16,14 +17,13 @@
 }
 
 .hamburger {
-    margin-left: 5rem;
     display: none;
 }
 
 @media(max-width: 992px) {
-
     .side-drawer-nav {
         display: block;
+        margin-left: 0;
     }
 
     .nav-links {
@@ -33,5 +33,4 @@
     .hamburger {
         display: block;
     }
-
 }

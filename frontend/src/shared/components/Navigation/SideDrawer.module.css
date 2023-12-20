@@ -8,3 +8,27 @@
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
+
+/* SideDrawer.module.css */
+
+/* Inne style */
+
+/* Klasy animacji */
+.animation-right-enter {
+    transform: translateX(100%);
+  }
+  
+  .animation-right-enter-active {
+    transform: translateX(0);
+    transition: transform 400ms ease-in-out;
+  }
+  
+  .animation-right-exit {
+    transform: translateX(0);
+  }
+  
+  .animation-right-exit-active {
+    transform: translateX(100%);
+    transition: transform 400ms ease-in-out;
+  }
+  

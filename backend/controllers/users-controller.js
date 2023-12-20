@@ -1,13 +1,11 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const uuid = require("uuid").v4;
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
 
-// common user functions
 // create user = Sign up
 exports.createUser = async (req, res, next) => {
   const errors = validationResult(req);
@@ -17,7 +15,7 @@ exports.createUser = async (req, res, next) => {
     );
   }
 
-  const { name, email, password } = req.body;
+  const { name, surname, email, password } = req.body;
 
   let existingUser;
   try {
@@ -47,6 +45,7 @@ exports.createUser = async (req, res, next) => {
 
   const createdUser = new User({
     name,
+    surname,
     email,
     password: hashedPassword,
     favorites: [],

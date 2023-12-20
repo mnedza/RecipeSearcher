@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserRecipes from "../components/Recipes/UserRecipes";
 import { AuthContext } from "../../shared/context/auth-context";
+import LoadingAnimation from "../../shared/components/UIElements/LoadingAnimation";
 
 const Favorites = (props) => {
   const auth = useContext(AuthContext);
   const userId = auth.userId;
   const path = `favorites/${userId}`;
+  const [isLoading, setIsLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(
           `http://localhost:5000/favorites/${userId}`,
           {
@@ -27,6 +30,7 @@ const Favorites = (props) => {
       } catch (error) {
         console.error("Error fetching recipes:", error.message);
       }
+      setIsLoading(false);
     };
 
     fetchRecipes();
@@ -34,6 +38,7 @@ const Favorites = (props) => {
 
   return (
     <>
+      {isLoading && <LoadingAnimation />}
       <UserRecipes recipes={recipes} path={path}>
         {props.children}
       </UserRecipes>

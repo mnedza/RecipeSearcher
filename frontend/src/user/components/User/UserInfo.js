@@ -12,7 +12,7 @@ const UserInfo = (props) => {
           <h1 className={styles["user-title"]}>Your Profile</h1>
           <div className={styles["user-profile"]}>
             <img
-              src={props.userData.avatar}
+              src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
               className={styles["user-avatar"]}
               alt={`${props.userData.name} avatar`}
             />
@@ -22,6 +22,9 @@ const UserInfo = (props) => {
               </p>
               <p className={styles["user-detail"]}>
                 Name: {props.userData.name}
+              </p>
+              <p className={styles["user-detail"]}>
+                Surname: {props.userData.surname}
               </p>
               <p className={styles["user-detail"]}>
                 Email: {props.userData.email}

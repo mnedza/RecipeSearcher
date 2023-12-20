@@ -18,11 +18,15 @@ const SignUpComponent = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    firstName: "",
+    lastName: "",
   });
   const [errors, setErrors] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    firstName: "",
+    lastName: "",
   });
 
   const validateEmail = (email) => {
@@ -89,7 +93,8 @@ const SignUpComponent = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "imie testowe",
+          name: formData.firstName,
+          surname: formData.lastName,
           email: formData.email,
           password: formData.password,
         }),
@@ -107,7 +112,7 @@ const SignUpComponent = () => {
     }
   };
 
-  const errorHandler = (params) => {
+  const errorHandler = () => {
     setError(null);
   };
 
@@ -121,6 +126,50 @@ const SignUpComponent = () => {
           <div className={classes.container}>
             <h2 className={classes.h2}>Sign Up</h2>
             <form onSubmit={handleSubmit}>
+              <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="firstName">
+                  First Name:
+                </label>
+                <input
+                  className={classes.input}
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="enter first name"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  required
+                />
+                <p
+                  className={`${classes.error} ${
+                    errors.firstName && classes["show-error"]
+                  }`}
+                >
+                  {errors.firstName}
+                </p>
+              </div>
+              <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="lastName">
+                  Last Name:
+                </label>
+                <input
+                  className={classes.input}
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="enter last name"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+                <p
+                  className={`${classes.error} ${
+                    errors.lastName && classes["show-error"]
+                  }`}
+                >
+                  {errors.lastName}
+                </p>
+              </div>
               <div className={classes["form-group"]}>
                 <label className={classes.label} htmlFor="email">
                   Email:

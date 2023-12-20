@@ -22,9 +22,9 @@ const Navigation = () => {
   return (
     <>
       {showDrawer && <Backdrop onClick={hideSideDrawerHandler} />}
-      <SideDrawer show={showDrawer} onClick={hideSideDrawerHandler}>
+      <SideDrawer show={showDrawer}>
         <nav className={styles["side-drawer-nav"]}>
-          <NavLinks />
+          <NavLinks onClick={hideSideDrawerHandler} />
         </nav>
       </SideDrawer>
       <Header>
@@ -32,7 +32,7 @@ const Navigation = () => {
           <Link to="/">Recipe Search App</Link>
 
           <nav className={styles["nav-links"]}>
-            <NavLinks />
+            <NavLinks onClick={hideSideDrawerHandler} />
           </nav>
 
           <button className={styles.hamburger} onClick={showSideDrawerHandler}>

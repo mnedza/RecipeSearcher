@@ -16,6 +16,7 @@
 }
 
 .user-profile {
+    margin: 0 3rem;
     padding: 1.5rem;
     display: flex;
     justify-content: center;
@@ -44,6 +45,11 @@
 
 @media(max-width: 550px) {
     .user-profile {
-        display: block;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-avatar {
+        padding: 0;
     }
 }

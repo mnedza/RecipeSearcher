@@ -18,7 +18,7 @@ router.post(
 );
 router.post("/sign-in", usersController.signIn);
 
-// Authentication needed
+// Authentication 
 router.use(checkAuth);
 
 router.get("/profile/:userId", usersController.getUserById);

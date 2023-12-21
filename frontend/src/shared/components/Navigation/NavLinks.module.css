@@ -6,7 +6,8 @@
     --light-blue: #266FE0;
 }
 
-.nav-link {
+.nav-link,
+.nav-link-admin {
     margin: 2rem;
     display: flex;
     justify-content: center;
@@ -16,6 +17,14 @@
     color: var(--darker-white);
     cursor: pointer;
     transition: color 0.3s;
+}
+
+.nav-link-admin {
+    color: orange;
+}
+
+.nav-link-admin:hover {
+    color: rgb(255, 255, 0);
 }
 
 .nav-link:hover {

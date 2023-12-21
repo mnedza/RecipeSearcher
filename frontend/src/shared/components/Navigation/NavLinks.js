@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
@@ -15,6 +15,19 @@ const NavLinks = (props) => {
     history.push("/");
     props.onClick();
   };
+
+  const linksForAdmin = (
+    <>
+      <NavLink
+        to="/admin"
+        exact
+        className={styles["nav-link-admin"]}
+        onClick={props.onClick}
+      >
+        Admin
+      </NavLink>
+    </>
+  );
 
   const linksToShowEverytime = (
     <>
@@ -95,6 +108,7 @@ const NavLinks = (props) => {
 
   return (
     <>
+      {auth.isSignedIn && auth.isAdmin && linksForAdmin}
       {linksToShowEverytime}
       {auth.isSignedIn && linksToShowWhenLoggedIn}
       {!auth.isSignedIn && linksToShowWhenNotLoggedIn}

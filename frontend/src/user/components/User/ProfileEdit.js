@@ -1,22 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const ProfileEdit = (props) => {
-  const location = useLocation(); // Użyj useLocation jako funkcji
-
+  const location = useLocation(); 
   const auth = useContext(AuthContext);
+  const history = useHistory();
   const userId = auth.userId;
-
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (location.state && location.state.userData) {
-      // Sprawdź, czy userData istnieje w location.state
       const userData = location.state.userData;
-      setName(userData.name || ""); // Ustaw odpowiednie wartości dla stanów danych
+      setName(userData.name || "");
       setSurname(userData.surname || "");
       setEmail(userData.email || "");
     }
@@ -36,7 +35,6 @@ const ProfileEdit = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form...");
 
     try {
       const response = await fetch(`http://localhost:5000/profile/${userId}`, {
@@ -58,9 +56,8 @@ const ProfileEdit = (props) => {
         throw new Error(responseData.message || "Failed to update user.");
       }
 
-      console.log("User updated successfully:", responseData.user);
-      // Aktualizacja stanu użytkownika po stronie klienta może być przeprowadzona
-      // za pomocą funkcji przekazanej przez props z rodzica
+
+      history.push(`/profile/${userId}`);
     } catch (error) {
       console.error("Error updating user:", error.message);
     }

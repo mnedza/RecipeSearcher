@@ -18,7 +18,6 @@ const SignInComponent = () => {
     event.preventDefault();
 
     const loginData = {
-      name: "imie testowe",
       email: event.target.email.value,
       password: event.target.password.value,
     };
@@ -26,7 +25,6 @@ const SignInComponent = () => {
     try {
       setIsLoading(true);
       setTimeout(async () => {
-        // Symulacja opóźnienia za pomocą setTimeout
         try {
           const response = await fetch("http://localhost:5000/sign-in", {
             method: "POST",
@@ -43,7 +41,11 @@ const SignInComponent = () => {
             throw new Error(responseData.message);
           }
           setIsLoading(false);
-          auth.signIn(responseData.userId, responseData.token);
+          auth.signIn(
+            responseData.userId,
+            responseData.token,
+            responseData.isAdmin
+          );
           history.push("/");
         } catch (err) {
           setIsLoading(false);

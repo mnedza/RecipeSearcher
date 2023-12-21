@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./Profile.module.css";
 
-
 const Profile = (props) => {
-
   return (
     <section className={styles.section}>
       <div className={styles["user-container"]}>

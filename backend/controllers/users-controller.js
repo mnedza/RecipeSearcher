@@ -43,7 +43,10 @@ exports.createUser = async (req, res, next) => {
     return next(error);
   }
 
+  const isAdmin = false;
+
   const createdUser = new User({
+    isAdmin,
     name,
     surname,
     email,
@@ -71,11 +74,12 @@ exports.createUser = async (req, res, next) => {
       new HttpError("Signing up failed, please try again later.", 500)
     );
   }
-
-  // res.status(201).json({ user: createdUser.toObject({ getters: true }) });
-  res
-    .status(201)
-    .json({ userId: createdUser.id, email: createdUser.email, token: token });
+  res.status(201).json({
+    userId: createdUser.id,
+    email: createdUser.email,
+    token: token,
+    isAdmin: createdUser.isAdmin,
+  });
 };
 
 // sign in
@@ -117,7 +121,10 @@ exports.signIn = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      { userId: existingUser.id, email: existingUser.email },
+      {
+        userId: existingUser.id,
+        email: existingUser.email,
+      },
       "token_secret",
       { expiresIn: "1h" }
     );
@@ -131,6 +138,7 @@ exports.signIn = async (req, res, next) => {
     userId: existingUser.id,
     email: existingUser.email,
     token: token,
+    isAdmin: existingUser.isAdmin,
   });
 };
 
@@ -193,7 +201,6 @@ exports.updateUserById = async (req, res, next) => {
 
   res.status(200).json({ user: userToUpdate.toObject({ getters: true }) });
 };
-
 
 // delete user
 exports.deleteUser = async (req, res, next) => {

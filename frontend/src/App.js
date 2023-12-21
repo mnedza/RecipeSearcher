@@ -20,32 +20,40 @@ import Favorites from "./recipes/pages/Favorites";
 import Profile from "./user/pages/Profile";
 import EditProfile from "./user/pages/EditProfile";
 
+// admin
+import Admin from "./user/pages/Admin";
+import AdminUsers from "./user/components/Admin/AdminUsers";
+import AdminRecipes from "./user/components/Admin/AdminRecipes";
 
 let logoutTimer;
 
 const App = () => {
   const [token, setToken] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
-  const signIn = useCallback((uid, token, expirationDate) => {
+  const signIn = useCallback((uid, token, isAdmin, expirationDate) => {
     setToken(token);
+    setIsAdmin(isAdmin);
     setUserId(uid);
-    const tokenExpirationDate =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-    setTokenExpirationDate(tokenExpirationDate);
+    const expiration =
+      expirationDate instanceof Date
+        ? expirationDate
+        : new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpirationDate(expiration);
     localStorage.setItem(
       "userData",
       JSON.stringify({
         userId: uid,
         token: token,
-        expiration: tokenExpirationDate.toISOString(),
+        expiration: expiration.toISOString(),
+        isAdmin: isAdmin,
       })
     );
     setIsSignedIn(true);
   }, []);
-
   const signOut = useCallback(() => {
     setToken(null);
     setTokenExpirationDate(null);
@@ -68,11 +76,13 @@ const App = () => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (
       storedData &&
-      storedData.token && (new Date(storedData.expiration) > new Date())
+      storedData.token &&
+      new Date(storedData.expiration) > new Date()
     ) {
       signIn(
         storedData.userId,
         storedData.token,
+        storedData.isAdmin,
         new Date(storedData.expiration)
       );
     }
@@ -82,6 +92,58 @@ const App = () => {
     <Switch>
       <Route path="/" exact>
         <Home />
+      </Route>
+
+      <Route path="/recipes/:recipeId">
+        <Recipe />
+      </Route>
+
+      <Route path="/recipes">
+        <Recipes />
+      </Route>
+
+      <Route path="/search">
+        <Search />
+      </Route>
+
+      <Route path="/favorites/:userId/:recipeId">
+        <Recipe />
+      </Route>
+
+      <Route path="/favorites/:userId">
+        <Favorites />
+      </Route>
+
+      <Route path="/profile/:userId">
+        <Profile />
+      </Route>
+
+      <Route path="/edit-profile/:userId">
+        <EditProfile />
+      </Route>
+
+      <Route path="*">
+        <PageNotFound />
+      </Route>
+    </Switch>
+  );
+
+  const routesForAdmin = (
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+
+      <Route path="/admin/users">
+        <AdminUsers />
+      </Route>
+
+      <Route path="/admin/recipes">
+        <AdminRecipes />
+      </Route>
+
+      <Route path="/admin">
+        <Admin />
       </Route>
 
       <Route path="/recipes/:recipeId">
@@ -156,14 +218,18 @@ const App = () => {
         isSignedIn: isSignedIn,
         token: token,
         userId: userId,
+        isAdmin: isAdmin,
         signIn: signIn,
         signOut: signOut,
       }}
     >
       <Router>
         <Navigation />
-        {isSignedIn && routesWhenSignedIn}
-        {!isSignedIn && routesWhenSignedOut}
+        {isSignedIn
+          ? isAdmin
+            ? routesForAdmin
+            : routesWhenSignedIn
+          : routesWhenSignedOut}
         <Footer />
       </Router>
     </AuthContext.Provider>

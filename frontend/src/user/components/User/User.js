@@ -34,7 +34,6 @@ const User = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-
         setLoadedUser(responseData.user);
         setIsLoading(false);
       } catch (err) {

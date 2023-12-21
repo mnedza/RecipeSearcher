@@ -22,7 +22,7 @@ router.post("/sign-in", usersController.signIn);
 router.use(checkAuth);
 
 router.get("/profile/:userId", usersController.getUserById);
-router.patch("/profile/:userId", usersController.editUserById);
+router.put("/profile/:userId", usersController.updateUserById);
 router.delete("/profile/:userId", usersController.deleteUser);
 
 router.post("/recipes/:recipeId", usersController.addRecipeToFavorites);

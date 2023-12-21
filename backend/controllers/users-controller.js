@@ -165,36 +165,35 @@ exports.getUserById = async (req, res, next) => {
 };
 
 // edit user
-exports.editUserById = async (req, res, next) => {
-  const uId = req.params.userId;
-  const { email, password } = req.body;
+exports.updateUserById = async (req, res, next) => {
+  const userId = req.params.userId;
+  const { name, surname, email, password } = req.body;
 
   let userToUpdate;
   try {
-    userToUpdate = await User.findById(uId);
+    userToUpdate = await User.findById(userId);
   } catch (err) {
-    return next(
-      new HttpError("Something went wrong, could not update user.", 500)
-    );
+    return next(new HttpError("Could not update user.", 500));
   }
 
   if (!userToUpdate) {
     return next(new HttpError("Could not find user for provided Id.", 404));
   }
 
-  userToUpdate.email = email;
-  userToUpdate.password = password;
+  userToUpdate.name = name || userToUpdate.name;
+  userToUpdate.surname = surname || userToUpdate.surname;
+  userToUpdate.email = email || userToUpdate.email;
+  userToUpdate.password = password || userToUpdate.password;
 
   try {
     await userToUpdate.save();
   } catch (err) {
-    return next(
-      new HttpError("Something went wrong, could not update user.", 500)
-    );
+    return next(new HttpError("Could not update user.", 500));
   }
 
   res.status(200).json({ user: userToUpdate.toObject({ getters: true }) });
 };
+
 
 // delete user
 exports.deleteUser = async (req, res, next) => {

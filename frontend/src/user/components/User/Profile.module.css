@@ -43,6 +43,13 @@
     padding: 0.8rem;
 }
 
+.profile-button {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media(max-width: 550px) {
     .user-profile {
         display: flex;

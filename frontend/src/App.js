@@ -18,6 +18,8 @@ import SignIn from "./user/pages/SignIn";
 import SignUp from "./user/pages/SignUp";
 import Favorites from "./recipes/pages/Favorites";
 import Profile from "./user/pages/Profile";
+import EditProfile from "./user/pages/EditProfile";
+
 
 let logoutTimer;
 
@@ -104,6 +106,10 @@ const App = () => {
 
       <Route path="/profile/:userId">
         <Profile />
+      </Route>
+
+      <Route path="/edit-profile/:userId">
+        <EditProfile />
       </Route>
 
       <Route path="*">

@@ -17,13 +17,15 @@ import Recipe from "./recipes/pages/Recipe";
 import SignIn from "./user/pages/SignIn";
 import SignUp from "./user/pages/SignUp";
 import Favorites from "./recipes/pages/Favorites";
-import Profile from "./user/pages/Profile";
+import ProfilePage from "./user/pages/ProfilePage";
 import EditProfile from "./user/pages/EditProfile";
 
 // admin
 import Admin from "./user/pages/Admin";
 import AdminUsers from "./user/components/Admin/AdminUsers";
 import AdminRecipes from "./user/components/Admin/AdminRecipes";
+import AdminEditRecipe from "./user/components/Admin/AdminEditRecipe";
+import AdminNewRecipe from "./user/components/Admin/AdminNewRecipe";
 
 let logoutTimer;
 
@@ -115,7 +117,7 @@ const App = () => {
       </Route>
 
       <Route path="/profile/:userId">
-        <Profile />
+        <ProfilePage />
       </Route>
 
       <Route path="/edit-profile/:userId">
@@ -134,8 +136,20 @@ const App = () => {
         <Home />
       </Route>
 
+      <Route path="/admin/users/:userId">
+        <ProfilePage />
+      </Route>
+
+      <Route path="/admin/edit-recipe/:recipeId">
+        <AdminEditRecipe />
+      </Route>
+
       <Route path="/admin/users">
         <AdminUsers />
+      </Route>
+
+      <Route path="/admin/recipes/add-recipe">
+        <AdminNewRecipe />
       </Route>
 
       <Route path="/admin/recipes">
@@ -167,7 +181,7 @@ const App = () => {
       </Route>
 
       <Route path="/profile/:userId">
-        <Profile />
+        <ProfilePage />
       </Route>
 
       <Route path="/edit-profile/:userId">

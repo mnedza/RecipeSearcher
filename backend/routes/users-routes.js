@@ -41,6 +41,7 @@ router.delete(
 // admin functions only
 
 router.post("/admin/recipes/add-recipe", recipesController.addRecipe);
+router.put("/admin/recipes/edit-recipe/:recipeId", usersController.updateRecipeById);
 router.delete("/admin/recipes/:recipeId", recipesController.removeRecipeById);
 
 router.get("/admin/users", usersController.getAllUsers);

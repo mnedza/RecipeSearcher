@@ -175,7 +175,7 @@ exports.getUserById = async (req, res, next) => {
 // edit user
 exports.updateUserById = async (req, res, next) => {
   const userId = req.params.userId;
-  const { name, surname, email, password } = req.body;
+  const { isAdmin, name, surname, email, password } = req.body;
 
   let userToUpdate;
   try {
@@ -188,6 +188,7 @@ exports.updateUserById = async (req, res, next) => {
     return next(new HttpError("Could not find user for provided Id.", 404));
   }
 
+  userToUpdate.isAdmin = isAdmin || false;
   userToUpdate.name = name || userToUpdate.name;
   userToUpdate.surname = surname || userToUpdate.surname;
   userToUpdate.email = email || userToUpdate.email;
@@ -388,4 +389,33 @@ exports.getAllUsers = async (req, res, next) => {
   }
 
   res.json({ users });
+};
+
+// edit recipe by id
+exports.updateRecipeById = async (req, res, next) => {
+  const recipeId = req.params.recipeId;
+  const { name, ingredients, instructions } = req.body;
+
+  let recipeToUpdate;
+  try {
+    recipeToUpdate = await Recipe.findById(recipeId);
+  } catch (err) {
+    return next(new HttpError("Could not update recipe.", 500));
+  }
+
+  if (!recipeToUpdate) {
+    return next(new HttpError("Could not find recipe for provided Id.", 404));
+  }
+
+  recipeToUpdate.name = name || recipeToUpdate.name;
+  recipeToUpdate.ingredients = ingredients || recipeToUpdate.ingredients;
+  recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
+
+  try {
+    await recipeToUpdate.save();
+  } catch (err) {
+    return next(new HttpError("Could not update recipe.", 500));
+  }
+
+  res.status(200).json({ recipe: recipeToUpdate.toObject({ getters: true }) });
 };

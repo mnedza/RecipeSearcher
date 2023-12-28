@@ -1,7 +1,8 @@
 import React from "react";
+import RecipesList from "../../../recipes/pages/Recipes";
 
 const AdminRecipes = () => {
-  return <h1>Admin Recipes Page</h1>;
+  return <RecipesList />
 };
 
 export default AdminRecipes;

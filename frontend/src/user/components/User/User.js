@@ -5,6 +5,7 @@ import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
 import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { Link, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Modal from "../../../shared/components/UIElements/Modal";
 
 const User = () => {
@@ -13,9 +14,9 @@ const User = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState();
-  const [loadedUser, setLoadedUser] = useState();
+  const [loadedUser, setLoadedUser] = useState(null);
 
-  const usersId = auth.userId;
+  const usersId = useParams().userId;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,6 +39,7 @@ const User = () => {
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
+        setIsLoading(false);
       }
     };
 
@@ -79,6 +81,16 @@ const User = () => {
       console.error("Error deleting user:", error.message);
     }
   };
+
+  if (!auth.isSignedIn) {
+    history.push("/sign-in");
+    return null;
+  }
+
+  if (!auth.isAdmin && usersId !== auth.userId) {
+    history.push("/");
+    return null;
+  }
 
   return (
     <>

@@ -1,16 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
-import { useLocation } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
-const ProfileEdit = (props) => {
-  const location = useLocation(); 
+const ProfileEdit = () => {
+  const location = useLocation();
   const auth = useContext(AuthContext);
   const history = useHistory();
-  const userId = auth.userId;
+  const currentUserId = auth.userId;
+  const isAdmin = auth.isAdmin;
+  const [userId, setUserId] = useState(currentUserId);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.userData) {
@@ -18,8 +20,12 @@ const ProfileEdit = (props) => {
       setName(userData.name || "");
       setSurname(userData.surname || "");
       setEmail(userData.email || "");
+      setIsAdminUser(userData.isAdmin || false);
+      if (isAdmin && userData._id) {
+        setUserId(userData._id);
+      }
     }
-  }, [location.state]);
+  }, [location.state, isAdmin]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -31,6 +37,10 @@ const ProfileEdit = (props) => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handleAdminStatusChange = (e) => {
+    setIsAdminUser(e.target.checked);
   };
 
   const handleSubmit = async (e) => {
@@ -47,6 +57,7 @@ const ProfileEdit = (props) => {
           name: name,
           surname: surname,
           email: email,
+          isAdmin: isAdminUser,
         }),
       });
 
@@ -56,7 +67,6 @@ const ProfileEdit = (props) => {
         throw new Error(responseData.message || "Failed to update user.");
       }
 
-
       history.push(`/profile/${userId}`);
     } catch (error) {
       console.error("Error updating user:", error.message);
@@ -65,6 +75,18 @@ const ProfileEdit = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {isAdmin && (
+        <div>
+          <label htmlFor="isAdmin">Administrator privileges:</label>
+          <input
+            type="checkbox"
+            id="isAdmin"
+            name="isAdmin"
+            checked={isAdminUser}
+            onChange={handleAdminStatusChange}
+          />
+        </div>
+      )}
       <div>
         <label htmlFor="name">Name:</label>
         <input

@@ -1,7 +1,7 @@
 import React from "react";
 import User from "../components/User/User";
 
-const Profile = (props) => {
+const ProfilePage = (props) => {
   return (
     <>
       <User>{props.children}</User>
@@ -9,4 +9,4 @@ const Profile = (props) => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

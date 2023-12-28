@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
-
 import styles from "./RecipeContentToShow.module.css";
+import { Link, useHistory } from "react-router-dom";
+import Modal from "../../../shared/components/UIElements/Modal";
 
 const RecipeContentToShow = ({ loadedRecipe }) => {
   const { _id, name, instructions, ingredients } = loadedRecipe;
   const auth = useContext(AuthContext);
   const userId = auth.userId;
-
-  // eslint-disable-next-line
-  const [favRecipes, setFavRecipes] = useState([]);
+  const isAdmin = auth.isAdmin;
+  const history = useHistory();
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isInFavorites, setIsInFavorites] = useState(false);
 
   useEffect(() => {
@@ -27,7 +28,6 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
           throw new Error("Failed to fetch recipes");
         }
         const responseData = await response.json();
-        setFavRecipes(responseData.favorites);
         const isRecipeInFavorites = responseData.favorites.some(
           (recipe) => recipe._id === _id
         );
@@ -40,39 +40,32 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     fetchFavoriteRecipes();
   }, [userId, _id, auth.token]);
 
+  const showModalHandler = () => {
+    setIsDeleting(true);
+  };
+
+  const closeModalHandler = () => {
+    setIsDeleting(false);
+  };
+
   const changeStatusHandler = async (event) => {
     event.preventDefault();
-
     try {
-      let response;
-      if (isInFavorites) {
-        response = await fetch(
-          `http://localhost:5000/favorites/${userId}/${_id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + auth.token,
-            },
-          }
-        );
-      } else {
-        response = await fetch(
-          `http://localhost:5000/favorites/${userId}/${_id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + auth.token,
-            },
-            body: JSON.stringify({ recipeId: _id }),
-          }
-        );
-      }
+      const response = await fetch(
+        `http://localhost:5000/favorites/${userId}/${_id}`,
+        {
+          method: isInFavorites ? "DELETE" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + auth.token,
+          },
+          body: JSON.stringify({ recipeId: _id }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(
-          `Failed to ${isInFavorites ? "remove" : "add"} recipe to favorites`
+          `Failed to ${isInFavorites ? "remove from" : "add to"} favorites.`
         );
       }
 
@@ -82,24 +75,71 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     }
   };
 
+  const deletingRecipeHandler = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/admin/recipes/${_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + auth.token,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete recipe.");
+      }
+
+      console.log("Recipe deleted successfully");
+      setIsDeleting(false);
+      history.push("/");
+    } catch (error) {
+      console.error("Error deleting recipe:", error.message);
+    }
+  };
+
   return (
     <>
-      <div>
-        <h1 className={styles.title}>Recipe Details page !!!</h1>
+      <h1 className={styles.title}>Recipe Details Page</h1>
 
-        {auth.isSignedIn && (
-          <form onSubmit={changeStatusHandler}>
-            <button type="submit">
-              {!isInFavorites ? "Add to favorites" : "Remove from favorites"}
-            </button>
-          </form>
-        )}
+      {auth.isSignedIn && (
+        <>
+          <div>
+            <form onSubmit={changeStatusHandler}>
+              <button type="submit">
+                {!isInFavorites ? "Add to favorites" : "Remove from favorites"}
+              </button>
+            </form>
+            {isAdmin && (
+              <Link
+                to={{
+                  pathname: `/admin/edit-recipe/${_id}`,
+                  state: { recipeData: loadedRecipe },
+                }}
+              >
+                Edit Recipe
+              </Link>
+            )}
+            {isAdmin && (
+              <button onClick={showModalHandler}>Remove Recipe</button>
+            )}
+          </div>
+        </>
+      )}
 
-        <p>Recipe Id --- {_id}</p>
-        <p>Name --- {name}</p>
-        <p>Ingredients --- {ingredients}</p>
-        <p>Instructions --- {instructions}</p>
-      </div>
+      {auth.isSignedIn && isAdmin && <p>Recipe Id: {_id}</p>}
+      <p>Name: {name}</p>
+      <p>Ingredients: {ingredients}</p>
+      <p>Instructions: {instructions}</p>
+
+      {isDeleting && (
+        <Modal
+          message="Are you sure you want to delete this recipe?"
+          onClear={closeModalHandler}
+          onConfirm={deletingRecipeHandler}
+        />
+      )}
     </>
   );
 };

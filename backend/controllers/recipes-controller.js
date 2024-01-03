@@ -1,4 +1,5 @@
 const HttpError = require("../models/http-error");
+const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
 
 // create recipe - admin only
@@ -67,7 +68,6 @@ exports.getRecipeById = async (req, res, next) => {
   res.json({ recipe: recipe.toObject({ getters: true }) });
 };
 
-// delete recipe - not working
 exports.removeRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
 
@@ -78,9 +78,10 @@ exports.removeRecipeById = async (req, res, next) => {
       return next(new HttpError("Could not find recipe for provided id.", 404));
     }
 
+    await User.updateMany({ favorites: recipeId }, { $pull: { favorites: recipeId } });
+
     res.status(200).json({ message: "Deleted recipe." });
   } catch (err) {
     return next(new HttpError("Could not delete recipe.", 500));
   }
 };
-

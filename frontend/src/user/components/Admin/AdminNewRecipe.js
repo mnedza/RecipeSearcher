@@ -9,7 +9,13 @@ const AdminNewRecipe = () => {
     name: "",
     ingredients: "",
     instructions: "",
-    image: "", // Dodane pole dla URL obrazka
+    image: "",
+    time: 0,
+    category: "",
+    cuisine: "",
+    difficulty: "",
+    seasonality: "",
+    specialDiet: "",
   });
 
   const handleInputChange = (e) => {
@@ -34,6 +40,12 @@ const AdminNewRecipe = () => {
             ingredients: newRecipe.ingredients,
             instructions: newRecipe.instructions,
             image: newRecipe.image,
+            time: newRecipe.time,
+            category: newRecipe.category,
+            cuisine: newRecipe.cuisine,
+            difficulty: newRecipe.difficulty,
+            seasonality: newRecipe.seasonality,
+            specialDiet: newRecipe.specialDiet,
           }),
         }
       );
@@ -88,6 +100,66 @@ const AdminNewRecipe = () => {
           id="image"
           name="image"
           value={newRecipe.image}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="time">Time</label>
+        <input
+          type="number"
+          id="time"
+          name="time"
+          value={newRecipe.time}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="category">Category:</label>
+        <input
+          type="text"
+          id="category"
+          name="category"
+          value={newRecipe.category}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="cuisine">Cuisine:</label>
+        <input
+          type="text"
+          id="cuisine"
+          name="cuisine"
+          value={newRecipe.cuisine}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="difficulty">Difficulty</label>
+        <input
+          type="text"
+          id="difficulty"
+          name="difficulty"
+          value={newRecipe.difficulty}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="seasonality">Seasonality</label>
+        <input
+          type="text"
+          id="seasonality"
+          name="seasonality"
+          value={newRecipe.seasonality}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="specialDiet">SpecialDiet</label>
+        <input
+          type="text"
+          id="specialDiet"
+          name="specialDiet"
+          value={newRecipe.specialDiet}
           onChange={handleInputChange}
         />
       </div>

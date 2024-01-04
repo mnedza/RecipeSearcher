@@ -5,7 +5,19 @@ import { Link, useHistory } from "react-router-dom";
 import Modal from "../../../shared/components/UIElements/Modal";
 
 const RecipeContentToShow = ({ loadedRecipe }) => {
-  const { _id, name, instructions, ingredients } = loadedRecipe;
+  const {
+    _id,
+    name,
+    ingredients,
+    instructions,
+    image,
+    time,
+    category,
+    cuisine,
+    difficulty,
+    seasonality,
+    specialDiet,
+  } = loadedRecipe;
   const auth = useContext(AuthContext);
   const userId = auth.userId;
   const isAdmin = auth.isAdmin;
@@ -132,6 +144,13 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
       <p>Name: {name}</p>
       <p>Ingredients: {ingredients}</p>
       <p>Instructions: {instructions}</p>
+      <img src={image} alt={name} />
+      <p>time: {time} minutes</p>
+      <p>category: {category}</p>
+      <p>cuisine: {cuisine}</p>
+      <p>difficulty: {difficulty}</p>
+      <p>seasonality: {seasonality}</p>
+      <p>specialDiet: {specialDiet}</p>
 
       {isDeleting && (
         <Modal

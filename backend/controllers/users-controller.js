@@ -394,7 +394,18 @@ exports.getAllUsers = async (req, res, next) => {
 // edit recipe by id
 exports.updateRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
-  const { name, ingredients, instructions } = req.body;
+  const {
+    name,
+    ingredients,
+    instructions,
+    image,
+    time,
+    category,
+    cuisine,
+    difficulty,
+    seasonality,
+    specialDiet,
+  } = req.body;
 
   let recipeToUpdate;
   try {
@@ -410,6 +421,13 @@ exports.updateRecipeById = async (req, res, next) => {
   recipeToUpdate.name = name || recipeToUpdate.name;
   recipeToUpdate.ingredients = ingredients || recipeToUpdate.ingredients;
   recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
+  recipeToUpdate.image = image || recipeToUpdate.image;
+  recipeToUpdate.time = time || recipeToUpdate.time;
+  recipeToUpdate.category = category || recipeToUpdate.category;
+  recipeToUpdate.cuisine = cuisine || recipeToUpdate.cuisine;
+  recipeToUpdate.difficulty = difficulty || recipeToUpdate.difficulty;
+  recipeToUpdate.seasonality = seasonality || recipeToUpdate.seasonality;
+  recipeToUpdate.specialDiet = specialDiet || recipeToUpdate.specialDiet;
 
   try {
     await recipeToUpdate.save();

@@ -4,7 +4,19 @@ const Recipe = require("../models/recipe-model");
 
 // create recipe - admin only
 exports.addRecipe = async (req, res, next) => {
-  const { name, ingredients, instructions, image, users } = req.body;
+  const {
+    name,
+    ingredients,
+    instructions,
+    image,
+    users,
+    time,
+    category,
+    cuisine,
+    difficulty,
+    seasonality,
+    specialDiet,
+  } = req.body;
 
   const createdRecipe = new Recipe({
     name: name,
@@ -12,6 +24,12 @@ exports.addRecipe = async (req, res, next) => {
     instructions: instructions,
     image: image,
     users: users,
+    time: time,
+    category: category,
+    cuisine: cuisine,
+    difficulty: difficulty,
+    seasonality: seasonality,
+    specialDiet: specialDiet,
   });
 
   try {
@@ -78,7 +96,10 @@ exports.removeRecipeById = async (req, res, next) => {
       return next(new HttpError("Could not find recipe for provided id.", 404));
     }
 
-    await User.updateMany({ favorites: recipeId }, { $pull: { favorites: recipeId } });
+    await User.updateMany(
+      { favorites: recipeId },
+      { $pull: { favorites: recipeId } }
+    );
 
     res.status(200).json({ message: "Deleted recipe." });
   } catch (err) {

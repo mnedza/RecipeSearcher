@@ -38,8 +38,7 @@ router.delete(
   usersController.removeRecipeFromFavorites
 );
 
-// admin functions only
-
+// admin functions 
 router.post("/admin/recipes/add-recipe", recipesController.addRecipe);
 router.put("/admin/recipes/edit-recipe/:recipeId", usersController.updateRecipeById);
 router.delete("/admin/recipes/:recipeId", recipesController.removeRecipeById);

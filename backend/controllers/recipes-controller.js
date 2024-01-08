@@ -86,6 +86,7 @@ exports.getRecipeById = async (req, res, next) => {
   res.json({ recipe: recipe.toObject({ getters: true }) });
 };
 
+// remove recipe
 exports.removeRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
 
@@ -104,5 +105,69 @@ exports.removeRecipeById = async (req, res, next) => {
     res.status(200).json({ message: "Deleted recipe." });
   } catch (err) {
     return next(new HttpError("Could not delete recipe.", 500));
+  }
+};
+
+
+// exports.searchRecipes = async (req, res, next) => {
+//   const { searchWords, allFilters } = req.body;
+
+//   try {
+//     let recipes = [];
+//     if (searchWords.length > 0) {
+//       const keywordsQuery = searchWords.map(word => ({ name: { $regex: new RegExp(word, "i") } }));
+//       const keywordRecipes = await Recipe.find({ $or: keywordsQuery });
+//       recipes.push(...keywordRecipes);
+//     }
+
+//     if (allFilters) {
+//       const filterKeys = Object.keys(allFilters);
+//       if (filterKeys.length > 0) {
+//         recipes = recipes.filter(recipe => {
+//           return filterKeys.every(category => {
+//             const filterValues = allFilters[category];
+//             if (category === 'time') {
+//               return filterValues.includes(recipe.time);
+//             } else if (category === 'category') {
+//               return filterValues.includes(recipe.category);
+//             } else if (category === 'cuisine') {
+//               return filterValues.includes(recipe.cuisine);
+//             } else if (category === 'difficulty') {
+//               return filterValues.includes(recipe.difficulty);
+//             } else if (category === 'seasonality') {
+//               return filterValues.includes(recipe.seasonality);
+//             } else if (category === 'specialDiet') {
+//               return filterValues.some(value => recipe.specialDiet.includes(value));
+//             }
+//           });
+//         });
+//       }
+//     }
+
+//     res.json({ recipes });
+//   } catch (err) {
+//     const error = new HttpError("Something went wrong, could not find recipes.", 500);
+//     return next(error);
+//   }
+// };
+
+
+exports.searchRecipes = async (req, res, next) => {
+  const { searchWords, allFilters } = req.body;
+
+  try {
+    let recipes = [];
+
+    if (searchWords.length > 0) {
+      const keywordsQuery = searchWords.map(word => ({ name: { $regex: new RegExp(word, "i") } }));
+      recipes = await Recipe.find({ $or: keywordsQuery, ...allFilters });
+    } else {
+      recipes = await Recipe.find(allFilters);
+    }
+
+    res.json({ recipes });
+  } catch (err) {
+    const error = new HttpError("Something went wrong, could not find recipes.", 500);
+    return next(error);
   }
 };

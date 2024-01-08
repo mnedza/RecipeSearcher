@@ -18,7 +18,7 @@ const Filters = ({ filtersOpen, closeFiltersHandler, sendFilters }) => {
       // ... pozostałe wartości
     ],
     difficulty: [
-      { filterId: "id10", value: "Easy" },
+      { filterId: "id10", value: "easy" },
       // ... pozostałe wartości
     ],
     seasonality: [
@@ -61,6 +61,36 @@ const Filters = ({ filtersOpen, closeFiltersHandler, sendFilters }) => {
       return updatedFilters;
     });
   };
+
+  // const transformFilters = (updatedFilters) => {
+  //   const transformedFilters = {};
+  //   Object.entries(updatedFilters).forEach(([key, value]) => {
+  //     transformedFilters[key] = value.map((filter) => filter.value);
+  //   });
+  //   return transformedFilters;
+  // };
+
+  // const handleFilterChange = (categoryName, filterValue) => {
+  //   setSelectedFilters((prevFilters) => {
+  //     const updatedFilters = { ...prevFilters };
+  //     const index = updatedFilters[categoryName].findIndex(
+  //       (filter) => filter.value === filterValue
+  //     );
+
+  //     if (index === -1) {
+  //       updatedFilters[categoryName] = [
+  //         ...updatedFilters[categoryName],
+  //         { filterId: `id${Date.now()}`, value: filterValue },
+  //       ];
+  //     } else {
+  //       updatedFilters[categoryName] = updatedFilters[categoryName].filter(
+  //         (filter) => filter.value !== filterValue
+  //       );
+  //     }
+  //     sendFilters(transformFilters(updatedFilters)); // Przekształcenie i przesłanie zaktualizowanych filtrów
+  //     return updatedFilters;
+  //   });
+  // };
 
   return (
     <>

@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { useHistory } from "react-router-dom";
 
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
+
 const AdminNewRecipe = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
@@ -9,7 +11,7 @@ const AdminNewRecipe = () => {
     name: "",
     ingredients: "",
     instructions: "",
-    image: "",
+    image: null,
     time: 0,
     category: "",
     cuisine: "",
@@ -23,33 +25,38 @@ const AdminNewRecipe = () => {
     setNewRecipe({ ...newRecipe, [name]: value });
   };
 
+  const handleImageInputChange = (id, file, isValid) => {
+    setNewRecipe({ ...newRecipe, image: file });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("name", newRecipe.name);
+      formData.append("ingredients", newRecipe.ingredients);
+      formData.append("instructions", newRecipe.instructions);
+      formData.append("time", newRecipe.time);
+      formData.append("category", newRecipe.category);
+      formData.append("cuisine", newRecipe.cuisine);
+      formData.append("difficulty", newRecipe.difficulty);
+      formData.append("seasonality", newRecipe.seasonality);
+      formData.append("specialDiet", newRecipe.specialDiet);
+      formData.append("image", newRecipe.image);
+
+      console.log([...formData]);
+
       const response = await fetch(
         "http://localhost:5000/admin/recipes/add-recipe",
         {
           method: "POST",
+          body: formData,
           headers: {
-            "Content-Type": "application/json",
             Authorization: "Bearer " + auth.token,
           },
-          body: JSON.stringify({
-            name: newRecipe.name,
-            ingredients: newRecipe.ingredients,
-            instructions: newRecipe.instructions,
-            image: newRecipe.image,
-            time: newRecipe.time,
-            category: newRecipe.category,
-            cuisine: newRecipe.cuisine,
-            difficulty: newRecipe.difficulty,
-            seasonality: newRecipe.seasonality,
-            specialDiet: newRecipe.specialDiet,
-          }),
         }
       );
-
       const responseData = await response.json();
 
       if (!response.ok) {
@@ -93,16 +100,7 @@ const AdminNewRecipe = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div>
-        <label htmlFor="image">Image URL:</label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value={newRecipe.image}
-          onChange={handleInputChange}
-        />
-      </div>
+      <ImageUpload id="image" onInput={handleImageInputChange} />
       <div>
         <label htmlFor="time">Time</label>
         <input

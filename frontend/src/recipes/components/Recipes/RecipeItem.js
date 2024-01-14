@@ -20,7 +20,7 @@ const RecipeItem = (props) => {
     <>
       <div className={styles.recipe}>
         <h3 className={styles["recipe-name"]}>{name}</h3>
-        <img className={styles.img} src={image} alt={name} />
+        <img className={styles.img} src={`http://localhost:5000/${image}`} alt={name} />
         <p className={styles.description}>{instruction}</p>
         <Link className={styles.button} to={`/${path}/${_id}`}>
           See more details

@@ -3,6 +3,7 @@ import FiltersPanel from "./FiltersPanel";
 import styles from "./RecipesSearch.module.css";
 import classes from "./SearchPanel.module.css";
 import Filters from "./AddFilters/Filters";
+import { Link, useHistory } from "react-router-dom";
 
 const initialFilters = {
   time: [],
@@ -14,9 +15,11 @@ const initialFilters = {
 };
 
 const RecipeSearch = () => {
+  const history = useHistory();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState(initialFilters);
   const [searchValue, setSearchValue] = useState("");
+  const [recipes, setRecipes] = useState([]);
 
   const closeFiltersHandler = () => {
     setFiltersOpen(false);
@@ -34,7 +37,21 @@ const RecipeSearch = () => {
     setSearchValue(event.target.value);
   };
 
-  const searchHandler = async (searchWords, allFilters) => {
+  const handleSearchClick = async () => {
+    const searchWords = searchValue.split(" ");
+  
+    const allFilters = Object.entries(filters).reduce((acc, [key, value]) => {
+      acc[key] = value.map((filter) => filter.value);
+      return acc;
+    }, {});
+  
+    const filteredFilters = Object.entries(allFilters)
+      .filter(([key, value]) => value.length > 0)
+      .reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+  
     try {
       const response = await fetch("http://localhost:5000/search", {
         method: "POST",
@@ -43,53 +60,21 @@ const RecipeSearch = () => {
         },
         body: JSON.stringify({
           searchWords: searchWords,
-          allFilters: allFilters,
+          allFilters: filteredFilters,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error("Request failed!");
       }
-
+  
       const data = await response.json();
       console.log("Recipes:", data.recipes);
-      // Tutaj możemy zrobić coś z otrzymanymi danymi
+  
+      history.push("/searched-recipes", { recipes: data.recipes });
     } catch (error) {
       console.error("There was an error!", error);
-      // Tutaj możemy obsłużyć błąd
     }
-  };
-  // const handleSearchClick = () => {
-  //   const searchWords = searchValue.split(" ");
-
-  //   console.log("filters", filters);
-
-  //   const allFilters = Object.values(filters).flatMap((category) =>
-  //     category.filter((filter) => filter.checked).map((filter) => filter.value)
-  //   );
-
-  //   console.log("allFilters", allFilters);
-  //   searchHandler(searchWords, allFilters);
-  // };
-
-  const handleSearchClick = () => {
-    const searchWords = searchValue.split(" ");
-
-    const allFilters = Object.entries(filters).reduce((acc, [key, value]) => {
-      acc[key] = value.map((filter) => filter.value);
-      return acc;
-    }, {});
-
-    const filteredFilters = Object.entries(allFilters)
-    .filter(([key, value]) => value.length > 0)
-    .reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
-
-    console.log("searchWords", searchWords);
-    console.log("allFilters", filteredFilters);
-    searchHandler(searchWords, filteredFilters);
   };
 
   const handleVoiceButtonClick = () => {
@@ -128,12 +113,13 @@ const RecipeSearch = () => {
             <button className={classes.button} onClick={handleVoiceButtonClick}>
               Voice
             </button>
-            <button
+            <Link
               className={`${classes.button} ${classes["search-btn"]}`}
               onClick={handleSearchClick}
+              to="/searched-recipes"
             >
               Search
-            </button>
+            </Link>
           </div>
 
           {Object.entries(filters).map(([categoryName, categoryFilters]) => (

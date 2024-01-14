@@ -144,7 +144,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
       <p>Name: {name}</p>
       <p>Ingredients: {ingredients}</p>
       <p>Instructions: {instructions}</p>
-      <img src={image} alt={name} />
+      <img src={`http://localhost:5000/${image}`} alt={name} />
       <p>time: {time} minutes</p>
       <p>category: {category}</p>
       <p>cuisine: {cuisine}</p>

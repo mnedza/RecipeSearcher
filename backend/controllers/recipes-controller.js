@@ -1,15 +1,13 @@
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
+const fileUpload = require("../middleware/file-upload");
 
-// create recipe - admin only
 exports.addRecipe = async (req, res, next) => {
   const {
     name,
     ingredients,
     instructions,
-    image,
-    users,
     time,
     category,
     cuisine,
@@ -17,19 +15,28 @@ exports.addRecipe = async (req, res, next) => {
     seasonality,
     specialDiet,
   } = req.body;
+  
+  // Assuming image is the field name for the file upload
+  const image = req.file.path;
+  
+
+  // Check if the image file is included in the request
+  if (!req.file) {
+    const error = new HttpError("Image file is missing.", 400);
+    return next(error);
+  }
 
   const createdRecipe = new Recipe({
-    name: name,
-    ingredients: ingredients,
-    instructions: instructions,
-    image: image,
-    users: users,
-    time: time,
-    category: category,
-    cuisine: cuisine,
-    difficulty: difficulty,
-    seasonality: seasonality,
-    specialDiet: specialDiet,
+    name,
+    ingredients,
+    instructions,
+    image: req.file.path, // Save the file path in the database
+    time,
+    category,
+    cuisine,
+    difficulty,
+    seasonality,
+    specialDiet,
   });
 
   try {
@@ -44,7 +51,6 @@ exports.addRecipe = async (req, res, next) => {
 
   res.status(201).json({ recipe: createdRecipe });
 };
-
 // get all recipes
 exports.getRecipes = async (req, res, next) => {
   let recipes;
@@ -108,50 +114,6 @@ exports.removeRecipeById = async (req, res, next) => {
   }
 };
 
-
-// exports.searchRecipes = async (req, res, next) => {
-//   const { searchWords, allFilters } = req.body;
-
-//   try {
-//     let recipes = [];
-//     if (searchWords.length > 0) {
-//       const keywordsQuery = searchWords.map(word => ({ name: { $regex: new RegExp(word, "i") } }));
-//       const keywordRecipes = await Recipe.find({ $or: keywordsQuery });
-//       recipes.push(...keywordRecipes);
-//     }
-
-//     if (allFilters) {
-//       const filterKeys = Object.keys(allFilters);
-//       if (filterKeys.length > 0) {
-//         recipes = recipes.filter(recipe => {
-//           return filterKeys.every(category => {
-//             const filterValues = allFilters[category];
-//             if (category === 'time') {
-//               return filterValues.includes(recipe.time);
-//             } else if (category === 'category') {
-//               return filterValues.includes(recipe.category);
-//             } else if (category === 'cuisine') {
-//               return filterValues.includes(recipe.cuisine);
-//             } else if (category === 'difficulty') {
-//               return filterValues.includes(recipe.difficulty);
-//             } else if (category === 'seasonality') {
-//               return filterValues.includes(recipe.seasonality);
-//             } else if (category === 'specialDiet') {
-//               return filterValues.some(value => recipe.specialDiet.includes(value));
-//             }
-//           });
-//         });
-//       }
-//     }
-
-//     res.json({ recipes });
-//   } catch (err) {
-//     const error = new HttpError("Something went wrong, could not find recipes.", 500);
-//     return next(error);
-//   }
-// };
-
-
 exports.searchRecipes = async (req, res, next) => {
   const { searchWords, allFilters } = req.body;
 
@@ -159,7 +121,9 @@ exports.searchRecipes = async (req, res, next) => {
     let recipes = [];
 
     if (searchWords.length > 0) {
-      const keywordsQuery = searchWords.map(word => ({ name: { $regex: new RegExp(word, "i") } }));
+      const keywordsQuery = searchWords.map((word) => ({
+        name: { $regex: new RegExp(word, "i") },
+      }));
       recipes = await Recipe.find({ $or: keywordsQuery, ...allFilters });
     } else {
       recipes = await Recipe.find(allFilters);
@@ -167,7 +131,10 @@ exports.searchRecipes = async (req, res, next) => {
 
     res.json({ recipes });
   } catch (err) {
-    const error = new HttpError("Something went wrong, could not find recipes.", 500);
+    const error = new HttpError(
+      "Something went wrong, could not find recipes.",
+      500
+    );
     return next(error);
   }
 };

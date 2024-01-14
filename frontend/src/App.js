@@ -26,6 +26,7 @@ import AdminUsers from "./user/components/Admin/AdminUsers";
 import AdminRecipes from "./user/components/Admin/AdminRecipes";
 import AdminEditRecipe from "./user/components/Admin/AdminEditRecipe";
 import AdminNewRecipe from "./user/components/Admin/AdminNewRecipe";
+import SearchedRecipes from "./recipes/components/Recipes/SearchedRecipes";
 
 let logoutTimer;
 
@@ -96,6 +97,10 @@ const App = () => {
         <Home />
       </Route>
 
+      <Route path="/searched-recipes">
+        <SearchedRecipes />
+      </Route>
+
       <Route path="/recipes/:recipeId">
         <Recipe />
       </Route>
@@ -134,6 +139,10 @@ const App = () => {
     <Switch>
       <Route path="/" exact>
         <Home />
+      </Route>
+
+      <Route path="/searched-recipes">
+        <SearchedRecipes />
       </Route>
 
       <Route path="/admin/users/:userId">
@@ -198,6 +207,10 @@ const App = () => {
     <Switch>
       <Route path="/" exact>
         <Home />
+      </Route>
+
+      <Route path="/searched-recipes">
+        <SearchedRecipes />
       </Route>
 
       <Route path="/recipes/:recipeId">

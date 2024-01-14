@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fs = require('fs');
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
@@ -391,14 +392,12 @@ exports.getAllUsers = async (req, res, next) => {
   res.json({ users });
 };
 
-// edit recipe by id
 exports.updateRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
   const {
     name,
     ingredients,
     instructions,
-    image,
     time,
     category,
     cuisine,
@@ -418,16 +417,29 @@ exports.updateRecipeById = async (req, res, next) => {
     return next(new HttpError("Could not find recipe for provided Id.", 404));
   }
 
+  if (recipeToUpdate.image) {
+    const imagePath = recipeToUpdate.image;
+
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error('Error deleting previous image:', err);
+      }
+    });
+  }
+
   recipeToUpdate.name = name || recipeToUpdate.name;
   recipeToUpdate.ingredients = ingredients || recipeToUpdate.ingredients;
   recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
-  recipeToUpdate.image = image || recipeToUpdate.image;
   recipeToUpdate.time = time || recipeToUpdate.time;
   recipeToUpdate.category = category || recipeToUpdate.category;
   recipeToUpdate.cuisine = cuisine || recipeToUpdate.cuisine;
   recipeToUpdate.difficulty = difficulty || recipeToUpdate.difficulty;
   recipeToUpdate.seasonality = seasonality || recipeToUpdate.seasonality;
   recipeToUpdate.specialDiet = specialDiet || recipeToUpdate.specialDiet;
+
+  if (req.file) {
+    recipeToUpdate.image = req.file.path;
+  }
 
   try {
     await recipeToUpdate.save();

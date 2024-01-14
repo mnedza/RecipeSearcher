@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import Profile from "../User/Profile";
+import Profile from "./Profile";
 import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
 import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
 import { AuthContext } from "../../../shared/context/auth-context";

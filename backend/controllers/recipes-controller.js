@@ -1,3 +1,4 @@
+const fs = require("fs");
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
@@ -15,12 +16,7 @@ exports.addRecipe = async (req, res, next) => {
     seasonality,
     specialDiet,
   } = req.body;
-  
-  // Assuming image is the field name for the file upload
-  const image = req.file.path;
-  
 
-  // Check if the image file is included in the request
   if (!req.file) {
     const error = new HttpError("Image file is missing.", 400);
     return next(error);
@@ -30,7 +26,7 @@ exports.addRecipe = async (req, res, next) => {
     name,
     ingredients,
     instructions,
-    image: req.file.path, // Save the file path in the database
+    image: req.file.path,
     time,
     category,
     cuisine,
@@ -51,6 +47,7 @@ exports.addRecipe = async (req, res, next) => {
 
   res.status(201).json({ recipe: createdRecipe });
 };
+
 // get all recipes
 exports.getRecipes = async (req, res, next) => {
   let recipes;
@@ -92,11 +89,26 @@ exports.getRecipeById = async (req, res, next) => {
   res.json({ recipe: recipe.toObject({ getters: true }) });
 };
 
-// remove recipe
 exports.removeRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
 
   try {
+    const recipe = await Recipe.findById(recipeId);
+
+    if (!recipe) {
+      return next(new HttpError("Could not find recipe for provided id.", 404));
+    }
+
+    if (recipe.image) {
+      const imagePath = recipe.image;
+
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.error("Error deleting image:", err);
+        }
+      });
+    }
+
     const result = await Recipe.findByIdAndDelete(recipeId);
 
     if (!result) {

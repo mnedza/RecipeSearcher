@@ -7,6 +7,8 @@ const usersController = require("../controllers/users-controller");
 const recipesController = require("../controllers/recipes-controller");
 const checkAuth = require("../middleware/check-auth");
 
+const fileUpload = require("../middleware/file-upload");
+
 router.post(
   "/sign-up",
   [
@@ -18,7 +20,7 @@ router.post(
 );
 router.post("/sign-in", usersController.signIn);
 
-// Authentication 
+// Authentication
 router.use(checkAuth);
 
 router.get("/profile/:userId", usersController.getUserById);
@@ -38,10 +40,15 @@ router.delete(
   usersController.removeRecipeFromFavorites
 );
 
-// admin functions 
-router.post("/admin/recipes/add-recipe", recipesController.addRecipe);
-router.put("/admin/recipes/edit-recipe/:recipeId", usersController.updateRecipeById);
-router.delete("/admin/recipes/:recipeId", recipesController.removeRecipeById);
+// admin functions
+router.post("/admin/recipes/add-recipe", fileUpload.single("image"), recipesController.addRecipe);
+router.put(
+  "/admin/recipes/edit-recipe/:recipeId",
+  fileUpload.single("image"),
+  usersController.updateRecipeById
+);
+
+router.delete('/admin/recipes/:recipeId', fileUpload.single('image'), recipesController.removeRecipeById);
 
 router.get("/admin/users", usersController.getAllUsers);
 router.get("/admin/users/:userId", usersController.getUserById);

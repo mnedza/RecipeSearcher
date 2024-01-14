@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { useLocation, useHistory } from "react-router-dom";
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
 const AdminEditRecipe = () => {
   const location = useLocation();
@@ -13,40 +14,44 @@ const AdminEditRecipe = () => {
     setEditedRecipe({ ...editedRecipe, [name]: value });
   };
 
+  const handleImageInputChange = (id, file, isValid) => {
+    setEditedRecipe({ ...editedRecipe, image: file });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("name", editedRecipe.name);
+      formData.append("ingredients", editedRecipe.ingredients);
+      formData.append("instructions", editedRecipe.instructions);
+      formData.append("time", editedRecipe.time);
+      formData.append("category", editedRecipe.category);
+      formData.append("cuisine", editedRecipe.cuisine);
+      formData.append("difficulty", editedRecipe.difficulty);
+      formData.append("seasonality", editedRecipe.seasonality);
+      formData.append("specialDiet", editedRecipe.specialDiet);
+      formData.append("image", editedRecipe.image);
+
       const response = await fetch(
         `http://localhost:5000/admin/recipes/edit-recipe/${editedRecipe._id}`,
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
             Authorization: "Bearer " + auth.token,
           },
-          body: JSON.stringify({
-            name: editedRecipe.name,
-            ingredients: editedRecipe.ingredients,
-            instructions: editedRecipe.instructions,
-            image: editedRecipe.image,
-            time: editedRecipe.time,
-            category: editedRecipe.category,
-            cuisine: editedRecipe.cuisine,
-            difficulty: editedRecipe.difficulty,
-            seasonality: editedRecipe.seasonality,
-            specialDiet: editedRecipe.specialDiet,
-          }),
+          body: formData,
         }
       );
-
       const responseData = await response.json();
-
       if (!response.ok) {
         throw new Error(responseData.message || "Failed to update recipe.");
       }
 
       history.push(`/recipes/${editedRecipe._id}`);
+      console.log("Form Data:", [...formData]);
+      console.log("Response Data:", responseData);
     } catch (error) {
       console.error("Error updating recipe:", error.message);
     }
@@ -83,7 +88,8 @@ const AdminEditRecipe = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div>
+      <ImageUpload id="image" onInput={handleImageInputChange} />
+      {/* <div>
         <label htmlFor="image">Image URL:</label>
         <input
           type="text"
@@ -92,7 +98,7 @@ const AdminEditRecipe = () => {
           value={editedRecipe.image}
           onChange={handleInputChange}
         />
-      </div>
+      </div> */}
       <div>
         <label htmlFor="time">Time</label>
         <input

@@ -1,7 +1,16 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./NavLinks.module.css";
 
@@ -24,7 +33,9 @@ const NavLinks = (props) => {
         className={styles["nav-link-admin"]}
         onClick={props.onClick}
       >
-        Admin
+        <FontAwesomeIcon icon={faUser} />
+        {/* Admin */}
+        <span className={styles["link-span"]}>Admin</span>
       </NavLink>
     </>
   );
@@ -37,7 +48,8 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Home
+        <FontAwesomeIcon icon={faHome} />
+        <span className={styles["link-span"]}>Home</span>
       </NavLink>
 
       <NavLink
@@ -45,7 +57,9 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Search
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        {/* Search */}
+        <span className={styles["link-span"]}>Search</span>
       </NavLink>
 
       <NavLink
@@ -53,7 +67,9 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Recipes
+        <FontAwesomeIcon icon={faBook} />
+        {/* Recipes */}
+        <span className={styles["link-span"]}>Recipes</span>
       </NavLink>
     </>
   );
@@ -65,7 +81,9 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Favorites
+        <FontAwesomeIcon icon={faStar} />
+        {/* Favorites */}
+        <span className={styles["link-span"]}>Favorites</span>
       </NavLink>
 
       <NavLink
@@ -73,15 +91,19 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Profile
+        <FontAwesomeIcon icon={faAddressCard} />
+        {/* Profile */}
+        <span className={styles["link-span"]}>Profile</span>
       </NavLink>
 
       <li
         to="/sign-out"
-        className={styles["nav-link"]}
+        className={`${styles["nav-link"]} ${styles["sign-out"]}`}
         onClick={signOutHandler}
       >
-        Sign Out
+        <FontAwesomeIcon icon={faRightToBracket} />
+        {/* Sign Out */}
+        <span className={styles["link-span"]}>SignOut</span>
       </li>
     </>
   );
@@ -93,7 +115,9 @@ const NavLinks = (props) => {
         className={styles["nav-link"]}
         onClick={props.onClick}
       >
-        Sign In
+        <FontAwesomeIcon icon={faKey} />
+        {/* Sign In */}
+        <span className={styles["link-span"]}>Sign In</span>
       </NavLink>
 
       <NavLink
@@ -101,7 +125,11 @@ const NavLinks = (props) => {
         className={`${styles["nav-link"]} ${styles["sign-up"]}`}
         onClick={props.onClick}
       >
-        Sign Up
+        <FontAwesomeIcon icon={faRightToBracket} />
+
+        {/* Sign Up */}
+
+        <span className={styles["link-span"]}>Sign Up</span>
       </NavLink>
     </>
   );

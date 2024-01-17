@@ -50,8 +50,6 @@ const AdminEditRecipe = () => {
       }
 
       history.push(`/recipes/${editedRecipe._id}`);
-      console.log("Form Data:", [...formData]);
-      console.log("Response Data:", responseData);
     } catch (error) {
       console.error("Error updating recipe:", error.message);
     }
@@ -89,16 +87,6 @@ const AdminEditRecipe = () => {
         />
       </div>
       <ImageUpload id="image" onInput={handleImageInputChange} />
-      {/* <div>
-        <label htmlFor="image">Image URL:</label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value={editedRecipe.image}
-          onChange={handleInputChange}
-        />
-      </div> */}
       <div>
         <label htmlFor="time">Time</label>
         <input

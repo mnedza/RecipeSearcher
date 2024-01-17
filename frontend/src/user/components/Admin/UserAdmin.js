@@ -11,7 +11,8 @@ const UserAdmin = ({ user }) => {
     <>
       <div className={classes["user-content"]}>
         <img
-          src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
+          src={`http://localhost:5000/${user.image}`}
+          
           alt={user.name}
           className={classes["user-avatar"]}
         />

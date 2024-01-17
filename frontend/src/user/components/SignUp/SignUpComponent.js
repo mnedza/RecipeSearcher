@@ -4,6 +4,7 @@ import { AuthContext } from "../../../shared/context/auth-context";
 
 import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
 import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
 import classes from "./SignUpComponent.module.css";
 
@@ -14,12 +15,13 @@ const SignUpComponent = () => {
   const minPassLength = 6;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const [formData, setFormData] = useState({
+  const [userData, setUserData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
     firstName: "",
     lastName: "",
+    image: null,
   });
   const [errors, setErrors] = useState({
     email: "",
@@ -41,7 +43,7 @@ const SignUpComponent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUserData({ ...userData, [name]: value });
 
     setErrors({ ...errors, [name]: "" });
 
@@ -60,7 +62,7 @@ const SignUpComponent = () => {
           : "Password must be at least 6 characters long",
       });
     } else if (name === "confirmPassword") {
-      const isValidConfirmPassword = value === formData.password;
+      const isValidConfirmPassword = value === userData.password;
       setErrors({
         ...errors,
         confirmPassword: isValidConfirmPassword ? "" : "Passwords do not match",
@@ -68,41 +70,51 @@ const SignUpComponent = () => {
     }
   };
 
+  const handleImageInputChange = (id, file, isValid) => {
+    setUserData({ ...userData, image: file });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateEmail(formData.email)) {
+    if (!validateEmail(userData.email)) {
       setErrors({ ...errors, email: "Invalid email format" });
       return;
-    } else if (!validatePassword(formData.password)) {
+    } else if (!validatePassword(userData.password)) {
       setErrors({
         ...errors,
         password: "Password must be at least 6 characters long",
       });
       return;
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (userData.password !== userData.confirmPassword) {
       setErrors({ ...errors, confirmPassword: "Passwords do not match" });
       return;
     }
 
     try {
       setIsLoading(true);
+
+      const formData = new FormData();
+      formData.append("name", userData.firstName);
+      formData.append("surname", userData.lastName);
+      formData.append("email", userData.email);
+      formData.append("password", userData.password);
+      formData.append("image", userData.image);
+
       const response = await fetch("http://localhost:5000/sign-up", {
         method: "POST",
+        body: formData,
         headers: {
-          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
         },
-        body: JSON.stringify({
-          name: formData.firstName,
-          surname: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-        }),
       });
+
       const responseData = await response.json();
+
       if (!response.ok) {
         throw new Error(responseData.message);
       }
+
       setIsLoading(false);
       auth.signIn(responseData.userId, responseData.token);
       history.push("/");
@@ -136,7 +148,7 @@ const SignUpComponent = () => {
                   id="firstName"
                   name="firstName"
                   placeholder="enter first name"
-                  value={formData.firstName}
+                  value={userData.firstName}
                   onChange={handleInputChange}
                   required
                 />
@@ -158,7 +170,7 @@ const SignUpComponent = () => {
                   id="lastName"
                   name="lastName"
                   placeholder="enter last name"
-                  value={formData.lastName}
+                  value={userData.lastName}
                   onChange={handleInputChange}
                   required
                 />
@@ -171,6 +183,12 @@ const SignUpComponent = () => {
                 </p>
               </div>
               <div className={classes["form-group"]}>
+                <label className={classes.label} htmlFor="image">
+                  Image:
+                </label>
+                <ImageUpload id="image" onInput={handleImageInputChange} />
+              </div>
+              <div className={classes["form-group"]}>
                 <label className={classes.label} htmlFor="email">
                   Email:
                 </label>
@@ -180,7 +198,7 @@ const SignUpComponent = () => {
                   id="email"
                   name="email"
                   placeholder="enter email"
-                  value={formData.email}
+                  value={userData.email}
                   onChange={handleInputChange}
                   required
                 />
@@ -202,7 +220,7 @@ const SignUpComponent = () => {
                   id="password"
                   name="password"
                   placeholder="enter password"
-                  value={formData.password}
+                  value={userData.password}
                   onChange={handleInputChange}
                   required
                 />
@@ -224,7 +242,7 @@ const SignUpComponent = () => {
                   id="confirm-password"
                   name="confirmPassword"
                   placeholder="confirm password"
-                  value={formData.confirmPassword}
+                  value={userData.confirmPassword}
                   onChange={handleInputChange}
                   required
                 />

@@ -17,6 +17,7 @@ exports.addRecipe = async (req, res, next) => {
     specialDiet,
   } = req.body;
 
+
   if (!req.file) {
     const error = new HttpError("Image file is missing.", 400);
     return next(error);
@@ -85,7 +86,6 @@ exports.getRecipeById = async (req, res, next) => {
     );
     return next(error);
   }
-
   res.json({ recipe: recipe.toObject({ getters: true }) });
 };
 

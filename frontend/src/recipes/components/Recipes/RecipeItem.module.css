@@ -17,7 +17,7 @@
     flex-direction: column;
     border: 0.1rem solid var(--transparent-white);
     border-radius: 1.2rem;
-    background-color: #f0f0f000;
+    /* background-color: #f0f0f000; */
 }
 
 .recipe-name {
@@ -43,14 +43,14 @@
     margin-top: auto;
     padding: 0.5rem 1rem;
     text-align: center;
-    background-color: var(--blue);
+    /* background-color: var(--blue); */
     border: none;
     border-radius: 0.5rem;
-    color: var(--white);
+    /* color: var(--white); */
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .button:hover {
-    background-color: #0056b3;
+    /* background-color: #0056b3; */
 }

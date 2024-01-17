@@ -5,6 +5,9 @@ import NavLinks from "./NavLinks";
 import Header from "./Header";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../UIElements/Backdrop";
+import LogoSVG from "../../../images/logo.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Navigation.module.css";
 
@@ -29,14 +32,31 @@ const Navigation = () => {
       </SideDrawer>
       <Header>
         <nav className={`${styles["nav-content"]} wrapper`}>
-          <Link to="/">Recipe Search App</Link>
+          <div className={styles["logo-link"]}>
+            <div className={styles["logo-container"]}>
+              <img
+                src={LogoSVG}
+                className={styles.logo}
+                alt="Logo Recipe Searcher"
+              />
+              <Link to="/">
+                <span className={styles["logo-text"]}>RecipeSearcher</span>
+              </Link>
+            </div>
+          </div>
 
           <nav className={styles["nav-links"]}>
             <NavLinks onClick={hideSideDrawerHandler} />
           </nav>
 
-          <button className={styles.hamburger} onClick={showSideDrawerHandler}>
-            Toggle SideBar
+          <button
+            className={styles["hamburger"]}
+            onClick={showSideDrawerHandler}
+          >
+            <FontAwesomeIcon
+              icon={faBarsStaggered}
+              className={styles["bars"]}
+            />
           </button>
         </nav>
       </Header>

@@ -1,13 +1,9 @@
-:root {
-    --light-dark: #2A3038;
-}
-
 .header {
     width: 100%;
     position: sticky;
     top: 0;
     padding: 0.2rem 5rem;
-    background-color: var(--light-dark);
+    background-color: var(--vanilla-cream);
 }
 
 @media (max-width: 450px) {

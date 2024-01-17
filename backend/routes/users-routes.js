@@ -11,6 +11,7 @@ const fileUpload = require("../middleware/file-upload");
 
 router.post(
   "/sign-up",
+  fileUpload.single("image"),
   [
     check("name").not().isEmpty(),
     check("email").normalizeEmail().isEmail(),
@@ -18,14 +19,23 @@ router.post(
   ],
   usersController.createUser
 );
+
 router.post("/sign-in", usersController.signIn);
 
 // Authentication
 router.use(checkAuth);
 
 router.get("/profile/:userId", usersController.getUserById);
-router.put("/profile/:userId", usersController.updateUserById);
-router.delete("/profile/:userId", usersController.deleteUser);
+router.put(
+  "/profile/:userId",
+  fileUpload.single("image"),
+  usersController.updateUserById
+);
+router.delete(
+  "/profile/:userId",
+  fileUpload.single("image"),
+  usersController.deleteUser
+);
 
 router.post("/recipes/:recipeId", usersController.addRecipeToFavorites);
 router.post(
@@ -41,14 +51,22 @@ router.delete(
 );
 
 // admin functions
-router.post("/admin/recipes/add-recipe", fileUpload.single("image"), recipesController.addRecipe);
+router.post(
+  "/admin/recipes/add-recipe",
+  fileUpload.single("image"),
+  recipesController.addRecipe
+);
 router.put(
   "/admin/recipes/edit-recipe/:recipeId",
   fileUpload.single("image"),
   usersController.updateRecipeById
 );
 
-router.delete('/admin/recipes/:recipeId', fileUpload.single('image'), recipesController.removeRecipeById);
+router.delete(
+  "/admin/recipes/:recipeId",
+  fileUpload.single("image"),
+  recipesController.removeRecipeById
+);
 
 router.get("/admin/users", usersController.getAllUsers);
 router.get("/admin/users/:userId", usersController.getUserById);

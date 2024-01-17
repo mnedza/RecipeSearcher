@@ -10,19 +10,19 @@
   .home-container h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #f1e6e6;
+    /* color: #f1e6e6; */
   }
   
   .home-container h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: #9b9999;
+    /* color: #9b9999; */
   }
   
   .home-container a {
     text-decoration: none;
-    color: #fff;
-    background-color: var(--darker-blue);
+    /* color: #fff; */
+    /* background-color: var(--darker-blue); */
     
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -30,6 +30,6 @@
   }
   
   .home-container a:hover {    
-    background-color: var(--light-blue);
+    /* background-color: var(--light-blue); */
   }
   

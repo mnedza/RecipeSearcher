@@ -19,7 +19,6 @@ const RecipeSearch = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState(initialFilters);
   const [searchValue, setSearchValue] = useState("");
-  const [recipes, setRecipes] = useState([]);
 
   const closeFiltersHandler = () => {
     setFiltersOpen(false);

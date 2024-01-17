@@ -8,7 +8,8 @@ const Profile = (props) => {
         <h1 className={styles["user-title"]}>Your Profile</h1>
         <div className={styles["user-profile"]}>
           <img
-            src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"
+            src={`http://localhost:5000/${props.userData.image}`}
+            // src="https://waskiel.pl/wp-content/uploads/2019/11/pomysl-na-zdjecie-wyobraznia-i-rzemioslo.jpg"
             className={styles["user-avatar"]}
             alt={`${props.userData.name} avatar`}
           />

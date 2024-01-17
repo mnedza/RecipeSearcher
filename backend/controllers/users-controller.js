@@ -1,14 +1,15 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fs = require('fs');
+const fs = require("fs");
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
 
-// create user = Sign up
 exports.createUser = async (req, res, next) => {
+  const { name, surname, email, password } = req.body;
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -16,7 +17,10 @@ exports.createUser = async (req, res, next) => {
     );
   }
 
-  const { name, surname, email, password } = req.body;
+  if (!req.file) {
+    const error = new HttpError("Image file is missing.", 400);
+    return next(error);
+  }
 
   let existingUser;
   try {
@@ -44,16 +48,14 @@ exports.createUser = async (req, res, next) => {
     return next(error);
   }
 
-  const isAdmin = false;
-
-  const createdUser = new User({
-    isAdmin,
-    name,
-    surname,
-    email,
-    password: hashedPassword,
-    favorites: [],
-  });
+  const createdUser = new User();
+  createdUser.isAdmin = false;
+  createdUser.name = name;
+  createdUser.surname = surname;
+  createdUser.email = email;
+  createdUser.password = hashedPassword;
+  createdUser.favorites = [];
+  createdUser.image = req.file.path;
 
   try {
     await createdUser.save();
@@ -75,11 +77,13 @@ exports.createUser = async (req, res, next) => {
       new HttpError("Signing up failed, please try again later.", 500)
     );
   }
+
   res.status(201).json({
     userId: createdUser.id,
     email: createdUser.email,
     token: token,
     isAdmin: createdUser.isAdmin,
+    image: req.file.path,
   });
 };
 
@@ -189,11 +193,25 @@ exports.updateUserById = async (req, res, next) => {
     return next(new HttpError("Could not find user for provided Id.", 404));
   }
 
+  if (userToUpdate.image) {
+    const imagePath = userToUpdate.image;
+
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error("Error deleting previous image:", err);
+      }
+    });
+  }
+
   userToUpdate.isAdmin = isAdmin || false;
   userToUpdate.name = name || userToUpdate.name;
   userToUpdate.surname = surname || userToUpdate.surname;
   userToUpdate.email = email || userToUpdate.email;
   userToUpdate.password = password || userToUpdate.password;
+
+  if (req.file) {
+    userToUpdate.image = req.file.path;
+  }
 
   try {
     await userToUpdate.save();
@@ -208,6 +226,17 @@ exports.updateUserById = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   const userId = req.params.userId;
   let user;
+
+  if (user.image) {
+    const imagePath = user.image;
+
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error("Error deleting image:", err);
+      }
+    });
+  }
+
   try {
     user = await User.findByIdAndDelete(userId);
   } catch (err) {
@@ -422,7 +451,7 @@ exports.updateRecipeById = async (req, res, next) => {
 
     fs.unlink(imagePath, (err) => {
       if (err) {
-        console.error('Error deleting previous image:', err);
+        console.error("Error deleting previous image:", err);
       }
     });
   }

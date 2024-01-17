@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { useLocation, useHistory } from "react-router-dom";
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
 const ProfileEdit = () => {
   const location = useLocation();
@@ -8,10 +9,13 @@ const ProfileEdit = () => {
   const history = useHistory();
   const currentUserId = auth.userId;
   const isAdmin = auth.isAdmin;
+
   const [userId, setUserId] = useState(currentUserId);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
+
   const [isAdminUser, setIsAdminUser] = useState(false);
 
   useEffect(() => {
@@ -43,22 +47,26 @@ const ProfileEdit = () => {
     setIsAdminUser(e.target.checked);
   };
 
+  const handleImageInputChange = (id, file, isValid) => {
+    setImage(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("surname", surname);
+      formData.append("email", email);
+      formData.append("isAdminUser", isAdminUser);
+      formData.append("image", image); 
       const response = await fetch(`http://localhost:5000/profile/${userId}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        body: JSON.stringify({
-          name: name,
-          surname: surname,
-          email: email,
-          isAdmin: isAdminUser,
-        }),
+        body: formData,
       });
 
       const responseData = await response.json();
@@ -117,6 +125,7 @@ const ProfileEdit = () => {
           onChange={handleEmailChange}
         />
       </div>
+      <ImageUpload id="image" onInput={handleImageInputChange} />
       <button type="submit">Save Changes</button>
     </form>
   );

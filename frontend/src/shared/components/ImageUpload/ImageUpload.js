@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-// import styles from "./ImageUpload.module.css";
+import styles from "./ImageUpload.module.css";
 
 const ImageUpload = (props) => {
   const [file, setFile] = useState();
@@ -40,7 +40,7 @@ const ImageUpload = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.example}>
       <input
         id={props.id}
         name={props.id}

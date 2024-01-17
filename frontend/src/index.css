@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
 :root {
-    --dark-gray: #1d1d20;
-    --darker-white: #A4AAB0;
+    --deep-teal: #43766C;
+    --bronze: #7f6950;
+    --rich-terracotta: #76453B;
+    --darker-vanilla-cream: #EBEDD4;
+    --vanilla-cream: #F8FAE5;
+    --emerald: #1fb574;
+    --red: #d94d4b;
+    --dark-grey: #867052;
+    --green: #2d8e69;
+    --dark: #2d2d2d;
+
 }
 
 *,
@@ -16,10 +27,18 @@ html {
 }
 
 body {
-    background-color: var(--dark-gray);
-    color: var(--darker-white);
+    background-color: var(--dark-grey);
+    color: black;
     font-family: "", sans-serif;
     font-size: 1.6rem;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 ul {
@@ -27,17 +46,18 @@ ul {
 }
 
 .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
+    flex: 1;
 }
 
 .section {
-    min-height: 85vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* animations */
-
 .animation-right-enter {
     transform: translateX(100%);
 }

@@ -8,7 +8,7 @@
 .container {
     margin: 2.5rem;
     width: 60rem;
-    background-color: #ffffff10;
+    /* background-color: #ffffff10; */
     padding: 2rem;
     border-radius: 0.8rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -39,7 +39,7 @@
 }
 
 .error {
-    color: rgba(253, 4, 4, 0.568);
+    /* color: rgba(253, 4, 4, 0.568); */
     visibility: hidden;
 }
 
@@ -48,8 +48,8 @@
 }
 
 .button {
-    background-color: #007bff;
-    color: #fff;
+    /* background-color: #007bff; */
+    /* color: #fff; */
     border: none;
     border-radius: 0.4rem;
     padding: 1.2rem 2rem;
@@ -59,5 +59,5 @@
 }
 
 .button:hover {
-    background-color: #0056b3;
+    /* background-color: #0056b3; */
 }

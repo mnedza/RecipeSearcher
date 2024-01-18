@@ -8,7 +8,7 @@
 .container {
     margin: 2.5rem;
     width: 60rem;
-    /* background-color: #ffffff10; */
+    background-color: var(--cocoa);
     padding: 2rem;
     border-radius: 0.8rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -24,9 +24,19 @@
     text-align: left;
 }
 
+.name-surname {
+    width: 100%;
+    display: flex;
+}
+
 .label {
     display: block;
     font-weight: bold;
+}
+
+.label-image {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .input {
@@ -38,8 +48,24 @@
     border-radius: 0.4rem;
 }
 
+.name-surname-input {
+    width: 100%;
+}
+
+.name-surname {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-name-surname {
+    margin: 2rem 0;
+    text-align: left;
+    width: 48%;
+}
+
 .error {
-    /* color: rgba(253, 4, 4, 0.568); */
+    color: var(--yellow);
     visibility: hidden;
 }
 
@@ -47,17 +73,22 @@
     visibility: inherit;
 }
 
+.show-error-centered {
+    text-align: center;
+    margin-top: 1rem;
+}
+
 .button {
-    /* background-color: #007bff; */
-    /* color: #fff; */
+    background-color: var(--emerald);
+    color: var(--vanilla-cream);
     border: none;
-    border-radius: 0.4rem;
-    padding: 1.2rem 2rem;
-    font-size: 1.6rem;
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-size: 2rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .button:hover {
-    /* background-color: #0056b3; */
+    background-color: var(--green);
 }

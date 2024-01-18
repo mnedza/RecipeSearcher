@@ -1,0 +1,51 @@
+/* ImageUpload.module.css */
+
+.example {
+    width: 100%;
+    max-width: 300px;
+    /* Dostosuj szerokość do swoich preferencji */
+    margin: 0 auto;
+    /* Centralizuje w poziomie */
+    text-align: center;
+}
+
+.preview {
+    width: 30rem;
+    height: 30rem;
+    border: 2px solid #ddd;
+    /* Obramowanie obszaru podglądu */
+    border-radius: 8px;
+    overflow: hidden;
+    /* Ukryj obrazki, które są większe niż obszar podglądu */
+}
+
+.preview img {
+    width: 30rem;
+    height: 30rem;
+    border-radius: 8px;
+}
+
+.info {
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.example button {
+    background-color: var(--emerald);
+    color: var(--vanilla-cream);
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.example button:hover {
+    background-color: var(--green);
+}

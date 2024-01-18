@@ -38,7 +38,6 @@ const ImageUpload = (props) => {
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
-
   return (
     <div className={styles.example}>
       <input
@@ -50,15 +49,13 @@ const ImageUpload = (props) => {
         accept=".jpg,.png,.jpeg"
         onChange={pickHandler}
       />
-      <div>
-        <div>
-          {previewUrl && <img src={previewUrl} alt="Preview" />}
-          {!previewUrl && <p>Please pick an image.</p>}
-        </div>
-        <button type="button" onClick={pickImageHandler}>
-          Pick Image
-        </button>
+      <div className={styles.preview}>
+        {previewUrl && <img src={previewUrl} alt="Preview" />}
+        {!previewUrl && <p className={styles.info}>Please pick an image.</p>}
       </div>
+      <button type="button" onClick={pickImageHandler}>
+        Pick Image
+      </button>
       {!isValid && <p>{props.erroText}</p>}
     </div>
   );

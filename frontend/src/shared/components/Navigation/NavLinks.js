@@ -34,7 +34,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faUser} />
-        {/* Admin */}
         <span className={styles["link-span"]}>Admin</span>
       </NavLink>
     </>
@@ -58,7 +57,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} />
-        {/* Search */}
         <span className={styles["link-span"]}>Search</span>
       </NavLink>
 
@@ -68,7 +66,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faBook} />
-        {/* Recipes */}
         <span className={styles["link-span"]}>Recipes</span>
       </NavLink>
     </>
@@ -82,7 +79,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faStar} />
-        {/* Favorites */}
         <span className={styles["link-span"]}>Favorites</span>
       </NavLink>
 
@@ -92,7 +88,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faAddressCard} />
-        {/* Profile */}
         <span className={styles["link-span"]}>Profile</span>
       </NavLink>
 
@@ -102,7 +97,6 @@ const NavLinks = (props) => {
         onClick={signOutHandler}
       >
         <FontAwesomeIcon icon={faRightToBracket} />
-        {/* Sign Out */}
         <span className={styles["link-span"]}>SignOut</span>
       </li>
     </>
@@ -116,7 +110,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faKey} />
-        {/* Sign In */}
         <span className={styles["link-span"]}>Sign In</span>
       </NavLink>
 
@@ -126,9 +119,6 @@ const NavLinks = (props) => {
         onClick={props.onClick}
       >
         <FontAwesomeIcon icon={faRightToBracket} />
-
-        {/* Sign Up */}
-
         <span className={styles["link-span"]}>Sign Up</span>
       </NavLink>
     </>

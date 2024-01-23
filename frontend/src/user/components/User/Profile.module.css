@@ -1,62 +1,107 @@
-.section {
-    min-height: 85vh;
+.user-container {
+    display: flex;
+    align-content: center;
+    padding: 2rem;
+    border: 1px solid var(--vanilla-cream);
+    background-color: var(--bronze);
+    border-radius: 2rem;
 }
 
-.user-container {
+.user-profile {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user-avatar {
+    margin: 2rem;
+    width: 20rem;
+    border-radius: 30%;
+    border: 1px solid white;
+}
+
+.user-data {
+    padding: 1.5rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
-
-.user-title {
-    margin: 2rem 0;
-    text-align: center;
-}
-
-.user-profile {
-    margin: 0 3rem;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     border: 1px solid white;
-    border-radius: 1.5rem;
-}
-
-.user-avatar {
-    padding: 2rem;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.user-data {
-    margin: 2rem 0;
-    display: flex;
-    flex-direction: column;
+    border-radius: 2rem;
 }
 
 .user-detail {
-    padding: 0.8rem;
+    margin: 1rem;
 }
 
-.profile-button {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.user-label {
+    font-size: 2rem;
+    color: var(--vanilla-cream);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-@media(max-width: 550px) {
+.user-description {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--yellow);
+}
+
+@media(min-width: 1250px) {
+    .user-data {
+        width: 100%;
+    }
+
+    .user-avatar {
+        margin: 0 2rem;
+    }
+}
+
+@media(max-width: 1250px) {
+    .user-data {
+        width: 100%;
+    }
+}
+
+@media(max-width:768px) {
+
+    .user-avatar {
+        width: 100%;
+    }
+
+    .user-profile {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 350px) {
+
+    .user-container {
+        padding: 0.5rem;
+    }
+
     .user-profile {
         display: flex;
         flex-direction: column;
     }
 
-    .user-avatar {
+    .user-detail {
+        width: 100%;
+    }
+
+    .user-data {
         padding: 0;
+    }
+
+    .user-description {
+        max-width: 100%;
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--yellow);
     }
 }

@@ -2,7 +2,6 @@ const fs = require("fs");
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
-const fileUpload = require("../middleware/file-upload");
 
 exports.addRecipe = async (req, res, next) => {
   const {
@@ -17,6 +16,9 @@ exports.addRecipe = async (req, res, next) => {
     specialDiet,
   } = req.body;
 
+  const parsedIngredients = Array.isArray(ingredients)
+    ? ingredients
+    : ingredients.split(",").map(item => item.trim());
 
   if (!req.file) {
     const error = new HttpError("Image file is missing.", 400);
@@ -25,7 +27,7 @@ exports.addRecipe = async (req, res, next) => {
 
   const createdRecipe = new Recipe({
     name,
-    ingredients,
+    ingredients: parsedIngredients,
     instructions,
     image: req.file.path,
     time,
@@ -49,7 +51,6 @@ exports.addRecipe = async (req, res, next) => {
   res.status(201).json({ recipe: createdRecipe });
 };
 
-// get all recipes
 exports.getRecipes = async (req, res, next) => {
   let recipes;
   try {
@@ -65,7 +66,6 @@ exports.getRecipes = async (req, res, next) => {
   res.json({ recipes });
 };
 
-// get recipe
 exports.getRecipeById = async (req, res, next) => {
   const recipeId = req.params.recipeId;
   let recipe;

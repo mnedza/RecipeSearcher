@@ -84,6 +84,7 @@
 
   .home-container {
     margin: 0 3rem;
+    margin-top: 9rem;
   }
 
   .paragraph {
@@ -94,6 +95,7 @@
 @media(max-width: 450px) {
   .home-container {
     margin: 0 2rem;
+    margin-top: 9rem;
   }
 
   .highlight-text {
@@ -116,6 +118,7 @@
 
   .home-container {
     margin: 0 1rem;
+    margin-top: 9rem;
   }
 
 

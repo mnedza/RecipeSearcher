@@ -1,9 +1,19 @@
 .user-content {
+    margin-top: 5rem;
     margin-bottom: 5rem;
     padding: 1rem;
     display: flex;
-    border: 1px solid red; 
+    border: 1px solid var(--dark);
+    background-color: var(--vanilla-cream);
+    color: var(--dark);
     border-radius: 2rem;
+    transition: transform 0.3s, backgroudnd-color 0.3s;
+}
+
+.user-content:hover {
+    transform: scale(1.2);
+    background-color: var(--vanilla-cream);
+    background-color: rgba(238, 219, 191, 0.789);
 }
 
 .user-avatar {
@@ -14,6 +24,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    border: 1px solid var(--dark);
 }
 
 .user-description {
@@ -22,4 +33,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+}
+
+@media(max-width: 450px) {
+    .user-content {
+        margin: 3rem;
+    }
+
+    .user-content {
+        margin: 3rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

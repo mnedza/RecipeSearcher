@@ -12,15 +12,22 @@ const UserAdmin = ({ user }) => {
       <div className={classes["user-content"]}>
         <img
           src={`http://localhost:5000/${user.image}`}
-          
           alt={user.name}
           className={classes["user-avatar"]}
         />
         <div className={classes["user-description"]}>
-          <p>Name: {user.name}</p>
-          <p>Surname: {user.surname}</p>
-          <p>Email: {user.email}</p>
-          <p>Account type: {displayUserType(user.isAdmin)}</p>
+          <p>
+            Name: <span>{user.name}</span>{" "}
+          </p>
+          <p>
+            Surname: <span>{user.surname}</span>
+          </p>
+          <p>
+            Email: <span>{user.email}</span>
+          </p>
+          <p>
+            Account type: <span>{displayUserType(user.isAdmin)}</span>
+          </p>
         </div>
       </div>
     </>

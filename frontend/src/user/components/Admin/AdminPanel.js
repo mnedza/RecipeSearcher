@@ -8,8 +8,8 @@ import styles from "./AdminPanel.module.css";
 const AdminPanel = () => {
   return (
     <Page className={`${styles["admin-navigation"]}`}>
-      <h1>Admin Panel</h1>
       <div className={`${styles["admin-navigation-box"]}`}>
+        <h1 className={styles.h1}>Admin Panel</h1>
         <Link to="/admin/users" className={styles.link}>
           Show Users
         </Link>

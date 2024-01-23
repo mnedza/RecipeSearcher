@@ -5,33 +5,196 @@
     width: 100%;
     height: 100%;
     z-index: 10;
-    /* background-color: rgba(0, 0, 0, 0.7); */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .content {
-    width: 80%;
-    height: 80%;
+    position: relative;
+    width: 85%;
+    max-height: 85vh;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 100;
-    /* background-color: white; */
+    background-color: var(--bronze);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-align: center;
+    border-radius: 2rem;
+    overflow: hidden;
+    overflow-y: auto;
+
 }
 
-.selectedFilter {
-    /* color: white; */
-    /* background-color: black; */
+.h1 {
+    color: var(--vanilla-cream);
+}
+
+.close-btn {
+    position: absolute;
+    padding: 1rem;
+    font-size: 3rem;
+    top: 1.5rem;
+    right: 2rem;
+    cursor: pointer;
+    color: var(--dark);
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--vanilla-cream);
+}
+
+.category {
+    margin: 2rem;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid var(--bronze);
+    background-color: var(--dark-vanilla-cream);
+    border-radius: 2rem;
+}
+
+.category-name {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+}
+
+.filters-container {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .filterButton {
-    /* color: black; */
-    /* background-color: white; */
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 1.8rem;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid var(--dark);
+    transition: all 0.3s;
+}
+
+.filterButton:hover {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 1.8rem;
+    border: 1px solid var(--vanilla-cream);
+    color: var(--vanilla-cream);
+    background-color: var(--green);
+    cursor: pointer;
+}
+
+.selectedFilter {
+    padding: 2rem;
+    margin: 1rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 1.8rem;
+    border: 1px solid var(--green);
+    color: var(--vanilla-cream);
+    background-color: var(--green);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.selectedFilter:hover {
+    border: 1px solid transparent;
+    color: var(--dark);
+    background-color: var(--red);
+}
+
+.microphone-content {
+    position: relative;
+    width: 15rem;
+    height: 15rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: var(--bronze);
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+
+@keyframes microphoneAnimation {
+    0% {
+        color: var(--green);
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        color: var(--emerald);
+        transform: scale(1) rotate(25deg);
+    }
+
+    50% {
+        color: var(--green);
+        transform: scale(1) rotate(0deg);
+    }
+
+    75% {
+        color: var(--emerald);
+        transform: scale(1) rotate(-25deg);
+    }
+
+    100% {
+        color: var(--green);
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.microphone {
+    color: var(--vanilla-cream);
+    width: 100%;
+    height: 100%;
+    color: var(--green);
+}
+
+.microphone-speaking {
+    animation: microphoneAnimation 2s infinite linear;
+}
+
+@media(max-width: 450px) {
+
+    .h1 {
+        font-size: 2.2rem;
+    }
+
+    .close-btn {
+        font-size: 2.5rem;
+        top: 0.5rem;
+        right: 1rem;
+        cursor: pointer;
+        color: var(--dark);
+        transition: color 0.3s;
+    }
+}
+
+@media(max-width: 1250px) {
+    .filters-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

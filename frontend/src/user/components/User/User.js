@@ -8,6 +8,8 @@ import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Modal from "../../../shared/components/UIElements/Modal";
 
+import classes from "./User.module.css";
+
 const User = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
@@ -94,25 +96,39 @@ const User = () => {
 
   return (
     <>
-      <Link
-        to={{
-          pathname: `/edit-profile/${usersId}`,
-          state: { userData: loadedUser },
-        }}
-      >
-        Edit Profile
-      </Link>
-      <button onClick={showModalHandler}>Delete Profile</button>
-      <ErrorModal error={error} onClear={errorHandler} />
-      {isLoading && !loadedUser && <LoadingAnimation />}
-      {!isLoading && loadedUser && <Profile userData={loadedUser} />}
-      {!isLoading && loadedUser && isDeleting && (
-        <Modal
-          message="Are you sure you want to delete this account?"
-          onClear={closeModalHandler}
-          onConfirm={deletingAccountHandler}
-        />
-      )}
+      <div className={`${classes.user} wrapper`}>
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <h1 className={classes.h1}>Profile</h1>
+            <div className={classes.buttons}>
+              <Link
+                className={classes.button}
+                to={{
+                  pathname: `/edit-profile/${usersId}`,
+                  state: { userData: loadedUser },
+                }}
+              >
+                Edit Profile
+              </Link>
+              <button onClick={showModalHandler} className={classes.button}>
+                Delete Profile
+              </button>
+            </div>
+            <div className={classes["profile-content"]}>
+              <ErrorModal error={error} onClear={errorHandler} />
+              {isLoading && !loadedUser && <LoadingAnimation />}
+              {!isLoading && loadedUser && <Profile userData={loadedUser} />}
+              {!isLoading && loadedUser && isDeleting && (
+                <Modal
+                  message="Are you sure you want to delete this account?"
+                  onClear={closeModalHandler}
+                  onConfirm={deletingAccountHandler}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

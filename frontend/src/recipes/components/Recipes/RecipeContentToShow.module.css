@@ -1,3 +1,119 @@
+.recipeContent {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 9rem;
+}
+
 .title {
-    /* color: rgb(177, 230, 158); */
+    font-family: 'Kalam', cursive;
+    text-align: center;
+    font-style: italic;
+    font-size: 2.8rem;
+}
+
+.recipeId {
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.recipeDetails {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+.recipeDetailsCard {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipeDetailsCardImage {
+    max-width: 40rem;
+    max-height: 47rem;
+    margin: auto;
+    flex: 1;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.recipeDetailsCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.recipeDetailsCardContent {
+    padding-top: 1rem;
+    padding: 2rem;
+    font-size: 2rem;
+}
+
+.ingredient {
+    margin-left: 3rem;
+    list-style-type: disc;
+}
+
+.recipeDetailsCardContent p {
+    margin-bottom: 10px;
+}
+
+.recipeActions {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.h3 {
+    padding-bottom: 2rem;
+}
+
+.button {
+    display: inline-block;
+    background-color: var(--emerald);
+    color: var(--vanilla-cream);
+    border: none;
+    border-radius: 0.8rem;
+    padding: 0.7rem 1.4rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 2rem;
+    margin: 0 1rem;
+}
+
+.button:hover {
+    background-color: var(--green);
+}
+
+
+@media(max-width: 768px) {
+    .options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .button {
+        margin: 1rem;
+    }
+}
+
+@media(max-width: 450px) {
+    .recipeDetailsCardImage {
+        height: 100%;
+    }
 }

@@ -1,11 +1,7 @@
-/* ImageUpload.module.css */
-
 .example {
     width: 100%;
-    max-width: 300px;
-    /* Dostosuj szerokość do swoich preferencji */
+    max-width: 30rem;
     margin: 0 auto;
-    /* Centralizuje w poziomie */
     text-align: center;
 }
 
@@ -13,10 +9,8 @@
     width: 30rem;
     height: 30rem;
     border: 2px solid #ddd;
-    /* Obramowanie obszaru podglądu */
     border-radius: 8px;
     overflow: hidden;
-    /* Ukryj obrazki, które są większe niż obszar podglądu */
 }
 
 .preview img {
@@ -34,6 +28,10 @@
     align-items: center;
 }
 
+.img {
+    object-fit: cover;
+}
+
 .example button {
     background-color: var(--emerald);
     color: var(--vanilla-cream);
@@ -49,3 +47,25 @@
 .example button:hover {
     background-color: var(--green);
 }
+
+
+@media(max-width: 576px) {
+
+
+    .example {
+        text-align: left;
+    }
+
+    .preview {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .preview img {
+        width: 15rem;
+        height: 15rem;
+
+    }
+}
+
+@media(max-width: 400px) {}

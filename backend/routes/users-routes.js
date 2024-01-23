@@ -50,7 +50,6 @@ router.delete(
   usersController.removeRecipeFromFavorites
 );
 
-// admin functions
 router.post(
   "/admin/recipes/add-recipe",
   fileUpload.single("image"),

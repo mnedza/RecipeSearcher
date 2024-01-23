@@ -2,9 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../shared/context/auth-context";
 import Page from "../../../shared/components/Page/Page";
 import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
-import styles from "./AdminPanel.module.css";
 import { Link } from "react-router-dom";
 import UserAdmin from "./UserAdmin";
+import styles from "./AdminPanel.module.css";
 
 const AdminUsers = () => {
   const auth = useContext(AuthContext);
@@ -36,8 +36,8 @@ const AdminUsers = () => {
 
   return (
     <Page className={`${styles["admin-navigation"]}`}>
-      <h1>All Users</h1>
       <div className={`${styles["admin-navigation-box"]}`}>
+      <h1>All Users</h1>
         {isLoading ? (
           <LoadingAnimation />
         ) : (

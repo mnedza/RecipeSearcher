@@ -52,3 +52,22 @@
 .button:hover {
     background-color: var(--green);
 }
+
+@media(max-width: 768px) {
+    .container {
+        width: 50rem;
+    }
+}
+
+@media(max-width: 576px) {
+    .container {
+        width: 35rem;
+    }
+}
+
+@media(max-width: 400px) {
+    .container {
+        width: 25rem;
+        padding: 1rem;
+    }
+}

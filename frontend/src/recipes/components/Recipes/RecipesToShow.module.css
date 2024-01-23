@@ -5,8 +5,12 @@
 }
 
 .main-content {
+
+    max-width: 140rem;
+    margin-bottom: 4rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -16,19 +20,86 @@
 
 .recipes-list-container {
     display: flex;
+
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: flex-start;
+
 }
+
+.pagination {
+    padding: 1rem;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    background-color: var(--yellow);
+}
+
+.paginationItem,
+.activePage,
+.pagination a {
+    padding: 1rem;
+    background-color: var(--yellow);
+    color: var(--dark);
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    cursor: pointer;
+}
+
+
+.paginationItem:hover,
+.activePage:hover,
+.pagination a:hover {
+    background-color: var(--dark);
+    color: var(--yellow);
+    cursor: pointer;
+}
+
+
+.activePage {
+    background-color: var(--dark);
+    border-radius: 50%;
+}
+
 
 @media (max-width: 1250px) {
 
     .title,
     .recipes-list-container {
-        padding: 0.2rem 5rem;
+        padding: 0.2rem 2rem;
     }
 
-    .recipes-list-container {
+    .pagination {
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
+    }
+
+    .pagination a {
+        margin: 0.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .title,
+    .recipes-list-container {
+        padding: 0.2rem 1rem;
+    }
+
+    .pagination {
+        padding: 0.5rem 0.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination a {
+        margin: 0.5rem;
     }
 }
 
@@ -36,12 +107,18 @@
 
     .title,
     .recipes-list-container {
-        padding: 0.2rem 2rem;
+        padding: 0.2rem 0.5rem;
     }
-}
 
-@media (max-width: 992px) {
-    .recipes-list-container {
+    .pagination {
+        padding: 0.5rem 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
+    }
+
+    .pagination a {
+        margin: 0.5rem;
     }
 }

@@ -1,0 +1,78 @@
+.contentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer {
+    width: 80rem;
+    margin-top: 9rem;
+    margin: 10rem;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: var(--dark-vanilla-cream);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5rem;
+}
+
+.form-group {
+    margin: 2rem;
+    padding: 2rem;
+}
+
+.label {
+    display: flex;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.inputField,
+.textareaField {
+    width: 100%;
+    height: 5rem;
+    padding: 1rem;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.textareaField {
+    min-height: 20rem;
+    max-height: 50rem;
+    resize: vertical;
+}
+
+.button {
+    margin-top: 2rem;
+    display: inline-block;
+    background-color: var(--emerald);
+    color: var(--vanilla-cream);
+    border: none;
+    border-radius: 0.8rem;
+    padding: 0.7rem 1.4rem;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 2rem;
+}
+
+.button:hover {
+    background-color: var(--green);
+}
+
+@media(max-width: 750px) {
+    .formContainer {
+        margin: 6rem;
+        margin-top: 9rem;
+    }
+}
+
+@media(max-width: 450px) {
+    .formContainer {
+        margin: 2rem;
+        margin-top: 9rem;
+    }
+}

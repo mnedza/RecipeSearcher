@@ -6,15 +6,15 @@ const fs = require("fs");
 const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Recipe = require("../models/recipe-model");
+const fileUpload = require("../middleware/file-upload");
 
 exports.createUser = async (req, res, next) => {
   const { name, surname, email, password } = req.body;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(
-      new HttpError("Invalid inputs passed, please check your data", 422)
-    );
+    console.log("Validation errors:", errors.array());
+    return next(new HttpError("Invalid inputs passed, please check your data", 422));
   }
 
   if (!req.file) {
@@ -48,16 +48,17 @@ exports.createUser = async (req, res, next) => {
     return next(error);
   }
 
-  const createdUser = new User();
-  createdUser.isAdmin = false;
-  createdUser.name = name;
-  createdUser.surname = surname;
-  createdUser.email = email;
-  createdUser.password = hashedPassword;
-  createdUser.favorites = [];
-  createdUser.image = req.file.path;
+  const createdUser = new User({
+    isAdmin: false,
+    name: name,
+    surname: surname,
+    email: email,
+    password: hashedPassword,
+    image: req.file.path,
+  });
 
   try {
+    console.log("Próba utworzenia użytkownika");
     await createdUser.save();
   } catch (err) {
     return next(
@@ -78,16 +79,16 @@ exports.createUser = async (req, res, next) => {
     );
   }
 
+  console.log("Pomyślnie utworzono użytkownika");
   res.status(201).json({
     userId: createdUser.id,
     email: createdUser.email,
     token: token,
     isAdmin: createdUser.isAdmin,
-    image: req.file.path,
+    image: createdUser.image,
   });
 };
 
-// sign in
 exports.signIn = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -147,7 +148,6 @@ exports.signIn = async (req, res, next) => {
   });
 };
 
-// get user
 exports.getUserById = async (req, res, next) => {
   const userId = req.params.userId;
 
@@ -177,7 +177,6 @@ exports.getUserById = async (req, res, next) => {
   res.status(200).json({ user, user });
 };
 
-// edit user
 exports.updateUserById = async (req, res, next) => {
   const userId = req.params.userId;
   const { isAdmin, name, surname, email, password } = req.body;
@@ -193,7 +192,7 @@ exports.updateUserById = async (req, res, next) => {
     return next(new HttpError("Could not find user for provided Id.", 404));
   }
 
-  if (userToUpdate.image) {
+  if (userToUpdate.image && req.file) {
     const imagePath = userToUpdate.image;
 
     fs.unlink(imagePath, (err) => {
@@ -222,10 +221,24 @@ exports.updateUserById = async (req, res, next) => {
   res.status(200).json({ user: userToUpdate.toObject({ getters: true }) });
 };
 
-// delete user
 exports.deleteUser = async (req, res, next) => {
   const userId = req.params.userId;
   let user;
+
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find user.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("User not found.", 404);
+    return next(error);
+  }
 
   if (user.image) {
     const imagePath = user.image;
@@ -238,7 +251,7 @@ exports.deleteUser = async (req, res, next) => {
   }
 
   try {
-    user = await User.findByIdAndDelete(userId);
+    await User.findByIdAndDelete(userId);
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, Could not delete a user.",
@@ -247,15 +260,9 @@ exports.deleteUser = async (req, res, next) => {
     return next(error);
   }
 
-  if (!user) {
-    const error = new HttpError("User not found.", 404);
-    return next(error);
-  }
-
   res.status(200).json({ message: "User deleted successfully" });
 };
 
-// add recipe to favorite
 exports.addRecipeToFavorites = async (req, res, next) => {
   let userId = req.params.userId;
   if (!userId) {
@@ -306,7 +313,6 @@ exports.addRecipeToFavorites = async (req, res, next) => {
   });
 };
 
-// get all favorites recipes
 exports.getFavoritesRecipes = async (req, res, next) => {
   const userId = req.params.userId;
 
@@ -323,7 +329,6 @@ exports.getFavoritesRecipes = async (req, res, next) => {
   }
 };
 
-// get favorite recipe
 exports.getFavoriteRecipe = async (req, res, next) => {
   const userId = req.params.userId;
   const recipeId = req.params.recipeId;
@@ -365,7 +370,6 @@ exports.getFavoriteRecipe = async (req, res, next) => {
   res.json({ favorite: favRecipe.toObject({ getters: true }) });
 };
 
-// remove recipe from favorites
 exports.removeRecipeFromFavorites = async (req, res, next) => {
   let userId = req.params.userId;
   if (!userId) {
@@ -389,7 +393,6 @@ exports.removeRecipeFromFavorites = async (req, res, next) => {
     return next(error);
   }
 
-  // Remove recipeId from user's favorites
   user.favorites.pull(recipeId);
 
   try {
@@ -404,8 +407,6 @@ exports.removeRecipeFromFavorites = async (req, res, next) => {
   });
 };
 
-// admin functions
-// get all users
 exports.getAllUsers = async (req, res, next) => {
   let users;
   try {
@@ -449,15 +450,19 @@ exports.updateRecipeById = async (req, res, next) => {
   if (recipeToUpdate.image) {
     const imagePath = recipeToUpdate.image;
 
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        console.error("Error deleting previous image:", err);
-      }
-    });
+    try {
+      await fs.unlink(imagePath);
+    } catch (err) {
+      console.error("Error deleting previous image:", err);
+    }
   }
 
+  const parsedIngredients = Array.isArray(ingredients)
+    ? ingredients
+    : ingredients.split(',').map((item) => item.trim());
+
   recipeToUpdate.name = name || recipeToUpdate.name;
-  recipeToUpdate.ingredients = ingredients || recipeToUpdate.ingredients;
+  recipeToUpdate.ingredients = parsedIngredients || recipeToUpdate.ingredients;
   recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
   recipeToUpdate.time = time || recipeToUpdate.time;
   recipeToUpdate.category = category || recipeToUpdate.category;

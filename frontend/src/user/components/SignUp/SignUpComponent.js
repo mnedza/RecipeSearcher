@@ -29,7 +29,7 @@ const SignUpComponent = () => {
     confirmPassword: "",
     firstName: "",
     lastName: "",
-    image: "", // Dodane pole błędu dla obrazka
+    image: "",
   });
 
   const validateEmail = (email) => {
@@ -66,17 +66,14 @@ const SignUpComponent = () => {
       const isValidConfirmPassword = value === userData.password;
       setErrors({
         ...errors,
-        confirmPassword: isValidConfirmPassword
-          ? ""
-          : "Passwords do not match",
+        confirmPassword: isValidConfirmPassword ? "" : "Passwords do not match",
       });
     }
   };
 
-  const handleImageInputChange = (id, file, isValid) => {
+  const handleImageInputChange = (file, isValid) => {
     setUserData({ ...userData, image: file });
 
-    // Dodana logika błędu dla obrazka
     if (!isValid) {
       setErrors({ ...errors, image: "Please pick a valid image." });
     } else {
@@ -212,10 +209,13 @@ const SignUpComponent = () => {
                 </label>
                 <ImageUpload
                   id="image"
+                  mode="add"
                   onInput={handleImageInputChange}
                 />
                 {errors.image && (
-                  <p className={`${classes.error} ${classes["show-error"]} ${classes["show-error-centered"]}`}>
+                  <p
+                    className={`${classes.error} ${classes["show-error"]} ${classes["show-error-centered"]}`}
+                  >
                     {errors.image}
                   </p>
                 )}

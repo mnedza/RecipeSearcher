@@ -110,21 +110,23 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
       console.error("Error deleting recipe:", error.message);
     }
   };
-
   return (
-    <>
-      <h1 className={styles.title}>Recipe Details Page</h1>
-
-      {auth.isSignedIn && (
-        <>
-          <div>
+    <div className={styles.recipeContent}>
+      <div className={`${styles.recipeActions} ${styles.recipeDetailsCard}`}>
+        <h1 className={styles.title}>{name}</h1>
+        {auth.isSignedIn && isAdmin && (
+          <p className={styles.recipeId}>Recipe Id: {_id}</p>
+        )}
+        {auth.isSignedIn && (
+          <div className={styles.options}>
             <form onSubmit={changeStatusHandler}>
-              <button type="submit">
+              <button type="submit" className={styles.button}>
                 {!isInFavorites ? "Add to favorites" : "Remove from favorites"}
               </button>
             </form>
             {isAdmin && (
               <Link
+                className={styles.button}
                 to={{
                   pathname: `/admin/edit-recipe/${_id}`,
                   state: { recipeData: loadedRecipe },
@@ -134,23 +136,50 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
               </Link>
             )}
             {isAdmin && (
-              <button onClick={showModalHandler}>Remove Recipe</button>
+              <button onClick={showModalHandler} className={styles.button}>
+                Remove Recipe
+              </button>
             )}
           </div>
-        </>
-      )}
+        )}
+      </div>
 
-      {auth.isSignedIn && isAdmin && <p>Recipe Id: {_id}</p>}
-      <p>Name: {name}</p>
-      <p>Ingredients: {ingredients}</p>
-      <p>Instructions: {instructions}</p>
-      <img src={`http://localhost:5000/${image}`} alt={name} />
-      <p>time: {time} minutes</p>
-      <p>category: {category}</p>
-      <p>cuisine: {cuisine}</p>
-      <p>difficulty: {difficulty}</p>
-      <p>seasonality: {seasonality}</p>
-      <p>specialDiet: {specialDiet}</p>
+      <div className={styles.recipeDetails}>
+        <div
+          className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardImage}`}
+        >
+          <img src={`http://localhost:5000/${image}`} alt={name} />
+        </div>
+        <div
+          className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardContent} `}
+        >
+          <h3 className={styles.h3}>General:</h3>
+          <p>Time: {time} minutes</p>
+          <p>Category: {category}</p>
+          <p>Cuisine: {cuisine}</p>
+          <p>Difficulty: {difficulty}</p>
+          <p>Seasonality: {seasonality}</p>
+          <p>Special Diet: {specialDiet}</p>
+        </div>
+        <div
+          className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardContent}`}
+        >
+          <h3 className={styles.h3}>Ingredients:</h3>
+          <ul>
+            {ingredients &&
+              ingredients.map((ingredient, index) => (
+                <li key={index} className={styles.ingredient} >{ingredient}</li>
+              ))}
+          </ul>
+        </div>
+
+        <div
+          className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardContent}`}
+        >
+          <h3 className={styles.h3}>Instructions:</h3>
+          <p>{instructions}</p>
+        </div>
+      </div>
 
       {isDeleting && (
         <Modal
@@ -159,7 +188,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
           onConfirm={deletingRecipeHandler}
         />
       )}
-    </>
+    </div>
   );
 };
 

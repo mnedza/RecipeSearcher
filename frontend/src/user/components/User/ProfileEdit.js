@@ -3,6 +3,8 @@ import { AuthContext } from "../../../shared/context/auth-context";
 import { useLocation, useHistory } from "react-router-dom";
 import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
+import styles from "./ProfileEdit.module.css";
+
 const ProfileEdit = () => {
   const location = useLocation();
   const auth = useContext(AuthContext);
@@ -14,9 +16,16 @@ const ProfileEdit = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
-  const [image, setImage] = useState("");
+   // eslint-disable-next-line
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [editedImage, setEditedImage] = useState(null);
 
   const [isAdminUser, setIsAdminUser] = useState(false);
+
+  const updatePreviewUrl = (imageUrl) => {
+    setPreviewUrl(imageUrl);
+  };
 
   useEffect(() => {
     if (location.state && location.state.userData) {
@@ -28,6 +37,8 @@ const ProfileEdit = () => {
       if (isAdmin && userData._id) {
         setUserId(userData._id);
       }
+      updatePreviewUrl(userData.image || "");
+      setEditedImage(null);
     }
   }, [location.state, isAdmin]);
 
@@ -47,12 +58,25 @@ const ProfileEdit = () => {
     setIsAdminUser(e.target.checked);
   };
 
-  const handleImageInputChange = (id, file, isValid) => {
-    setImage(file);
+  const handleImageInputChange = (id, pickedFile, fileIsValid) => {
+    if (pickedFile instanceof File) {
+      setFile(pickedFile);
+      setEditedImage(pickedFile);
+      updatePreviewUrl(URL.createObjectURL(pickedFile));
+    } else if (typeof pickedFile === "string" && fileIsValid) {
+      setFile(null);
+      setEditedImage(null);
+      updatePreviewUrl(pickedFile);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!previewUrl) {
+      console.error("Image not loaded. Please select an image.");
+      return;
+    }
 
     try {
       const formData = new FormData();
@@ -60,7 +84,11 @@ const ProfileEdit = () => {
       formData.append("surname", surname);
       formData.append("email", email);
       formData.append("isAdminUser", isAdminUser);
-      formData.append("image", image); 
+
+      if (editedImage) {
+        formData.append("image", editedImage);
+      }
+
       const response = await fetch(`http://localhost:5000/profile/${userId}`, {
         method: "PUT",
         headers: {
@@ -82,22 +110,27 @@ const ProfileEdit = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       {isAdmin && (
-        <div>
-          <label htmlFor="isAdmin">Administrator privileges:</label>
+        <div className={styles.checkboxGroup}>
+          <label className={styles.label} htmlFor="isAdmin">
+            Administrator privileges:
+          </label>
           <input
+            className={styles.checkbox}
             type="checkbox"
             id="isAdmin"
             name="isAdmin"
-            checked={isAdminUser}
             onChange={handleAdminStatusChange}
           />
         </div>
       )}
-      <div>
-        <label htmlFor="name">Name:</label>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="name">
+          Name:
+        </label>
         <input
+          className={styles.inputField}
           type="text"
           id="name"
           name="name"
@@ -105,9 +138,12 @@ const ProfileEdit = () => {
           onChange={handleNameChange}
         />
       </div>
-      <div>
-        <label htmlFor="surname">Surname:</label>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="surname">
+          Surname:
+        </label>
         <input
+          className={styles.inputField}
           type="text"
           id="surname"
           name="surname"
@@ -115,9 +151,12 @@ const ProfileEdit = () => {
           onChange={handleSurnameChange}
         />
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor="email">
+          Email:
+        </label>
         <input
+          className={styles.inputField}
           type="email"
           id="email"
           name="email"
@@ -125,8 +164,17 @@ const ProfileEdit = () => {
           onChange={handleEmailChange}
         />
       </div>
-      <ImageUpload id="image" onInput={handleImageInputChange} />
-      <button type="submit">Save Changes</button>
+      <ImageUpload
+        mode="edit"
+        id="image"
+        onInput={(file, isValid) =>
+          handleImageInputChange("image", file, isValid)
+        }
+        image={`http://localhost:5000/${previewUrl}`}
+      />
+      <button className={styles.button} type="submit" disabled={!previewUrl}>
+        Save Changes
+      </button>
     </form>
   );
 };

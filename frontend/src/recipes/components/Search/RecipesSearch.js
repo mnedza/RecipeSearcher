@@ -82,7 +82,7 @@ const RecipeSearch = () => {
     const recognition = new window.webkitSpeechRecognition();
     recognition.lang = "en-US";
     recognition.onend = () => {
-      setIsSpeaking(false); 
+      setIsSpeaking(false);
     };
     recognition.onresult = (event) => {
       const voiceText = event.results[0][0].transcript;
@@ -90,7 +90,6 @@ const RecipeSearch = () => {
     };
     recognition.start();
   };
-  
 
   return (
     <>
@@ -99,7 +98,7 @@ const RecipeSearch = () => {
         closeFiltersHandler={closeFiltersHandler}
         sendFilters={sendFiltersToParent}
         filters={filters}
-        isSpeaking={isSpeaking} 
+        isSpeaking={isSpeaking}
       />
 
       <section className={`section`}>

@@ -3,9 +3,6 @@ import RecipesToShow from "./RecipesToShow";
 import Card from "../../../shared/components/UIElements/Card";
 
 const AllRecipes = (props) => {
-
-  
-
   const recipes = props.recipes;
   if (recipes.length === 0) {
     return (

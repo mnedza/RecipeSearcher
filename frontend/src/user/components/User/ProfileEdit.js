@@ -16,7 +16,7 @@ const ProfileEdit = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const [editedImage, setEditedImage] = useState(null);
@@ -110,7 +110,7 @@ const ProfileEdit = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={`${styles.form} `} onSubmit={handleSubmit}>
       {isAdmin && (
         <div className={styles.checkboxGroup}>
           <label className={styles.label} htmlFor="isAdmin">

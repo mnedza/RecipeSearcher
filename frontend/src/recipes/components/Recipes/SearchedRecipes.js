@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import AllRecipes from "./AllRecipes";
 import LoadingAnimation from "../../../shared/components/UIElements/LoadingAnimation";
 
+import styles from "./SearchedRecipes.module.css";
+
 const SearchedRecipes = () => {
   const location = useLocation();
   // eslint-disable-next-line
@@ -17,8 +19,14 @@ const SearchedRecipes = () => {
 
   return (
     <>
-      {isLoading && <LoadingAnimation />}
-      {!isLoading && <AllRecipes recipes={recipes} />}
+      {isLoading && !recipes && <LoadingAnimation />}
+      {!isLoading ? (
+        <AllRecipes recipes={recipes} />
+      ) : (
+        <div className="wrapper">
+          <h1 className={styles.h1}>No recipes found.</h1>
+        </div>
+      )}
     </>
   );
 };

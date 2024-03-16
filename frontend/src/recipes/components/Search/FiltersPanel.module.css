@@ -39,19 +39,10 @@
     background-color: var(--emerald);
     color: var(--vanilla-cream);
     border-radius: 1.5rem;
-    cursor: pointer;
     transition: 0.3s;
 }
 
-.filter:hover {
-    background-color: var(--red);
-    border: 1px solid var(--red);
-    color: var(--vanilla-cream);
-    color: var(--dark);
-}
-
 @media (max-width: 1250px) {
-
     .content {
         padding: 1rem;
     }

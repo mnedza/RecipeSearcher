@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Recipe Searcher Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend part of the Recipe Searcher web application.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+The frontend of Recipe Searcher is built using the following technologies:
 
-### `npm start`
+- **React.js**: A JavaScript library for building user interfaces.
+- **React Context**: A predictable state container for managing application state.
+- **React Router**: A routing library for React applications.
+- **CSS**: Styling is done using CSS for custom styles and Semantic UI React for component styling.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Search view
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Main search desktop view
 
-### `npm test`
+![Search desktop view](image.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Main search mobile view
 
-### `npm run build`
+![Search mobile view](image-2.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Add filters panel desktop view
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Add filters panel desktop view](image-3.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Add filters panel mobile view
 
-### `npm run eject`
+![Add filters panel mobile view](image-4.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Voice animation desktop view
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Voice animation desktop view](image-5.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Voice animation mobile view
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Voice animation mobile view](image-6.png)
 
-## Learn More
+## Recipes view
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Recipes desktop view
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Recipes desktop view](image-7.png)
 
-### Code Splitting
+Recipes mobile view
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Recipes mobile view](image-8.png)
 
-### Analyzing the Bundle Size
+Recipe detail desktop view
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Recipe details desktop view](image-9.png)
 
-### Making a Progressive Web App
+Recipe detail mobile view
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Recipe detail mobile view](image-10.png)
 
-### Advanced Configuration
+Panel admin desktop view
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Panel admin desktop view](image-11.png)
 
-### Deployment
+Panel admin mobile view
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Panel admin mobile view](image-12.png)

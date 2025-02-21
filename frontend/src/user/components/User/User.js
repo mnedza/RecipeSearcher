@@ -19,13 +19,14 @@ const User = () => {
   const [loadedUser, setLoadedUser] = useState(null);
 
   const usersId = useParams().userId;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/profile/${usersId}`,
+          `${apiUrl}/${usersId}`,
           {
             headers: {
               Authorization: "Bearer " + auth.token,
@@ -46,7 +47,7 @@ const User = () => {
     };
 
     fetchUser();
-  }, [usersId, auth.token]);
+  }, [usersId, auth.token, apiUrl]);
 
   const errorHandler = () => {
     setError(null);
@@ -62,7 +63,7 @@ const User = () => {
 
   const deletingAccountHandler = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/profile/${usersId}`, {
+      const response = await fetch(`${apiUrl}/profile/${usersId}`, {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + auth.token,

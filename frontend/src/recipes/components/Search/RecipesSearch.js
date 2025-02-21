@@ -14,6 +14,8 @@ const initialFilters = {
   specialDiet: [],
 };
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const RecipeSearch = () => {
   const history = useHistory();
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -53,7 +55,7 @@ const RecipeSearch = () => {
       }, {});
 
     try {
-      const response = await fetch("http://localhost:5000/search", {
+      const response = await fetch(`${apiUrl}/search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

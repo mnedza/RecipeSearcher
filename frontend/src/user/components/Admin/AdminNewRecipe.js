@@ -9,6 +9,7 @@ import styles from "./AdminNewRecipe.module.css";
 const AdminNewRecipe = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [newRecipe, setNewRecipe] = useState({
     name: "",
     ingredients: [],
@@ -67,7 +68,7 @@ const AdminNewRecipe = () => {
       console.log([...formData]);
 
       const response = await fetch(
-        "http://localhost:5000/admin/recipes/add-recipe",
+        `${apiUrl}/admin/recipes/add-recipe`,
         {
           method: "POST",
           body: formData,

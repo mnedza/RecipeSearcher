@@ -4,10 +4,12 @@ import RecipeDetails from "../components/Recipes/RecipeDetails";
 const Recipe = (props) => {
   const [recipes, setRecipes] = useState([]);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch("http://localhost:5000/recipes");
+        const response = await fetch(`${apiUrl}/recipes`);
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }
@@ -19,7 +21,7 @@ const Recipe = (props) => {
     };
 
     fetchRecipes();
-  }, []);
+  }, [apiUrl]);
 
   return (
     <>

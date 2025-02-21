@@ -4,6 +4,8 @@ import styles from "./RecipeContentToShow.module.css";
 import { Link, useHistory } from "react-router-dom";
 import Modal from "../../../shared/components/UIElements/Modal";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const RecipeContentToShow = ({ loadedRecipe }) => {
   const {
     _id,
@@ -29,7 +31,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     const fetchFavoriteRecipes = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/favorites/${userId}`,
+          `${apiUrl}/favorites/${userId}`,
           {
             headers: {
               Authorization: "Bearer " + auth.token,
@@ -64,7 +66,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
     event.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5000/favorites/${userId}/${_id}`,
+        `${apiUrl}/favorites/${userId}/${_id}`,
         {
           method: isInFavorites ? "DELETE" : "POST",
           headers: {
@@ -90,7 +92,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
   const deletingRecipeHandler = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/admin/recipes/${_id}`,
+        `${apiUrl}/admin/recipes/${_id}`,
         {
           method: "DELETE",
           headers: {
@@ -148,7 +150,7 @@ const RecipeContentToShow = ({ loadedRecipe }) => {
         <div
           className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardImage}`}
         >
-          <img src={`http://localhost:5000/${image}`} alt={name} />
+          <img src={`${apiUrl}/${image}`} alt={name} />
         </div>
         <div
           className={`${styles.recipeDetailsCard} ${styles.recipeDetailsCardContent} `}

@@ -12,6 +12,8 @@ const SignUpComponent = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const minPassLength = 6;
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -111,7 +113,7 @@ const SignUpComponent = () => {
       formData.append("password", userData.password);
       formData.append("image", userData.image);
 
-      const response = await fetch("http://localhost:5000/sign-up", {
+      const response = await fetch(`${apiUrl}/sign-up`, {
         method: "POST",
         body: formData,
         headers: {

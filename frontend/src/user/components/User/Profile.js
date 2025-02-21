@@ -1,12 +1,14 @@
 import React from "react";
 import styles from "./Profile.module.css";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Profile = (props) => {
   return (
     <section className={styles["user-container"]}>
       <div className={styles["user-profile"]}>
         <img
-          src={`http://localhost:5000/${props.userData.image}`}
+          src={`${apiUrl}/${props.userData.image}`}
           className={styles["user-avatar"]}
           alt={`${props.userData.name} avatar`}
         />

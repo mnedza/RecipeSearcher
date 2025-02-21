@@ -3,6 +3,9 @@ import React from "react";
 import classes from "./User.module.css";
 
 const UserAdmin = ({ user }) => {
+  
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
   const displayUserType = (isAdmin) => {
     return isAdmin ? "Admin" : "User";
   };
@@ -11,7 +14,7 @@ const UserAdmin = ({ user }) => {
     <>
       <div className={classes["user-content"]}>
         <img
-          src={`http://localhost:5000/${user.image}`}
+          src={`${apiUrl}/${user.image}`}
           alt={user.name}
           className={classes["user-avatar"]}
         />

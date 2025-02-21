@@ -7,6 +7,8 @@ import ErrorModal from "../../../shared/components/UIElements/ErrorModal";
 
 import styles from "./SignInComponent.module.css";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const SignInComponent = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
@@ -26,7 +28,7 @@ const SignInComponent = () => {
       setIsLoading(true);
       setTimeout(async () => {
         try {
-          const response = await fetch("http://localhost:5000/sign-in", {
+          const response = await fetch(`${apiUrl}/sign-in`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

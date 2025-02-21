@@ -4,6 +4,7 @@ import styles from "./RecipeItem.module.css";
 
 const RecipeItem = (props) => {
   const { name, instructions, image, _id, path } = props;
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const updateDescription = (text, maxLength) => {
     if (text.length <= maxLength) {
@@ -22,7 +23,7 @@ const RecipeItem = (props) => {
         <h3 className={styles["recipe-name"]}>{name}</h3>
         <img
           className={styles.img}
-          src={`http://localhost:5000/${image}`}
+          src={`${apiUrl}/${image}`}
           alt={name}
         />
         <p className={styles.description}>{instruction}</p>

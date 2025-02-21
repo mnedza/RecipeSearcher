@@ -9,13 +9,14 @@ const Favorites = (props) => {
   const path = `favorites/${userId}`;
   const [isLoading, setIsLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:5000/favorites/${userId}`,
+          `${apiUrl}/favorites/${userId}`,
           {
             headers: {
               Authorization: "Bearer " + auth.token,
@@ -34,7 +35,7 @@ const Favorites = (props) => {
     };
 
     fetchRecipes();
-  }, [userId, auth.token]);
+  }, [userId, auth.token, apiUrl]);
 
   return (
     <>

@@ -22,6 +22,7 @@ const ProfileEdit = () => {
   const [editedImage, setEditedImage] = useState(null);
 
   const [isAdminUser, setIsAdminUser] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const updatePreviewUrl = (imageUrl) => {
     setPreviewUrl(imageUrl);
@@ -89,7 +90,7 @@ const ProfileEdit = () => {
         formData.append("image", editedImage);
       }
 
-      const response = await fetch(`http://localhost:5000/profile/${userId}`, {
+      const response = await fetch(`${apiUrl}/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + auth.token,
@@ -170,7 +171,7 @@ const ProfileEdit = () => {
         onInput={(file, isValid) =>
           handleImageInputChange("image", file, isValid)
         }
-        image={`http://localhost:5000/${previewUrl}`}
+        image={`${apiUrl}/${previewUrl}`}
       />
       <button className={styles.button} type="submit" disabled={!previewUrl}>
         Save Changes

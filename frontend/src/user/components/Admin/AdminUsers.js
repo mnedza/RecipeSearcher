@@ -11,11 +11,13 @@ const AdminUsers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchUsers = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:5000/admin/users", {
+        const response = await fetch(`${apiUrl}/admin/users`, {
           headers: {
             Authorization: "Bearer " + auth.token,
           },
@@ -32,7 +34,7 @@ const AdminUsers = () => {
     };
 
     fetchUsers();
-  }, [auth.token]);
+  }, [auth.token, apiUrl]);
 
   return (
     <Page className={`${styles["admin-navigation"]}`}>

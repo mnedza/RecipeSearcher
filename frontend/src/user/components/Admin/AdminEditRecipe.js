@@ -10,6 +10,7 @@ const AdminEditRecipe = () => {
   const auth = useContext(AuthContext);
   const history = useHistory();
   const [editedRecipe, setEditedRecipe] = useState(location.state.recipeData);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +51,7 @@ const AdminEditRecipe = () => {
       console.log([...formData]);
 
       const response = await fetch(
-        `http://localhost:5000/admin/recipes/edit-recipe/${editedRecipe._id}`,
+        `${apiUrl}/admin/recipes/edit-recipe/${editedRecipe._id}`,
         {
           method: "PUT",
           headers: {
@@ -119,7 +120,7 @@ const AdminEditRecipe = () => {
           onInput={(file, isValid) =>
             handleImageInputChange("image", file, isValid)
           }
-          image={`http://localhost:5000/${editedRecipe.image}`}
+          image={`${apiUrl}/${editedRecipe.image}`}
         />
         <div className={styles.formGroup}>
           <label className={styles.label} htmlFor="time">

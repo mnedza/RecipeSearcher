@@ -26,7 +26,7 @@ const User = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `${apiUrl}/${usersId}`,
+          `${apiUrl}/profile/${usersId}`,
           {
             headers: {
               Authorization: "Bearer " + auth.token,

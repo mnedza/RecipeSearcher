@@ -32,14 +32,16 @@ To see full project live, visit the [Recipe Searcher website](https://mnedza-rec
    cd backend
    npm install
    ```
-4.    You have to add `mongodbCredentials.js` file to your backend directory with your mongodbCredentials following pattern:
+4. If you want to try you can make a new account or use one of existing:
 
 ```js
-const login = "your_login";
-const password = "your_password";
-const dbName = "your_dbName";
+normal account:
 
-const mongoDbCredentials = `mongodb+srv://${login}:${password}@cluster0.mrobyik.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+email = user@gmail.com
+password = testers
 
-module.exports = mongoDbCredentials;
+admin account:
+
+email = admin@gmail.com
+password = testers
 ```

@@ -90,7 +90,7 @@ const ProfileEdit = () => {
         formData.append("image", editedImage);
       }
 
-      const response = await fetch(`${apiUrl}/${userId}`, {
+      const response = await fetch(`${apiUrl}/profile/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: "Bearer " + auth.token,
